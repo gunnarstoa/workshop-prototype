@@ -5,6 +5,9 @@ import personasRaw from './personas.json';
 import wizardRaw from './wizard.json';
 import adminPathsRaw from './admin-paths.json';
 import raciRaw from './raci.json';
+import academyRaw from './academy-courses.json';
+import iltRaw from './ilt-workshops.json';
+import specialistRaw from './specialist-engagements.json';
 import riskRaw from './risk.json';
 import individualPathsRaw from './individual-paths.json';
 
@@ -208,6 +211,49 @@ export type RiskData = {
 };
 
 export const risk: RiskData = riskRaw;
+
+export type AcademyCourse = {
+  uuid: string;
+  name: string;
+  catalog: string;
+  visibility: string;
+  url: string;
+  created: string;
+  notes: string;
+};
+
+export type AcademyData = {
+  courses: AcademyCourse[];
+};
+
+export const academy: AcademyData = academyRaw;
+
+export type IltWorkshop = {
+  id: string;
+  name: string;
+};
+
+export const iltWorkshops: IltWorkshop[] = iltRaw.workshops;
+
+export type SpecialistEngagement = {
+  id: string;
+  name: string;
+  category: string;
+};
+
+export const specialistEngagements: SpecialistEngagement[] = specialistRaw.engagements;
+
+export const academyByCatalog = (() => {
+  const map = new Map<string, AcademyCourse[]>();
+  for (const course of academyRaw.courses) {
+    const cat = course.catalog || 'Uncategorized';
+    if (!map.has(cat)) map.set(cat, []);
+    map.get(cat)!.push(course as AcademyCourse);
+  }
+  return Array.from(map.entries())
+    .map(([catalog, courses]) => ({ catalog, courses }))
+    .sort((a, b) => b.courses.length - a.courses.length);
+})();
 
 const productIndex = new Map<string, { product: Product; group: ProductGroup }>();
 for (const group of products.groups) {

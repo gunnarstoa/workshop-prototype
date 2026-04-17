@@ -1,12 +1,11 @@
 <script lang="ts">
-  import { wizardPersonas, type WizardPersona } from '$lib/data';
+  import { wizardPersonas, individualPaths, type WizardPersona } from '$lib/data';
 
   let selectedPersona = $state<WizardPersona | null>(null);
-  let currentQuestion = $state(0);
   let answers = $state<Record<string, string>>({});
-  let showResult = $state(false);
+  let showJourneyView = $state(false);
 
-  // Step 0: staged persona reveal — only first 3 cards visible until first click anywhere
+  // Staged reveal — only first 3 personas visible until first click
   const INITIAL_VISIBLE_COUNT = 3;
   let revealed = $state(false);
 
@@ -19,44 +18,39 @@
     return () => document.removeEventListener('click', onDocClick);
   });
 
-  const totalSteps = $derived(
-    selectedPersona ? selectedPersona.questions.length + 2 : 1
-  );
-  const currentStep = $derived(
-    !selectedPersona
-      ? 0
-      : showResult
-        ? selectedPersona.questions.length + 1
-        : currentQuestion + 1
+  // Step tracking: persona(0) → question(1) → journey(2)
+  const totalSteps = $derived(selectedPersona ? 3 : 1);
+  const currentStep = $derived(!selectedPersona ? 0 : showJourneyView ? 2 : 1);
+
+  // Only the first question per persona (focus area / scope / industry)
+  const activeQuestion = $derived(
+    selectedPersona && !showJourneyView ? selectedPersona.questions[0] : null
   );
 
+  // Match wizard persona to individual-paths data for stage detail
+  const matchedPath = $derived(
+    selectedPersona ? individualPaths.find((p) => p.id === selectedPersona.id) : null
+  );
+  let pinnedStageIdx = $state<number | null>(null);
+
   function selectPersona(p: WizardPersona) {
-    // During the staged reveal, the first click on any card only reveals
-    // the remaining personas rather than advancing the wizard.
     if (!revealed) {
       revealed = true;
       return;
     }
     selectedPersona = p;
-    currentQuestion = 0;
     answers = {};
-    showResult = false;
+    showJourneyView = false;
   }
 
   function answerQuestion(questionId: string, optionId: string) {
     answers = { ...answers, [questionId]: optionId };
-    if (selectedPersona && currentQuestion < selectedPersona.questions.length - 1) {
-      currentQuestion += 1;
-    } else {
-      showResult = true;
-    }
+    showJourneyView = true;
   }
 
   function back() {
-    if (showResult) {
-      showResult = false;
-    } else if (currentQuestion > 0) {
-      currentQuestion -= 1;
+    if (showJourneyView) {
+      showJourneyView = false;
     } else {
       selectedPersona = null;
       answers = {};
@@ -65,20 +59,18 @@
 
   function restart() {
     selectedPersona = null;
-    currentQuestion = 0;
     answers = {};
-    showResult = false;
+    showJourneyView = false;
   }
-
-  const activeQuestion = $derived(
-    selectedPersona && !showResult ? selectedPersona.questions[currentQuestion] : null
-  );
 </script>
 
 <div class="wiz-stage">
   <!-- Progress bar -->
   <div class="wiz-progress">
-    <div class="wiz-progress-fill" style="width: {(currentStep / (totalSteps - 1)) * 100}%"></div>
+    <div
+      class="wiz-progress-fill"
+      style="width: {(currentStep / Math.max(totalSteps - 1, 1)) * 100}%"
+    ></div>
   </div>
 
   <!-- Step 0: Pick a persona -->
@@ -119,7 +111,7 @@
       {/if}
     </div>
 
-  <!-- Steps 1–N: Questions -->
+  <!-- Step 1: Focus-area question (first question only) -->
   {:else if activeQuestion}
     <div class="wiz-step">
       <div class="wiz-step-header">
@@ -152,38 +144,78 @@
       </div>
     </div>
 
-  <!-- Final step: Recommended journey -->
-  {:else if showResult && selectedPersona}
-    <div class="wiz-step">
+  <!-- Step 2: Journey stage view -->
+  {:else if showJourneyView && selectedPersona}
+    <div class="wiz-step wiz-step-journey">
       <div class="wiz-step-header">
         <div class="wiz-eyebrow">
           <span class="wiz-eyebrow-persona">{selectedPersona.icon} {selectedPersona.name}</span>
           &nbsp;·&nbsp; Step {currentStep + 1} of {totalSteps}
         </div>
-        <div class="wiz-question">{selectedPersona.journeyIntro}</div>
+        <div class="wiz-question">Your Enablement Journey</div>
         <div class="wiz-hint">
-          Based on your answers, here's your recommended enablement path. Every item is opt-in.
+          Stage 1 is where you start. Complete its tasks and pass the gate criteria to unlock the
+          next stage.
         </div>
       </div>
 
-      <div class="wiz-result-card">
-        <div class="wiz-result-persona">
-          <span class="wiz-result-icon">{selectedPersona.icon}</span>
-          <span class="wiz-result-name">{selectedPersona.name}</span>
-        </div>
-        <div class="wiz-result-answers">
-          {#each selectedPersona.questions as q (q.id)}
-            {@const chosenId = answers[q.id]}
-            {@const chosen = q.options.find((o) => o.id === chosenId)}
-            {#if chosen}
-              <div class="wiz-result-answer">
-                <span class="wiz-answer-q">{q.prompt}</span>
-                <span class="wiz-answer-a">{chosen.label}</span>
+      {#if matchedPath}
+        <div class="wiz-journey-cards">
+          {#each matchedPath.stages as stage, i (stage.id)}
+            {@const isActive = i === 0}
+            {@const isPinned = pinnedStageIdx === i}
+            <div
+              class="wiz-jcard"
+              class:active={isActive}
+              class:locked={!isActive}
+              class:pinned={isPinned}
+              onclick={() => { if (isActive) pinnedStageIdx = isPinned ? null : i; }}
+              role={isActive ? 'button' : undefined}
+            >
+              <div class="wiz-jcard-color" style="background: {stage.color};"></div>
+              <div class="wiz-jcard-header">
+                {#if isActive}
+                  <span class="wiz-jcard-badge">Current</span>
+                {:else}
+                  <span class="wiz-jcard-lock">🔒</span>
+                {/if}
+                <span class="wiz-jcard-num">Stage {stage.number}</span>
+                <span class="wiz-jcard-name">{stage.name}</span>
               </div>
-            {/if}
+              <div class="wiz-jcard-expand">
+                <div class="wiz-jcard-expand-inner">
+                  {#if isActive}
+                    <div class="wiz-jcard-tasks">
+                      <div class="wiz-jcard-label">{stage.tasks.length} Tasks</div>
+                      {#each stage.tasks as task}
+                        <div class="wiz-jcard-task-item">{task}</div>
+                      {/each}
+                    </div>
+                    {#if stage.gateTo}
+                      <div class="wiz-jcard-gate-section">
+                        <div class="wiz-jcard-label">Gate {stage.gateTo.label}</div>
+                        {#each stage.gateTo.requirements as req}
+                          <div class="wiz-jcard-gate-item">
+                            <span class="wiz-jcard-gate-check">✓</span>
+                            <span>{req.metric}</span>
+                            <span class="wiz-jcard-gate-comp">{req.comparison}</span>
+                          </div>
+                        {/each}
+                      </div>
+                    {/if}
+                  {:else}
+                    <div class="wiz-jcard-locked-msg">
+                      Complete Stage {stage.number - 1} to unlock
+                    </div>
+                  {/if}
+                </div>
+              </div>
+            </div>
           {/each}
         </div>
-        <div class="wiz-result-journey">
+      {:else}
+        <!-- Fallback for personas without path data -->
+        <div class="wiz-result-journey" style="width:100%;max-width:680px;">
           <div class="wiz-result-journey-label">Recommended enablement items</div>
           <div class="wiz-result-items">
             {#each selectedPersona.journeyItems as item, i}
@@ -194,7 +226,7 @@
             {/each}
           </div>
         </div>
-      </div>
+      {/if}
 
       <div class="wiz-nav">
         <button class="wiz-back" onclick={back}>← Back</button>

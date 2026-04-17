@@ -1,0 +1,490 @@
+{
+  "courses": [
+    {
+      "uuid": "E-KVO2P1",
+      "name": "Connected Planning",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Essentials for Employees and Partners Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/13/anaplan-essentials-for-employees-and-partners",
+      "created": "2018-04-02",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E1L9LV",
+      "name": "Implementation Methodology",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Essentials for Employees and Partners Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/13/anaplan-essentials-for-employees-and-partners",
+      "created": "2019-02-11",
+      "notes": ""
+    },
+    {
+      "uuid": "E-P0WEZ0",
+      "name": "Essentials of Model Building",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Essentials for Employees and Partners Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/13/anaplan-essentials-for-employees-and-partners",
+      "created": "2019-03-03",
+      "notes": ""
+    },
+    {
+      "uuid": "E-7VR670",
+      "name": "How to Earn and Generate Your Badges",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Partner Accelerate Portal \u2013 Onboarding & Enablement Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/4/anaplan-partner-accelerate-portal-onboarding-enablement",
+      "created": "2024-01-24",
+      "notes": ""
+    },
+    {
+      "uuid": "E-KVOEP0",
+      "name": "How to Submit, Track, and Resolve a Partner Help Case",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Partner Accelerate Portal \u2013 Onboarding & Enablement Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/4/anaplan-partner-accelerate-portal-onboarding-enablement",
+      "created": "2024-01-24",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E043R1",
+      "name": "How to Co-brand Assets",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Partner Accelerate Portal \u2013 Onboarding & Enablement Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/4/anaplan-partner-accelerate-portal-onboarding-enablement",
+      "created": "2024-01-24",
+      "notes": ""
+    },
+    {
+      "uuid": "E-J0EQQ0",
+      "name": "How to Submit Co-Funding Requests, Claims, and Invoices",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Partner Accelerate Portal \u2013 Onboarding & Enablement Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/4/anaplan-partner-accelerate-portal-onboarding-enablement",
+      "created": "2024-01-24",
+      "notes": ""
+    },
+    {
+      "uuid": "E-D19PPV",
+      "name": "How to Register a Deal and View Your Opportunity Dashboard",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Anaplan Partner Accelerate Portal \u2013 Onboarding & Enablement Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/4/anaplan-partner-accelerate-portal-onboarding-enablement",
+      "created": "2024-01-24",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E04K1Z",
+      "name": "Helping Customers Buy PlanIQ",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Anaplan Partner PlanIQ Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/14/anaplan-partner-planiq",
+      "created": "2021-04-04",
+      "notes": ""
+    },
+    {
+      "uuid": "E-YVMJQV",
+      "name": "PlanIQ Implementation Considerations",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Anaplan Partner PlanIQ Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/14/anaplan-partner-planiq",
+      "created": "2021-05-13",
+      "notes": ""
+    },
+    {
+      "uuid": "E-GVZXE1",
+      "name": "PlanIQ Competitive Landscape: Finance",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Anaplan Partner PlanIQ Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/14/anaplan-partner-planiq",
+      "created": "2021-05-17",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E0JQKV",
+      "name": "PlanIQ Competitive Landscape: Supply Chain",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Anaplan Partner PlanIQ Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/14/anaplan-partner-planiq",
+      "created": "2021-05-17",
+      "notes": ""
+    },
+    {
+      "uuid": "E-D19941",
+      "name": "Discovery for Partners",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2020-05-14",
+      "notes": ""
+    },
+    {
+      "uuid": "E-602MN0",
+      "name": "Why is Anaplan essential technology?",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2020-12-14",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Q072V6",
+      "name": "What makes Anaplan different?",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2020-12-14",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Z1G903",
+      "name": "MEDDPICC at Anaplan",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2021-03-22",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Y1QZ1K",
+      "name": "Selling the Anaplan Solution - How We Sell",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2021-09-01",
+      "notes": ""
+    },
+    {
+      "uuid": "E-P0WZ0J",
+      "name": "Discovery Best Practices",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2021-09-02",
+      "notes": ""
+    },
+    {
+      "uuid": "E-YVMNL1",
+      "name": "Defusing Objections Toolkit",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "2021-09-16",
+      "notes": ""
+    },
+    {
+      "uuid": "E-GVZE8V",
+      "name": "Pricing Course for Partners",
+      "catalog": "Sales Training for Partners",
+      "visibility": "GTM Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/20/gtm-certification-for-partners",
+      "created": "1/8/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-G03D81",
+      "name": "Anaplan Resell Partner Program - V3 Pricing",
+      "catalog": "V3 Pricing for Partners",
+      "visibility": "Single course - restricted to manual enrollments",
+      "url": "https://academy.anaplan.com/learn/courses/423/anaplan-resell-partner-program-v3-pricing",
+      "created": "6/26/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-XVDYPV",
+      "name": "Partner Central Overview",
+      "catalog": "Getting Started with Anaplan",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/15/partner-central-overview",
+      "created": "2023-08-01",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E1LOZ1",
+      "name": "Data Orchestrator Selling Strategies for Partners",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/188/data-orchestrator-selling-strategies-for-partners",
+      "created": "10/4/2024",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E1LXL1",
+      "name": "Anaplan CoPlanner for Demand Planning for Partners - Part 2",
+      "catalog": "Anaplan Intelligence for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/322/anaplan-coplanner-for-demand-planning-for-partners-part-2",
+      "created": "12/18/2024",
+      "notes": ""
+    },
+    {
+      "uuid": "E-GVZ4G1",
+      "name": "Anaplan CoPlanner for Demand Planning for Partners - Part 1",
+      "catalog": "Anaplan Intelligence for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/321/anaplan-coplanner-for-demand-planning-for-partners-part-1",
+      "created": "12/18/2024",
+      "notes": ""
+    },
+    {
+      "uuid": "E-G034RV",
+      "name": "Anaplan Intelligence Overview for Partners",
+      "catalog": "Anaplan Intelligence for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/320/anaplan-intelligence-overview-for-partners",
+      "created": "12/18/2024",
+      "notes": ""
+    },
+    {
+      "uuid": "E-XVD621",
+      "name": "Operational Workforce Planning (OWP) App V2.0 101- Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/537/gtm-essentials-consensus-margin-planning-application",
+      "created": "1/3/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-O06E50",
+      "name": "Integrated Financial Planning (IFP) App v2 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/356/integrated-financial-planning-ifp-app-v2-101-for-partners",
+      "created": "2025-01-03",
+      "notes": ""
+    },
+    {
+      "uuid": "E-GVPJXV",
+      "name": "Anaplan Applications 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/377/anaplan-applications-101-for-partners",
+      "created": "2/7/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-GVZZGV",
+      "name": "GTM Essentials: Anaplan Workforce Budgeting for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/560/gtm-essentials-anaplan-workforce-budgeting-for-partners",
+      "created": "3/18/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E04760",
+      "name": "Go-to-Market (GTM) Capacity Planning App 101 Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/382/discovery-best-practices",
+      "created": "3/18/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Z1G281",
+      "name": "Segmentation and Scoring Application 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/400/segmentation-and-scoring-application-101-for-partners",
+      "created": "5/21/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-N05XM1",
+      "name": "Anaplan CoPlanner 101 for Partners",
+      "catalog": "Anaplan Intelligence for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/399/anaplan-coplanner-101-for-partners",
+      "created": "5/21/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-6VXKK0",
+      "name": "Merchandise Financial Planning (MFP) App V2 101- Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/414/merchandise-financial-planning-mfp-app-v2-101-partners",
+      "created": "5/29/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-J0EZR0",
+      "name": "Integrated Business Planning (IBP) App 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/413/integrated-business-planning-ibp-app-101-for-partners",
+      "created": "5/29/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Q07GEV",
+      "name": "Anaplan IFRS Accelerator for Consolidation for Partners",
+      "catalog": "Anaplan Financial Planning and Consolidation for Partner and Anaplan Learners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/438/anaplan-ifrs-accelerator-for-consolidation-for-partners",
+      "created": "8/25/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-P0YGY0",
+      "name": "Territory & Quota Application 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/441/territory-quota-application-101-for-partners",
+      "created": "9/9/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-YVMXR0",
+      "name": "Workflow Advanced for Sales Conversations for Partners",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/442/workflow-advanced-for-sales-conversations-for-partners",
+      "created": "9/9/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Q074E0",
+      "name": "Anaplan Forecaster 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/474/anaplan-forecaster-101-for-partners",
+      "created": "10/17/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-71K8KV",
+      "name": "Anaplan Salesforce 101 for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/475/anaplan-salesforce-101-for-partners",
+      "created": "10/22/2025",
+      "notes": ""
+    },
+    {
+      "uuid": "E-7VR7GV",
+      "name": "Transform GTM Planning Core with Anaplan",
+      "catalog": "Core Solutions for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/528/transform-gtm-planning-core-with-anaplan",
+      "created": "1/27/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-D19681",
+      "name": "Transform OWP with Anaplan",
+      "catalog": "Core Solutions for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/527/transform-owp-with-anaplan",
+      "created": "1/27/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-J0E990",
+      "name": "Transform Retail Core with Anaplan",
+      "catalog": "Core Solutions for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/526/transform-retail-core-with-anaplan",
+      "created": "1/27/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-602QJV",
+      "name": "Transform SCM Core with Anaplan",
+      "catalog": "Core Solutions for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/525/transform-scm-core-with-anaplan",
+      "created": "1/27/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-J0E2X1",
+      "name": "Transform IFP and Consolidation with Anaplan",
+      "catalog": "Core Solutions for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/524/transform-ifp-and-consolidation-with-anaplan",
+      "created": "1/27/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-D19YRV",
+      "name": "GTM Essentials: Contact Center Planning Application",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/538/gtm-essentials-consensus-margin-planning-application",
+      "created": "2/25/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E0J66V",
+      "name": "GTM Essentials: Consensus Margin Planning application",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/537/gtm-essentials-consensus-margin-planning-application",
+      "created": "2/25/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-6VX9P0",
+      "name": "GTM Essentials: Anaplan TPM Application for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/540/gtm-essentials-anaplan-tpm-application-for-partners",
+      "created": "2/26/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-Q07L70",
+      "name": "Spend Analysis and Forecasting Application for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/544/spend-analysis-and-forecasting-application-for-partners",
+      "created": "3/6/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-P0YOR1",
+      "name": "GTM Essentials: Allocation and Replenishment for Partners",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/543/gtm-essentials-allocation-and-replenishment-for-partners",
+      "created": "3/6/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-E1LW8V",
+      "name": "GTM Essentials: Subscription Revenue Planning application",
+      "catalog": "Anaplan Applications for Partners",
+      "visibility": "Single course for open partner enrollment",
+      "url": "https://academy.anaplan.com/learn/courses/545/gtm-essentials-subscription-revenue-planning-application",
+      "created": "3/9/2026",
+      "notes": ""
+    },
+    {
+      "uuid": "E-XVD8ZV",
+      "name": "Technical Presales Module 3 -  Final Exam",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Technical Presales Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/5/technical-presales-certification",
+      "created": "2023-04-04",
+      "notes": ""
+    },
+    {
+      "uuid": "E-5VNKDV",
+      "name": "Technical Presales Module 2: Messaging",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Technical Presales Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/5/technical-presales-certification",
+      "created": "2023-04-04",
+      "notes": ""
+    },
+    {
+      "uuid": "E-G03GP1",
+      "name": "Technical Presales Module 1: Foundations",
+      "catalog": "Sales Training for Partners",
+      "visibility": "Technical Presales Certification Learning Plan",
+      "url": "https://academy.anaplan.com/learn/learning-plans/5/technical-presales-certification",
+      "created": "2023-04-04",
+      "notes": ""
+    }
+  ]
+}

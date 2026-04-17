@@ -6,6 +6,21 @@ export type Slide = {
 
 export const slides: Slide[] = [
   {
+    path: '/intro',
+    title: 'Connected Enablement',
+    subtitle: 'Three pillars that drive partner success'
+  },
+  {
+    path: '/build',
+    title: 'The Framework',
+    subtitle: 'Click to reveal each layer — assets, journeys, outcomes'
+  },
+  {
+    path: '/scrubber',
+    title: 'Three Layers Over Time',
+    subtitle: 'Drag the marker — assets, journeys, and outcomes appear as months pass'
+  },
+  {
     path: '/wizard',
     title: 'Your Enablement Journey',
     subtitle: 'Pick your role — every step is opt-in'
@@ -31,8 +46,13 @@ export const slides: Slide[] = [
     subtitle: 'Where current Academy content falls short of what 102 journeys actually need'
   },
   {
-    path: '/scrubber',
-    title: 'Three Layers Over Time',
-    subtitle: 'Drag the marker — assets, journeys, and outcomes appear as months pass'
+    path: '/workshop-example',
+    title: 'Hands-On Technical Workshops',
+    subtitle: 'Real workspaces, real data, real configuration — what great enablement looks like'
+  },
+  {
+    path: '/dashboard',
+    title: 'Facilitator Dashboard',
+    subtitle: 'Real-time participant progress across all workshop labs'
   }
 ];

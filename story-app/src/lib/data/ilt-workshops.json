@@ -1,0 +1,24 @@
+{
+  "workshops": [
+    { "id": "anaplan-way-apps", "name": "The Anaplan Way for Applications" },
+    { "id": "drw-ifp", "name": "Delivery Readiness Workshop - IFP" },
+    { "id": "drw-scm", "name": "Delivery Readiness Workshop - SCM" },
+    { "id": "drw-rpm", "name": "Delivery Readiness Workshop - RPM" },
+    { "id": "drw-wfp", "name": "Delivery Readiness Workshop - WFP" },
+    { "id": "drw-polaris", "name": "Delivery Readiness Workshop - Polaris" },
+    { "id": "drw-fcr", "name": "Delivery Readiness Workshop - FCR" },
+    { "id": "presales-workshop", "name": "Pre-Sales Workshop" },
+    { "id": "forecaster-workshop", "name": "Forecaster Workshop" },
+    { "id": "comodeler-best-practices", "name": "CoModeler Best Practices Workshop" },
+    { "id": "lifecycle-management", "name": "Anaplan Lifecycle Management" },
+    { "id": "gtm-supply-chain", "name": "Go-to-Market Workshop - Supply Chain" },
+    { "id": "gtm-finance", "name": "Go-to-Market Workshop - Finance" },
+    { "id": "gtm-workforce", "name": "Go-to-Market Workshop - Workforce Planning" },
+    { "id": "discovery-workshop", "name": "Discovery & Scoping Workshop" },
+    { "id": "data-integration-workshop", "name": "Data Integration & Cloudworks Workshop" },
+    { "id": "ux-design-workshop", "name": "UX & Page Design Workshop" },
+    { "id": "agent-studio-workshop", "name": "Agent Studio Workshop" },
+    { "id": "model-building-l2", "name": "Level 2 Model Building Workshop" },
+    { "id": "connected-planning-exec", "name": "Connected Planning for Executives" }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "engagements": [
+    { "id": "polaris-model-review", "name": "Polaris Model Review", "category": "Architecture Review" },
+    { "id": "pre-project-content-review", "name": "Pre-Project Content Review", "category": "Architecture Review" },
+    { "id": "beta-tester", "name": "Beta Tester", "category": "Product Engagement" },
+    { "id": "product-advisory-board", "name": "Product Advisory Board", "category": "Product Engagement" },
+    { "id": "project-kickoff", "name": "Project Kickoff", "category": "Delivery Milestone" },
+    { "id": "data-validation-reviews", "name": "Data Validation Reviews", "category": "Delivery Milestone" },
+    { "id": "app-led-workshop", "name": "Application-Led Workshop", "category": "Workshop" },
+    { "id": "extension-assessments", "name": "Extension Assessments", "category": "Architecture Review" },
+    { "id": "solution-design-review", "name": "Solution Design Review", "category": "Architecture Review" },
+    { "id": "model-optimization-audit", "name": "Model Optimization Audit", "category": "Architecture Review" },
+    { "id": "ux-design-review", "name": "UX & Dashboard Design Review", "category": "Architecture Review" },
+    { "id": "integration-architecture-review", "name": "Integration Architecture Review", "category": "Architecture Review" },
+    { "id": "mid-project-checkpoint", "name": "Mid-Project Checkpoint", "category": "Delivery Milestone" },
+    { "id": "go-live-readiness-review", "name": "Go-Live Readiness Review", "category": "Delivery Milestone" },
+    { "id": "post-go-live-health-check", "name": "Post Go-Live Health Check", "category": "Delivery Milestone" },
+    { "id": "supervised-delivery-pairing", "name": "Supervised Delivery — SA Pairing", "category": "Hands-On" },
+    { "id": "delivery-scorecard-review", "name": "Delivery Scorecard Review", "category": "Delivery Milestone" },
+    { "id": "performance-tuning-session", "name": "Performance & Scalability Tuning Session", "category": "Hands-On" },
+    { "id": "cross-app-connected-planning", "name": "Cross-Application Connected Planning Workshop", "category": "Workshop" },
+    { "id": "customer-discovery-coaching", "name": "Customer Discovery Coaching Session", "category": "Hands-On" },
+    { "id": "competitive-response-clinic", "name": "Competitive Response Clinic", "category": "Workshop" },
+    { "id": "executive-briefing-prep", "name": "Executive Briefing Preparation", "category": "Workshop" }
+  ]
+}
