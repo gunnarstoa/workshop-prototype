@@ -2812,6 +2812,24 @@ body {
 }
 
 /* Narrative cards */
+.ws-screenshot {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ws-screenshot-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid var(--color-rule);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.08);
+}
+
 .ws-narrative {
   display: flex;
   gap: 14px;
@@ -3067,6 +3085,20 @@ body {
 .db-dot.red {
   background: #ef4444;
   box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.15);
+}
+
+.db-dot.grey {
+  background: #d1d5db;
+  box-shadow: none;
+}
+
+.db-dot.flash {
+  animation: dot-flash 1.2s ease-in-out infinite;
+}
+
+@keyframes dot-flash {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.15); }
+  50% { opacity: 0.4; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.3); }
 }
 
 .db-row-alert .db-td-name {
