@@ -1,0 +1,200 @@
+{
+  "personas": [
+    {
+      "id": "delivery-expert",
+      "name": "Delivery Expert",
+      "icon": "🛠",
+      "description": "Implements, configures, and supports Anaplan applications for client projects.",
+      "branches": [
+        {
+          "id": "foundation",
+          "name": "Foundation",
+          "description": "Anaplan Essentials, Model Building Level 1, and core certification.",
+          "items": [
+            { "id": "anaplan-essentials", "name": "Anaplan Essentials", "type": "course" },
+            { "id": "essentials-modelling", "name": "Essentials of Model Building", "type": "course" },
+            { "id": "l1-on-demand", "name": "Level 1 Model Building — On Demand", "type": "course" },
+            { "id": "l1-cert", "name": "L1 Model Builder Certification", "type": "exam" }
+          ]
+        },
+        {
+          "id": "application-mastery",
+          "name": "Application Mastery",
+          "description": "Configure, deploy, and tune the applications you own.",
+          "items": [
+            { "id": "ifp-configurator", "name": "IFP Application Configurator", "type": "course" },
+            { "id": "ap-configurator", "name": "AP Application Configurator", "type": "course" },
+            { "id": "demand-planning-config", "name": "Demand Planning Configurator", "type": "course" },
+            { "id": "data-integration", "name": "Data Integration", "type": "course" }
+          ]
+        },
+        {
+          "id": "supervised-delivery",
+          "name": "Supervised Delivery",
+          "description": "Earn delivery blueprints and pass supervised project sign-off.",
+          "items": [
+            { "id": "sc-blueprint", "name": "SC Delivery Blueprint", "type": "blueprint" },
+            { "id": "ifp-blueprint", "name": "IFP V2 Delivery Blueprint", "type": "blueprint" },
+            { "id": "sa-pairing", "name": "SA Pairing — Supervised Delivery", "type": "engagement" },
+            { "id": "supervised-x2", "name": "Pass 2 Supervised Projects", "type": "experience" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Sales",
+      "icon": "💼",
+      "description": "Builds pipeline, qualifies opportunities, and presents the Anaplan value proposition.",
+      "branches": [
+        {
+          "id": "anaplan-way",
+          "name": "Anaplan Way",
+          "description": "Connected Planning overview and the Anaplan sales motion.",
+          "items": [
+            { "id": "connected-planning-overview", "name": "Connected Planning Overview", "type": "course" },
+            { "id": "anaplan-way-sales", "name": "Anaplan Way — Sales Motion", "type": "course" },
+            { "id": "selling-anaplan", "name": "Selling the Anaplan Solution", "type": "course" }
+          ]
+        },
+        {
+          "id": "value-selling",
+          "name": "Application Value Selling",
+          "description": "Value props, business cases, and competitive positioning.",
+          "items": [
+            { "id": "ap-value-prop", "name": "AP Value Proposition", "type": "course" },
+            { "id": "finance-value-prop", "name": "Finance Value Proposition", "type": "course" },
+            { "id": "ai-value-prop", "name": "AI Products Value Proposition", "type": "course" },
+            { "id": "competitive-positioning", "name": "Competitive Positioning", "type": "course" }
+          ]
+        },
+        {
+          "id": "gtm-blueprints",
+          "name": "GTM Blueprints",
+          "description": "Industry GTM blueprints and executive presentation skills.",
+          "items": [
+            { "id": "ap-gtm", "name": "AP GTM Blueprint", "type": "blueprint" },
+            { "id": "finance-gtm", "name": "Finance GTM Blueprint", "type": "blueprint" },
+            { "id": "exec-presenting", "name": "Executive Presentation Skills", "type": "workshop" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "presales",
+      "name": "Pre-Sales",
+      "icon": "🔍",
+      "description": "Leads technical discovery, delivers demos, and architects solutions in the sales cycle.",
+      "branches": [
+        {
+          "id": "platform",
+          "name": "Platform Foundation",
+          "description": "Anaplan platform, model building, and your demo environment.",
+          "items": [
+            { "id": "anaplan-essentials-ps", "name": "Anaplan Essentials", "type": "course" },
+            { "id": "model-building-l1-ps", "name": "Level 1 Model Building", "type": "course" },
+            { "id": "demo-env", "name": "Demo Environment Setup", "type": "workshop" },
+            { "id": "discovery-framework", "name": "SC Discovery Framework", "type": "course" }
+          ]
+        },
+        {
+          "id": "solution-mastery",
+          "name": "Solution Mastery",
+          "description": "Application demos, gap-fit analysis, and technical objection handling.",
+          "items": [
+            { "id": "ap-demo-mastery", "name": "AP Demo Mastery", "type": "course" },
+            { "id": "ifp-demo-mastery", "name": "IFP Demo Mastery", "type": "course" },
+            { "id": "gap-fit", "name": "Gap-Fit Analysis Methodology", "type": "course" },
+            { "id": "objection-handling", "name": "Technical Objection Handling", "type": "course" }
+          ]
+        },
+        {
+          "id": "presales-blueprints",
+          "name": "PreSales Blueprints",
+          "description": "Earn solution architecture credentials and POC delivery skills.",
+          "items": [
+            { "id": "ap-presales-bp", "name": "AP PreSales Blueprint", "type": "blueprint" },
+            { "id": "ifp-presales-bp", "name": "IFP V2 PreSales Blueprint", "type": "blueprint" },
+            { "id": "poc-delivery", "name": "POC Development & Delivery", "type": "workshop" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "practice-lead",
+      "name": "Anaplan Practice Lead",
+      "icon": "🏛",
+      "description": "Owns the partner practice — growth strategy, capability planning, and team development.",
+      "branches": [
+        {
+          "id": "strategy",
+          "name": "Practice Strategy",
+          "description": "Build the enablement plan and capacity model for the practice.",
+          "items": [
+            { "id": "capacity-planning", "name": "Practice Capacity Planning", "type": "workshop" },
+            { "id": "tier-requirements", "name": "Anaplan Partner Tier Requirements", "type": "course" },
+            { "id": "investment-plan", "name": "Investment & Hiring Plan", "type": "workshop" }
+          ]
+        },
+        {
+          "id": "team",
+          "name": "Team Development",
+          "description": "Hire, certify, and grow Delivery, Sales, and Pre-Sales resources.",
+          "items": [
+            { "id": "hiring-plan", "name": "Resource Hiring Plan", "type": "course" },
+            { "id": "cert-roadmap", "name": "Certification Roadmap", "type": "course" },
+            { "id": "mentorship", "name": "Mentorship Program Setup", "type": "workshop" }
+          ]
+        },
+        {
+          "id": "outcomes",
+          "name": "Practice Outcomes",
+          "description": "Track designations earned and partner-level certifications.",
+          "items": [
+            { "id": "okr-reviews", "name": "Quarterly OKR Reviews", "type": "engagement" },
+            { "id": "designation-tracking", "name": "Designation Tracking", "type": "course" },
+            { "id": "customer-health", "name": "Customer Health Reporting", "type": "course" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "account-lead",
+      "name": "Client Account Lead",
+      "icon": "👥",
+      "description": "Manages client relationships and orchestrates delivery across engagements.",
+      "branches": [
+        {
+          "id": "discovery",
+          "name": "Account Discovery",
+          "description": "Understand client priorities and shape the engagement.",
+          "items": [
+            { "id": "discovery-method", "name": "Client Discovery Methodology", "type": "course" },
+            { "id": "stakeholder-mapping", "name": "Stakeholder Mapping", "type": "workshop" },
+            { "id": "account-plan", "name": "Account Plan Template", "type": "course" }
+          ]
+        },
+        {
+          "id": "delivery",
+          "name": "Delivery Oversight",
+          "description": "Coordinate delivery resources and manage scope.",
+          "items": [
+            { "id": "delivery-method", "name": "Delivery Methodology", "type": "course" },
+            { "id": "status-reporting", "name": "Status Reporting Framework", "type": "course" },
+            { "id": "risk-management", "name": "Risk Management Playbook", "type": "course" }
+          ]
+        },
+        {
+          "id": "expansion",
+          "name": "Account Growth",
+          "description": "Identify expansion opportunities and renew engagements.",
+          "items": [
+            { "id": "renewal-playbook", "name": "Renewal Playbook", "type": "course" },
+            { "id": "expansion-mapping", "name": "Expansion Mapping", "type": "workshop" },
+            { "id": "reference-program", "name": "Reference Customer Program", "type": "engagement" }
+          ]
+        }
+      ]
+    }
+  ]
+}

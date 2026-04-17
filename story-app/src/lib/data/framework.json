@@ -1,0 +1,122 @@
+{
+  "outcomes": [
+    {
+      "id": "finance-expert",
+      "icon": "💰",
+      "title": "Finance Expert",
+      "sub": "IFP + Financial Close + Finance Suite",
+      "appearsAtMonth": 8
+    },
+    {
+      "id": "rsc-expert",
+      "icon": "⚙️",
+      "title": "Retail & Supply Chain Expert",
+      "sub": "Assortment Planning + RSC Application Suite",
+      "appearsAtMonth": 12
+    },
+    {
+      "id": "ai-expert",
+      "icon": "🤖",
+      "title": "AI Products Expert",
+      "sub": "CoModeler + Agent Studio",
+      "appearsAtMonth": 18
+    },
+    {
+      "id": "champion",
+      "icon": "🏆",
+      "title": "Connected Planning Champion",
+      "sub": "Expert across Finance, RSC, and AI",
+      "champion": true,
+      "appearsAtMonth": 22
+    }
+  ],
+  "journeys": [
+    {
+      "id": "ifp-delivery",
+      "product": "Finance · Integrated Financial Planning",
+      "persona": "Delivery Resource",
+      "accent": "fin",
+      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
+      "appearsAtMonth": 3
+    },
+    {
+      "id": "ap-delivery",
+      "product": "RSC · Assortment Planning",
+      "persona": "Delivery Resource",
+      "accent": "sc",
+      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
+      "appearsAtMonth": 6
+    },
+    {
+      "id": "ap-sales",
+      "product": "RSC · Assortment Planning",
+      "persona": "Sales Resource",
+      "accent": "sc",
+      "stages": ["Registered", "Trained", "Certified", "Presenting", "Expert"],
+      "appearsAtMonth": 9
+    },
+    {
+      "id": "fcc-delivery",
+      "product": "Finance · Financial Close & Consolidation",
+      "persona": "Delivery Resource",
+      "accent": "fin",
+      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
+      "appearsAtMonth": 11
+    },
+    {
+      "id": "comodeler-presales",
+      "product": "AI · CoModeler",
+      "persona": "Pre-Sales Resource",
+      "accent": "ai",
+      "stages": ["Registered", "Trained", "Certified", "Solutioning", "Expert"],
+      "appearsAtMonth": 18
+    }
+  ],
+  "assets": [
+    {
+      "id": "self-paced",
+      "name": "Self-Paced Academy",
+      "accent": "sp",
+      "items": [
+        { "name": "Anaplan Essentials", "appearsAtMonth": 0 },
+        { "name": "Essentials of Model Building", "appearsAtMonth": 1 },
+        { "name": "Level 1 Model Building — On Demand", "appearsAtMonth": 1 },
+        { "name": "IFP Application Overview", "appearsAtMonth": 2 },
+        { "name": "Demand Planning App Overview", "appearsAtMonth": 3 },
+        { "name": "Inventory Planning App Overview", "appearsAtMonth": 4 },
+        { "name": "Statistical Forecasting Overview", "appearsAtMonth": 5 },
+        { "name": "Data Integration", "appearsAtMonth": 6 },
+        { "name": "Anaplan Modeling for Enterprise Scale", "appearsAtMonth": 8 },
+        { "name": "MFP Configuration", "appearsAtMonth": 10 },
+        { "name": "Designing UX Pages", "appearsAtMonth": 12 },
+        { "name": "Anaplan Intelligence Overview", "appearsAtMonth": 16 },
+        { "name": "CoModeler Overview", "appearsAtMonth": 18 },
+        { "name": "Agent Studio Overview", "appearsAtMonth": 20 }
+      ]
+    },
+    {
+      "id": "ilt",
+      "name": "Instructor-Led & Workshops",
+      "accent": "ilt",
+      "items": [
+        { "name": "L1 Model Building Workshop", "appearsAtMonth": 2 },
+        { "name": "Assortment Planning Delivery Workshop", "appearsAtMonth": 5 },
+        { "name": "Applications Hands-on Delivery Lab", "appearsAtMonth": 8 },
+        { "name": "Finance Applications Delivery Workshop", "appearsAtMonth": 11 },
+        { "name": "AI Products Workshop", "appearsAtMonth": 17 }
+      ]
+    },
+    {
+      "id": "specialist",
+      "name": "Specialist Engagements",
+      "accent": "se",
+      "items": [
+        { "name": "IFP V2 Delivery Blueprint", "appearsAtMonth": 4 },
+        { "name": "SC Delivery Blueprint", "appearsAtMonth": 7 },
+        { "name": "SA Pairing — Supervised Delivery", "appearsAtMonth": 10 },
+        { "name": "FCR Delivery Blueprint", "appearsAtMonth": 13 },
+        { "name": "OWP Delivery Blueprint", "appearsAtMonth": 16 }
+      ]
+    }
+  ]
+}

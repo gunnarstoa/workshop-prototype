@@ -1,0 +1,160 @@
+{
+  "groups": [
+    {
+      "id": "finance",
+      "name": "Finance",
+      "products": [
+        {
+          "id": "project-cost-planning",
+          "name": "Project Cost Planning",
+          "description": "Connect project spending directly to financial strategy for real-time visibility into budgets, timelines, and resource allocation."
+        },
+        {
+          "id": "profitability-analysis",
+          "name": "Profitability Analysis",
+          "description": "Gain real-time transparency into costs, returns, and performance across any dimension to test allocation strategies and optimize outcomes."
+        },
+        {
+          "id": "subscription-revenue-planning",
+          "name": "Subscription Revenue Planning",
+          "description": "Unify finance targets and sales reality on a single platform to build more accurate forecasts and drive predictable, sustainable growth."
+        },
+        {
+          "id": "consensus-margin-planning",
+          "name": "Consensus Margin Planning",
+          "description": "Align top-down financial targets with bottom-up operational realities to protect margins and maximize profitability."
+        },
+        {
+          "id": "financial-close-and-consolidation",
+          "name": "Financial Close and Consolidation",
+          "description": "Automate complex consolidations and intercompany transactions to shorten close cycles and ensure accuracy."
+        },
+        {
+          "id": "disclosure-management",
+          "name": "Disclosure Management",
+          "description": "Support multi-source financial, management, and regulatory reporting with integrity."
+        },
+        {
+          "id": "integrated-financial-planning",
+          "name": "Integrated Financial Planning",
+          "description": "Align financial statements through driver-based planning for key areas like revenue, P&L, balance sheet, and cash flow."
+        }
+      ]
+    },
+    {
+      "id": "retail-supply-chain",
+      "name": "Retail and Supply Chain",
+      "products": [
+        {
+          "id": "trade-promotion-management",
+          "name": "Trade Promotion Management",
+          "description": "Strategically plan, optimize, and execute retail promotions with clear visibility into spend, performance, and promotional lift."
+        },
+        {
+          "id": "spend-analysis-and-forecasting",
+          "name": "Spend Analysis and Forecasting",
+          "description": "Automate variance analysis and deliver fast, accurate spend forecasts for improved financial control and predictability."
+        },
+        {
+          "id": "assortment-planning",
+          "name": "Assortment Planning",
+          "description": "Define a precise pre-season inventory strategy by aligning the optimal product, size, and style mix to each store or channel."
+        },
+        {
+          "id": "allocation-and-replenishment-planning",
+          "name": "Allocation and Replenishment Planning",
+          "description": "Execute with in-season precision by forecasting location-level demand and recommending the optimal inventory mix."
+        },
+        {
+          "id": "demand-planning",
+          "name": "Demand Planning",
+          "description": "Incorporate key business and market variables like promotions and product lifecycle changes into your forecasts."
+        },
+        {
+          "id": "production-planning",
+          "name": "Production Planning",
+          "description": "Optimize production decisions across your facilities by managing various production levers."
+        },
+        {
+          "id": "inventory-planning",
+          "name": "Inventory Planning",
+          "description": "Model your multi-tier network inventory and support various replenishment decisions."
+        },
+        {
+          "id": "capacity-planning",
+          "name": "Capacity Planning",
+          "description": "Assess whether your existing production capacity is sufficient to meet forecasted demand."
+        },
+        {
+          "id": "merchandise-financial-planning",
+          "name": "Merchandise Financial Planning",
+          "description": "Optimize your inventory investments and align your sales and supply chain activities."
+        },
+        {
+          "id": "integrated-business-planning",
+          "name": "Integrated Business Planning (IBP)",
+          "description": "Connect your supply chain, finance, and sales plans for more integrated decision-making."
+        }
+      ]
+    },
+    {
+      "id": "hr-workforce",
+      "name": "HR & Workforce",
+      "products": [
+        {
+          "id": "contact-center-planning",
+          "name": "Contact Center Planning",
+          "description": "Gain clear visibility into your contact center capacity and create data-driven staffing plans to balance service levels and control labor costs."
+        },
+        {
+          "id": "project-resource-planning",
+          "name": "Project Resource Planning",
+          "description": "Optimize the allocation of talent by gaining full visibility into project resource demand and supply."
+        },
+        {
+          "id": "operational-workforce-planning",
+          "name": "Operational Workforce Planning",
+          "description": "Support your annual and continuous planning needs at the position level with best practice data models and out-of-the-box metrics."
+        }
+      ]
+    },
+    {
+      "id": "sales-marketing",
+      "name": "Sales & Marketing",
+      "products": [
+        {
+          "id": "sales-forecasting",
+          "name": "Sales Forecasting",
+          "description": "Deliver an accurate, intelligent go-to-market forecast through dynamic scenario modeling and real-time pipeline visibility."
+        },
+        {
+          "id": "territory-and-quota-planning",
+          "name": "Territory & Quota (T&Q) Planning",
+          "description": "Manage your quotas, territory assignments, and account management in a structured, event-based approach."
+        },
+        {
+          "id": "go-to-market-capacity-planning",
+          "name": "Go-To-Market Capacity Planning",
+          "description": "Align your resources with market demand to optimize sales coverage, drive revenue growth, and achieve strategic objectives."
+        }
+      ]
+    },
+    {
+      "id": "ai-products",
+      "name": "AI Products",
+      "products": [
+        { "id": "comodeler", "name": "CoModeler", "description": "" },
+        { "id": "agent-studio", "name": "Agent Studio", "description": "" }
+      ]
+    },
+    {
+      "id": "platform",
+      "name": "Platform",
+      "products": [
+        { "id": "ado", "name": "ADO", "description": "" },
+        { "id": "polaris", "name": "Polaris", "description": "" },
+        { "id": "forecaster", "name": "Forecaster", "description": "" }
+      ]
+    }
+  ]
+}

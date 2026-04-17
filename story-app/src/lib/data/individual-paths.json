@@ -1,0 +1,493 @@
+{
+  "paths": [
+    {
+      "id": "delivery",
+      "name": "Delivery Resource",
+      "icon": "🛠",
+      "description": "Implements, configures, and supports Anaplan applications for client projects.",
+      "stages": [
+        {
+          "id": "registered",
+          "number": 1,
+          "name": "Registered",
+          "color": "#4B5563",
+          "tasks": [
+            "Join the partner portal",
+            "Complete resource profile",
+            "Confirm product focus area",
+            "Begin Anaplan Essentials"
+          ],
+          "gateTo": {
+            "label": "→ Trained",
+            "requirements": [
+              { "metric": "Profile complete", "comparison": "complete" },
+              { "metric": "Focus area confirmed", "comparison": "complete" },
+              { "metric": "Anaplan Essentials", "comparison": "in progress" }
+            ]
+          }
+        },
+        {
+          "id": "trained",
+          "number": 2,
+          "name": "Trained",
+          "color": "#1A5276",
+          "tasks": [
+            "Complete Level 1 Model Building",
+            "Complete Application Overview (focus area)",
+            "Complete Data Integration",
+            "Attend Delivery Workshop"
+          ],
+          "gateTo": {
+            "label": "→ Certified",
+            "requirements": [
+              { "metric": "L1 coursework", "comparison": "complete" },
+              { "metric": "Application Overview", "comparison": "complete" },
+              { "metric": "Delivery Workshop attendance", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "certified",
+          "number": 3,
+          "name": "Certified",
+          "color": "#1A7A47",
+          "tasks": [
+            "Pass L1 Model Builder Certification",
+            "Complete Application Configurator",
+            "Complete Delivery Blueprint"
+          ],
+          "gateTo": {
+            "label": "→ Delivering",
+            "requirements": [
+              { "metric": "L1 Model Builder cert", "comparison": "passed" },
+              { "metric": "Configurator course", "comparison": "complete" },
+              { "metric": "Delivery Blueprint", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "delivering",
+          "number": 4,
+          "name": "Delivering",
+          "color": "#C06010",
+          "tasks": [
+            "Complete first supervised client project",
+            "Submit delivery documentation",
+            "Earn Anaplan SA scorecard",
+            "Pass peer review"
+          ],
+          "gateTo": {
+            "label": "→ Expert",
+            "requirements": [
+              { "metric": "Supervised projects passed", "comparison": "≥ 2" },
+              { "metric": "Avg CSAT score", "comparison": "≥ 4.0" },
+              { "metric": "SA scorecard rating", "comparison": "≥ Meets Expectations" }
+            ]
+          }
+        },
+        {
+          "id": "expert",
+          "number": 5,
+          "name": "Expert",
+          "color": "#922B21",
+          "tasks": [
+            "Lead independent client deliveries",
+            "Contribute to blueprint improvements",
+            "Mentor junior delivery resources",
+            "Earn Connected Planning designation"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "sales",
+      "name": "Sales Resource",
+      "icon": "💼",
+      "description": "Builds pipeline, qualifies opportunities, and presents the Anaplan value proposition.",
+      "stages": [
+        {
+          "id": "registered",
+          "number": 1,
+          "name": "Registered",
+          "color": "#4B5563",
+          "tasks": [
+            "Join the partner portal",
+            "Complete Connected Planning Overview",
+            "Attend Anaplan sales kickoff"
+          ],
+          "gateTo": {
+            "label": "→ Trained",
+            "requirements": [
+              { "metric": "Portal profile active", "comparison": "complete" },
+              { "metric": "Connected Planning Overview", "comparison": "complete" },
+              { "metric": "Sales kickoff", "comparison": "attended" }
+            ]
+          }
+        },
+        {
+          "id": "trained",
+          "number": 2,
+          "name": "Trained",
+          "color": "#1A5276",
+          "tasks": [
+            "Complete Anaplan Way — Sales Motion",
+            "Complete Application Value Proposition (focus area)",
+            "Attend Discovery for Sellers workshop"
+          ],
+          "gateTo": {
+            "label": "→ Certified",
+            "requirements": [
+              { "metric": "Anaplan Way — Sales", "comparison": "complete" },
+              { "metric": "Value Proposition course", "comparison": "complete" },
+              { "metric": "Discovery workshop", "comparison": "attended" }
+            ]
+          }
+        },
+        {
+          "id": "certified",
+          "number": 3,
+          "name": "Certified",
+          "color": "#1A7A47",
+          "tasks": [
+            "Pass Sales certification assessment",
+            "Complete Business Case Development",
+            "Complete Competitive Positioning"
+          ],
+          "gateTo": {
+            "label": "→ Presenting",
+            "requirements": [
+              { "metric": "Sales certification", "comparison": "passed" },
+              { "metric": "Business Case course", "comparison": "complete" },
+              { "metric": "Competitive Positioning", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "presenting",
+          "number": 4,
+          "name": "Presenting",
+          "color": "#C06010",
+          "tasks": [
+            "Deliver first qualified discovery meeting",
+            "Present first executive-level pitch",
+            "Close first opportunity",
+            "Earn GTM Blueprint"
+          ],
+          "gateTo": {
+            "label": "→ Expert",
+            "requirements": [
+              { "metric": "Qualified opportunities", "comparison": "≥ 3" },
+              { "metric": "Closed deals", "comparison": "≥ 1" },
+              { "metric": "GTM Blueprint", "comparison": "earned" }
+            ]
+          }
+        },
+        {
+          "id": "expert",
+          "number": 5,
+          "name": "Expert",
+          "color": "#922B21",
+          "tasks": [
+            "Consistent pipeline generation",
+            "Coach junior sellers",
+            "Co-sell motion with Anaplan",
+            "Drive strategic accounts"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "presales",
+      "name": "Pre-Sales Resource",
+      "icon": "🔍",
+      "description": "Leads technical discovery, delivers demos, and architects solutions in the sales cycle.",
+      "stages": [
+        {
+          "id": "registered",
+          "number": 1,
+          "name": "Registered",
+          "color": "#4B5563",
+          "tasks": [
+            "Join the partner portal",
+            "Complete Anaplan Essentials",
+            "Request demo environment access"
+          ],
+          "gateTo": {
+            "label": "→ Trained",
+            "requirements": [
+              { "metric": "Portal profile active", "comparison": "complete" },
+              { "metric": "Anaplan Essentials", "comparison": "complete" },
+              { "metric": "Demo environment", "comparison": "provisioned" }
+            ]
+          }
+        },
+        {
+          "id": "trained",
+          "number": 2,
+          "name": "Trained",
+          "color": "#1A5276",
+          "tasks": [
+            "Complete Level 1 Model Building",
+            "Complete Application Demo Mastery (focus area)",
+            "Complete SC / Finance Discovery Framework"
+          ],
+          "gateTo": {
+            "label": "→ Certified",
+            "requirements": [
+              { "metric": "L1 Model Building", "comparison": "complete" },
+              { "metric": "Demo Mastery", "comparison": "complete" },
+              { "metric": "Discovery Framework", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "certified",
+          "number": 3,
+          "name": "Certified",
+          "color": "#1A7A47",
+          "tasks": [
+            "Pass Pre-Sales certification assessment",
+            "Complete Gap-Fit Analysis Methodology",
+            "Complete Technical Objection Handling"
+          ],
+          "gateTo": {
+            "label": "→ Solutioning",
+            "requirements": [
+              { "metric": "Pre-Sales certification", "comparison": "passed" },
+              { "metric": "Gap-Fit Analysis", "comparison": "complete" },
+              { "metric": "Objection Handling", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "solutioning",
+          "number": 4,
+          "name": "Solutioning",
+          "color": "#C06010",
+          "tasks": [
+            "Deliver 3 coached application demos",
+            "Architect first client solution",
+            "Complete POC Development & Delivery",
+            "Pass technical solution assessment"
+          ],
+          "gateTo": {
+            "label": "→ Expert",
+            "requirements": [
+              { "metric": "Coached demos delivered", "comparison": "≥ 3" },
+              { "metric": "Solution architecture review", "comparison": "approved" },
+              { "metric": "POC delivered", "comparison": "≥ 1" }
+            ]
+          }
+        },
+        {
+          "id": "expert",
+          "number": 5,
+          "name": "Expert",
+          "color": "#922B21",
+          "tasks": [
+            "Lead complex multi-app solutions",
+            "Mentor other pre-sales resources",
+            "Earn PreSales Blueprint credentials",
+            "Architect enterprise-scale solutions"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "solution-architect",
+      "name": "Solution Architect",
+      "icon": "🏗",
+      "description": "Designs scalable Anaplan solutions across applications and domains.",
+      "stages": [
+        {
+          "id": "aspiring",
+          "number": 1,
+          "name": "Aspiring",
+          "color": "#4B5563",
+          "tasks": [
+            "Demonstrate strong delivery foundation",
+            "Complete Modeling Excellence for Enterprise Scale",
+            "Identify an SA mentor"
+          ],
+          "gateTo": {
+            "label": "→ Practicing",
+            "requirements": [
+              { "metric": "Successful deliveries", "comparison": "≥ 3" },
+              { "metric": "Enterprise Modeling", "comparison": "complete" },
+              { "metric": "Mentor assigned", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "practicing",
+          "number": 2,
+          "name": "Practicing",
+          "color": "#1A5276",
+          "tasks": [
+            "Complete Application Architecture Patterns",
+            "Complete Data Hub & Integration Design",
+            "Complete UX & Dashboard Design"
+          ],
+          "gateTo": {
+            "label": "→ Designing",
+            "requirements": [
+              { "metric": "Architecture Patterns", "comparison": "complete" },
+              { "metric": "Data Hub Design", "comparison": "complete" },
+              { "metric": "UX Design", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "designing",
+          "number": 3,
+          "name": "Designing",
+          "color": "#1A7A47",
+          "tasks": [
+            "Design first full application architecture",
+            "Pass SA peer review",
+            "Complete Cross-Domain Connected Planning"
+          ],
+          "gateTo": {
+            "label": "→ Architecting",
+            "requirements": [
+              { "metric": "Solution design", "comparison": "approved" },
+              { "metric": "Peer review", "comparison": "passed" },
+              { "metric": "Cross-Domain course", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "architecting",
+          "number": 4,
+          "name": "Architecting",
+          "color": "#C06010",
+          "tasks": [
+            "Lead 3+ solution designs end-to-end",
+            "Complete Solution Design Review Process",
+            "Pass Anaplan SA certification assessment"
+          ],
+          "gateTo": {
+            "label": "→ Leading",
+            "requirements": [
+              { "metric": "Design leads completed", "comparison": "≥ 3" },
+              { "metric": "SA certification", "comparison": "passed" },
+              { "metric": "Design Review Process", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "leading",
+          "number": 5,
+          "name": "Leading",
+          "color": "#922B21",
+          "tasks": [
+            "Mentor aspiring SAs",
+            "Establish practice design standards",
+            "Author solution blueprints",
+            "Serve as recognized SA authority"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "delivery-lead",
+      "name": "Delivery Lead",
+      "icon": "📋",
+      "description": "Manages project delivery — SOWs, sprint cadence, budget, risk, and client communication.",
+      "stages": [
+        {
+          "id": "registered",
+          "number": 1,
+          "name": "Registered",
+          "color": "#4B5563",
+          "tasks": [
+            "Join the partner portal",
+            "Complete Anaplan Delivery Methodology",
+            "Complete PM fundamentals (if new to PM)"
+          ],
+          "gateTo": {
+            "label": "→ Trained",
+            "requirements": [
+              { "metric": "Portal profile active", "comparison": "complete" },
+              { "metric": "Delivery Methodology", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "trained",
+          "number": 2,
+          "name": "Trained",
+          "color": "#1A5276",
+          "tasks": [
+            "Complete SOW Templates & Patterns",
+            "Complete Sprint Planning for Anaplan",
+            "Complete Risk Management Framework"
+          ],
+          "gateTo": {
+            "label": "→ Certified",
+            "requirements": [
+              { "metric": "SOW Templates", "comparison": "complete" },
+              { "metric": "Sprint Planning", "comparison": "complete" },
+              { "metric": "Risk Management", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "certified",
+          "number": 3,
+          "name": "Certified",
+          "color": "#1A7A47",
+          "tasks": [
+            "Pass Delivery Lead certification",
+            "Complete Resource Allocation Playbook",
+            "Complete Budget & Scope Change Management"
+          ],
+          "gateTo": {
+            "label": "→ Running",
+            "requirements": [
+              { "metric": "Delivery Lead certification", "comparison": "passed" },
+              { "metric": "Playbooks", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "running",
+          "number": 4,
+          "name": "Running",
+          "color": "#C06010",
+          "tasks": [
+            "Run first supervised project end-to-end",
+            "Complete Client Communication Cadence",
+            "Complete Quality Assurance & Model Review",
+            "Pass Go-Live & Hypercare review"
+          ],
+          "gateTo": {
+            "label": "→ Expert",
+            "requirements": [
+              { "metric": "Supervised projects", "comparison": "≥ 1 completed" },
+              { "metric": "Hypercare review", "comparison": "passed" },
+              { "metric": "Client CSAT", "comparison": "≥ 4.0" }
+            ]
+          }
+        },
+        {
+          "id": "expert",
+          "number": 5,
+          "name": "Expert",
+          "color": "#922B21",
+          "tasks": [
+            "Lead multi-module programs",
+            "Facilitate project retrospectives for the practice",
+            "Mentor new Delivery Leads",
+            "Contribute to practice methodology"
+          ],
+          "gateTo": null
+        }
+      ]
+    }
+  ]
+}

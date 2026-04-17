@@ -1,0 +1,338 @@
+{
+  "paths": [
+    {
+      "id": "strategic",
+      "name": "Strategic Implementation Partner",
+      "description": "Partners with dedicated sales, pre-sales, and delivery teams building a full Anaplan practice.",
+      "stages": [
+        {
+          "id": "onboarded",
+          "number": 1,
+          "name": "Onboarded",
+          "color": "#4B5563",
+          "tasks": [
+            "Complete partner agreement",
+            "Assign Partner Success Manager",
+            "Provision partner portal access",
+            "Complete partner orientation"
+          ],
+          "gateTo": {
+            "label": "→ Enabled",
+            "requirements": [
+              { "metric": "Partner agreement signed", "comparison": "complete" },
+              { "metric": "PSM assigned", "comparison": "complete" },
+              { "metric": "Portal access provisioned", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "enabled",
+          "number": 2,
+          "name": "Enabled",
+          "color": "#1565C0",
+          "tasks": [
+            "Certified Model Builders ≥ 2",
+            "Complete sales enablement track",
+            "Complete pre-sales enablement track",
+            "Register pipeline opportunities"
+          ],
+          "gateTo": {
+            "label": "→ Supervised Delivery",
+            "requirements": [
+              { "metric": "Certified MB count", "comparison": "≥ 2" },
+              { "metric": "Sales enablement", "comparison": "complete" },
+              { "metric": "Registered pipeline", "comparison": "≥ $500K" }
+            ]
+          }
+        },
+        {
+          "id": "supervised",
+          "number": 3,
+          "name": "Supervised Delivery",
+          "color": "#0D9488",
+          "tasks": [
+            "Confirm pre-built app selection",
+            "Complete client discovery & requirements",
+            "Submit gap-fit analysis",
+            "Submit model design document",
+            "Anaplan SA design approval",
+            "Mid-sprint model quality review",
+            "Go-live readiness review",
+            "Post-project retrospective",
+            "Anaplan SA delivery scorecard"
+          ],
+          "gateTo": {
+            "label": "→ Performing",
+            "requirements": [
+              { "metric": "Supervised projects passed", "comparison": "≥ 2" },
+              { "metric": "Avg CSAT score", "comparison": "≥ 4.0" },
+              { "metric": "SA scorecard rating", "comparison": "≥ Meets Expectations" }
+            ]
+          }
+        },
+        {
+          "id": "performing",
+          "number": 4,
+          "name": "Performing",
+          "color": "#065F46",
+          "tasks": [
+            "Complete 2 independent deliveries",
+            "Maintain CSAT ≥ 4.0",
+            "Contribute to blueprint improvements",
+            "Mentor junior delivery resources"
+          ],
+          "gateTo": {
+            "label": "→ Accelerating",
+            "requirements": [
+              { "metric": "Independent deliveries", "comparison": "≥ 4" },
+              { "metric": "Active pipeline", "comparison": "≥ $2M" },
+              { "metric": "Certified resources", "comparison": "≥ 6" }
+            ]
+          }
+        },
+        {
+          "id": "accelerating",
+          "number": 5,
+          "name": "Accelerating",
+          "color": "#B45309",
+          "tasks": [
+            "Expand into 2+ application areas",
+            "Build co-sell pipeline with Anaplan",
+            "Achieve first Connected Planning designation",
+            "Develop industry-specific solutions"
+          ],
+          "gateTo": {
+            "label": "→ Strategic",
+            "requirements": [
+              { "metric": "Application areas", "comparison": "≥ 3" },
+              { "metric": "Annual Anaplan revenue", "comparison": "≥ $5M" },
+              { "metric": "Connected Planning designations", "comparison": "≥ 2" }
+            ]
+          }
+        },
+        {
+          "id": "strategic",
+          "number": 6,
+          "name": "Strategic",
+          "color": "#991B1B",
+          "tasks": [
+            "Full GTM partnership with Anaplan",
+            "Co-innovation and IP development",
+            "Executive sponsorship alignment",
+            "Annual strategic planning reviews"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "specialist",
+      "name": "Specialist Implementation Partner",
+      "description": "Deep domain expertise in specific Anaplan applications — delivery-focused, lean team.",
+      "stages": [
+        {
+          "id": "onboarded",
+          "number": 1,
+          "name": "Onboarded",
+          "color": "#4B5563",
+          "tasks": [
+            "Complete partner agreement",
+            "Assign PSM",
+            "Provision portal access",
+            "Identify domain focus area"
+          ],
+          "gateTo": {
+            "label": "→ Delivery Ready",
+            "requirements": [
+              { "metric": "Partner agreement", "comparison": "complete" },
+              { "metric": "Domain focus confirmed", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "delivery-ready",
+          "number": 2,
+          "name": "Delivery Ready",
+          "color": "#1D4ED8",
+          "tasks": [
+            "Certified Model Builders ≥ 1",
+            "Complete application-specific training",
+            "Complete delivery workshop",
+            "Pass certification assessment"
+          ],
+          "gateTo": {
+            "label": "→ Supervised Delivery",
+            "requirements": [
+              { "metric": "Certified MB count", "comparison": "≥ 1" },
+              { "metric": "App-specific training", "comparison": "complete" },
+              { "metric": "Certification assessment", "comparison": "passed" }
+            ]
+          }
+        },
+        {
+          "id": "supervised",
+          "number": 3,
+          "name": "Supervised Delivery",
+          "color": "#0D9488",
+          "tasks": [
+            "SA pairing for first project",
+            "Submit delivery documentation",
+            "Mid-project checkpoint review",
+            "Earn SA delivery scorecard"
+          ],
+          "gateTo": {
+            "label": "→ Proven",
+            "requirements": [
+              { "metric": "Supervised projects", "comparison": "≥ 1" },
+              { "metric": "CSAT score", "comparison": "≥ 4.0" }
+            ]
+          }
+        },
+        {
+          "id": "proven",
+          "number": 4,
+          "name": "Proven",
+          "color": "#065F46",
+          "tasks": [
+            "Independent domain deliveries",
+            "Maintain CSAT above threshold",
+            "Contribute to domain blueprints"
+          ],
+          "gateTo": {
+            "label": "→ Trusted Expert",
+            "requirements": [
+              { "metric": "Independent deliveries", "comparison": "≥ 3" },
+              { "metric": "Domain designation", "comparison": "earned" }
+            ]
+          }
+        },
+        {
+          "id": "trusted",
+          "number": 5,
+          "name": "Trusted Expert",
+          "color": "#B45309",
+          "tasks": [
+            "Lead complex domain engagements",
+            "Mentor other specialists",
+            "Co-develop advanced blueprints"
+          ],
+          "gateTo": {
+            "label": "→ Elite Specialist",
+            "requirements": [
+              { "metric": "Complex engagements", "comparison": "≥ 5" },
+              { "metric": "Mentees certified", "comparison": "≥ 2" }
+            ]
+          }
+        },
+        {
+          "id": "elite",
+          "number": 6,
+          "name": "Elite Specialist",
+          "color": "#991B1B",
+          "tasks": [
+            "Recognized domain authority",
+            "Joint IP development",
+            "Speaking and reference engagements"
+          ],
+          "gateTo": null
+        }
+      ]
+    },
+    {
+      "id": "app-builder",
+      "name": "Application Builder Partner",
+      "description": "Building custom applications on the Anaplan platform for the ecosystem marketplace.",
+      "stages": [
+        {
+          "id": "onboarded",
+          "number": 1,
+          "name": "Onboarded",
+          "color": "#4B5563",
+          "tasks": [
+            "Complete ISV agreement",
+            "Provision dev environment",
+            "Identify target application"
+          ],
+          "gateTo": {
+            "label": "→ Building",
+            "requirements": [
+              { "metric": "ISV agreement", "comparison": "complete" },
+              { "metric": "Dev environment", "comparison": "provisioned" }
+            ]
+          }
+        },
+        {
+          "id": "building",
+          "number": 2,
+          "name": "Building",
+          "color": "#1D4ED8",
+          "tasks": [
+            "Complete platform certification",
+            "Submit application design",
+            "Build application MVP",
+            "Complete security review"
+          ],
+          "gateTo": {
+            "label": "→ Validated",
+            "requirements": [
+              { "metric": "Platform certification", "comparison": "passed" },
+              { "metric": "Security review", "comparison": "passed" },
+              { "metric": "MVP complete", "comparison": "complete" }
+            ]
+          }
+        },
+        {
+          "id": "validated",
+          "number": 3,
+          "name": "Validated",
+          "color": "#0D9488",
+          "tasks": [
+            "Beta customer deployment",
+            "Performance testing",
+            "Documentation complete",
+            "Marketplace listing draft"
+          ],
+          "gateTo": {
+            "label": "→ Go-to-Market",
+            "requirements": [
+              { "metric": "Beta deployments", "comparison": "≥ 2" },
+              { "metric": "Performance benchmarks", "comparison": "met" }
+            ]
+          }
+        },
+        {
+          "id": "gtm",
+          "number": 4,
+          "name": "Go-to-Market",
+          "color": "#B45309",
+          "tasks": [
+            "Marketplace listing live",
+            "Sales enablement materials",
+            "Co-marketing with Anaplan",
+            "First paying customers"
+          ],
+          "gateTo": {
+            "label": "→ Scaling",
+            "requirements": [
+              { "metric": "Paying customers", "comparison": "≥ 3" },
+              { "metric": "Marketplace reviews", "comparison": "≥ 4.0 avg" }
+            ]
+          }
+        },
+        {
+          "id": "scaling",
+          "number": 5,
+          "name": "Scaling",
+          "color": "#991B1B",
+          "tasks": [
+            "Scale customer base",
+            "Multi-region deployment",
+            "Advanced integration patterns",
+            "Revenue share optimization"
+          ],
+          "gateTo": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "title": "Content Coverage Gap — Critical Enablement Risk",
+  "subtitle": "The Academy has 124 courses. Serving 102 resource journeys across all roles and applications requires far more.",
+  "academy": {
+    "totalCourses": 124,
+    "breakdown": [
+      { "name": "Model Building & Platform", "count": 23 },
+      { "name": "Applications", "count": 21 },
+      { "name": "Blueprints (Pre-Sales/GTM)", "count": 18 },
+      { "name": "UX & Reporting", "count": 12 },
+      { "name": "AI & Intelligence", "count": 12 },
+      { "name": "Partner Sales & GTM", "count": 9 },
+      { "name": "Certifications", "count": 7 },
+      { "name": "Other", "count": 22 }
+    ]
+  },
+  "required": {
+    "slots": 800,
+    "formula": "102 journeys × avg 8 courses = 816 dedicated slots",
+    "currentCoverage": "~15%"
+  },
+  "gaps": [
+    {
+      "name": "General & Partner Onboarding",
+      "available": 6,
+      "needed": 6,
+      "coveragePct": 100,
+      "severity": "ok",
+      "detail": "Adequate for onboarding and foundation journeys"
+    },
+    {
+      "name": "Platform & Model Building",
+      "available": 23,
+      "needed": 120,
+      "coveragePct": 19,
+      "severity": "warn",
+      "detail": "15 platform journeys across 3 roles; most content is delivery-only, no Sales/Pre-Sales variants"
+    },
+    {
+      "name": "SC & Finance Applications",
+      "available": 21,
+      "needed": 250,
+      "coveragePct": 8,
+      "severity": "danger",
+      "detail": "21 courses serve 23 applications × 3 roles; mostly overviews, few delivery-ready or role-specific courses"
+    },
+    {
+      "name": "AI Products (CoModeler · Agent Studio · Forecaster)",
+      "available": 12,
+      "needed": 90,
+      "coveragePct": 13,
+      "severity": "danger",
+      "detail": "Newest, fastest-growing product group — partners may wait months post-GA before enablement exists"
+    },
+    {
+      "name": "Sales & Pre-Sales Role-Specific Content",
+      "available": 9,
+      "needed": 160,
+      "coveragePct": 6,
+      "severity": "danger",
+      "detail": "Sales and Pre-Sales journeys are severely underserved; most content assumes a delivery audience"
+    }
+  ],
+  "flags": [
+    {
+      "title": "Product Readiness Gap",
+      "body": "New products (CoModeler, Agent Studio) launch with minimal enablement. Partners may go months post-GA without role-specific training available."
+    },
+    {
+      "title": "Role Coverage Imbalance",
+      "body": "Delivery resources are reasonably served. Sales and Pre-Sales have almost no application-specific journeys — a direct impact on pipeline and deal quality."
+    },
+    {
+      "title": "Depth vs. Breadth",
+      "body": "Most application courses are overview-level. Partners need delivery-ready, stage-specific content to reach Certified and Delivering — these are largely absent today."
+    }
+  ]
+}

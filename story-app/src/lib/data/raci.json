@@ -1,0 +1,19 @@
+{
+  "title": "Connected Enablement — RACI Matrix",
+  "subtitle": "Roles and responsibilities across the connected enablement lifecycle",
+  "roles": ["Academy", "Partner Success", "Professional Services", "Partner Leadership", "Partner Resource", "Product"],
+  "activities": [
+    { "name": "Define journey structure, stages & gate criteria",    "assignments": ["C", "R/A", "C", "C", "I", "C"] },
+    { "name": "Develop self-paced course content",                   "assignments": ["R/A", "C", "C", "I", "I", "R"] },
+    { "name": "Design & maintain ILT workshop curriculum",           "assignments": ["A", "C", "R", "I", "I", "C"] },
+    { "name": "Deliver PSM-led workshops & orientations",            "assignments": ["I", "R/A", "C", "I", "C", "I"] },
+    { "name": "Build & maintain specialist delivery blueprints",     "assignments": ["I", "C", "R/A", "I", "C", "C"] },
+    { "name": "Assign partner to correct journey path",             "assignments": ["I", "R/A", "C", "C", "I", "I"] },
+    { "name": "Conduct gate reviews & stage progression sign-off",  "assignments": ["I", "A", "R", "C", "C", "I"] },
+    { "name": "Complete journey tasks & submit evidence",            "assignments": ["I", "A", "C", "C", "R", "I"] },
+    { "name": "Deliver supervised delivery oversight (SA pairing)",  "assignments": ["I", "C", "R/A", "I", "R", "I"] },
+    { "name": "New product enablement readiness (post-GA)",          "assignments": ["R", "A", "C", "I", "I", "R/A"] },
+    { "name": "Track partner progress & enablement health",          "assignments": ["I", "R/A", "C", "C", "I", "I"] },
+    { "name": "Award Connected Planning designations",               "assignments": ["C", "R/A", "C", "I", "I", "I"] }
+  ]
+}
