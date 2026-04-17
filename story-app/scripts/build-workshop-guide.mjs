@@ -6,6 +6,7 @@ import {
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { injectIntoTemplate } from './inject-into-template.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -25,8 +26,11 @@ function body(t) { return new Paragraph({ spacing: { before: 40, after: 100 }, c
 function bodyBold(b, r) { return new Paragraph({ spacing: { before: 40, after: 100 }, children: [new TextRun({ text: b, bold: true, size: 22 }), new TextRun({ text: r, size: 22 })] }); }
 function bullet(t) { return new Paragraph({ numbering: { reference: 'bullets', level: 0 }, children: [new TextRun({ text: t, size: 22 })] }); }
 function bulletBold(b, r) { return new Paragraph({ numbering: { reference: 'bullets', level: 0 }, children: [new TextRun({ text: b, bold: true, size: 22 }), new TextRun({ text: r, size: 22 })] }); }
-function prompt(t) { return new Paragraph({ spacing: { before: 100, after: 60 }, children: [new TextRun({ text: '💬  ', size: 22 }), new TextRun({ text: t, italics: true, size: 22, color: ORANGE })] }); }
-function inputLabel(t) { return new Paragraph({ spacing: { before: 140, after: 60 }, children: [new TextRun({ text: '✏️  ' + t, bold: true, size: 22, color: NAVY })] }); }
+function prompt(t) { return new Paragraph({ spacing: { before: 100, after: 60 }, children: [new TextRun({ text: 'DISCUSS  |  ', bold: true, size: 18, color: ORANGE }), new TextRun({ text: t, italics: true, size: 22, color: ORANGE })] }); }
+function inputLabel(t) {
+  const stripped = t.replace(/^Workshop Input\s*[—-]\s*/i, '');
+  return new Paragraph({ spacing: { before: 140, after: 60 }, children: [new TextRun({ text: 'WORKSHOP INPUT  |  ', bold: true, size: 18, color: NAVY }), new TextRun({ text: stripped, bold: true, size: 22, color: NAVY })] });
+}
 function blankLines(n) { const l = []; for (let i = 0; i < n; i++) l.push(new Paragraph({ children: [new TextRun({ text: '_______________________________________________________________________________', size: 20, color: 'CCCCCC' })] })); return l; }
 function pb() { return new Paragraph({ children: [new PageBreak()] }); }
 
@@ -49,12 +53,7 @@ function raciTable(activities) {
 function buildDoc() {
   const c = [];
 
-  // ── Cover ──
-  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 1600, after: 200 }, children: [new TextRun({ text: 'Connected Enablement', bold: true, size: 60, color: NAVY })] }));
-  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: 'Workshop Guide', bold: true, size: 40, color: ORANGE })] }));
-  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 400 }, children: [new TextRun({ text: 'A facilitated working session to define enablement journeys, achievements, governance, and measurement for the partner ecosystem', italics: true, size: 24, color: '555555' })] }));
-  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: 'Three pillars: Pipeline Growth · Technical Expertise · Delivery Excellence', size: 22, color: NAVY })] }));
-  c.push(pb());
+  // Template provides the cover page — we start directly with content
 
   // ── Agenda ──
   c.push(h1('Workshop Agenda'));
@@ -123,11 +122,11 @@ function buildDoc() {
   // ── Part 2: The Three Pillars ──
   c.push(h1('Part 2 — The Three Pillars'));
   c.push(body('Connected Enablement is built on three pillars. Every journey, every asset, and every achievement should trace back to at least one of these outcomes.'));
-  c.push(h3('📈  Pipeline Growth'));
+  c.push(h3('Pipeline Growth'));
   c.push(body('Equip partner sales and pre-sales teams to identify, qualify, position, present, and close Anaplan opportunities with confidence across every product and industry.'));
-  c.push(h3('🎓  Technical Expertise'));
+  c.push(h3('Technical Expertise'));
   c.push(body('Build deep, certified capability across model building, application configuration, solution architecture, and the Anaplan platform.'));
-  c.push(h3('⭐  Delivery Excellence'));
+  c.push(h3('Delivery Excellence'));
   c.push(body("Ensure every client engagement meets Anaplan's quality bar — from supervised delivery through independent practice and beyond."));
   c.push(prompt('What does success look like across these three pillars? What would you measure?'));
   c.push(inputLabel('Workshop Input — Success Indicators'));
@@ -191,7 +190,7 @@ function buildDoc() {
   c.push(bulletBold('Gap Indicator — ', 'Does this course exist in isolation, or is it part of a coherent learning path? What is missing before and after it?'));
 
   c.push(h2('Course-by-Course Review'));
-  c.push(body('Use this table to evaluate each of the current Academy courses. Mark each criterion as ✓ (adequate), ⚠ (needs improvement), or ✗ (inadequate/missing).'));
+  c.push(body('Use this table to evaluate each of the current Academy courses. Mark each criterion as G (adequate), Y (needs improvement), or R (inadequate/missing).'));
   const courseRows = academy.courses.map(co => [co.name, co.catalog, '', '', '', '', '', '']);
   c.push(tbl(['Course Name', 'Catalog', 'Current?', 'Self-Service?', 'Roles Served', 'Journey Stage', 'Quality', 'Gaps / Notes'], courseRows));
 
@@ -206,19 +205,38 @@ function buildDoc() {
   c.push(emptyTbl(['Course Name', 'Issue', 'Action Needed', 'Owner', 'Priority'], 8));
   c.push(pb());
 
-  // ── Part 4: Roles ──
+  // ── Part 5: Roles ──
   c.push(h1('Part 5 — Roles'));
-  c.push(body('We started with three familiar roles and expanded to eight. The partner ecosystem may be broader.'));
-  c.push(h2('The Initial Three'));
-  c.push(bulletBold('Sales — ', 'Builds pipeline, qualifies, presents the value proposition.'));
-  c.push(bulletBold('Pre-Sales — ', 'Leads discovery, demos, architects solutions.'));
-  c.push(bulletBold('Delivery — ', 'Implements, configures, supports applications.'));
-  c.push(h2('The Expanded Eight'));
-  c.push(bulletBold('Delivery Lead — ', 'Project management, SOWs, sprints, client communication.'));
-  c.push(bulletBold('Solution Architect — ', 'Designs scalable solutions across domains.'));
-  c.push(bulletBold('Anaplan Practice Lead — ', 'Practice strategy, growth, team development.'));
-  c.push(bulletBold('Industry Lead — ', 'Industry-specific GTM and solution strategy.'));
-  c.push(bulletBold('Client Account Lead — ', 'Client relationships, delivery orchestration.'));
+  c.push(body('A partner organization is made up of many roles — each with a different relationship to Anaplan, a different enablement need, and a different definition of success. We have grouped fourteen roles into five categories that reflect how partner teams are actually structured.'));
+
+  c.push(h2('Business Development'));
+  c.push(body('Generates demand, qualifies opportunities, and wins Anaplan business. These roles rarely touch the platform directly but must understand the value proposition deeply.'));
+  c.push(bulletBold('Sales — ', 'Builds pipeline, qualifies, presents the value proposition, closes deals.'));
+  c.push(bulletBold('Marketing — ', 'Drives demand generation, content, events, and co-marketing with Anaplan.'));
+  c.push(bulletBold('Pre-Sales Technical — ', 'Leads technical discovery, delivers demos, architects proposed solutions.'));
+
+  c.push(h2('Delivery'));
+  c.push(body('Implements the solution. Split between hands-on technical roles and the leadership roles that run the engagement.'));
+  c.push(bulletBold('Model Builder — ', 'Builds and configures Anaplan models for client deployments.'));
+  c.push(bulletBold('Solution Architect — ', 'Designs scalable Anaplan solutions across domains.'));
+  c.push(bulletBold('Program Management — ', 'Orchestrates multi-workstream programs and portfolios of engagements.'));
+  c.push(bulletBold('Delivery Lead — ', 'Runs projects: SOWs, sprints, resourcing, client communication.'));
+
+  c.push(h2('Advisory'));
+  c.push(body('Complements core delivery with specialist expertise — the roles clients turn to for strategy, industry depth, and data platform guidance.'));
+  c.push(bulletBold('Change Management — ', 'Guides clients through planning transformation and adoption.'));
+  c.push(bulletBold('Industry Lead — ', 'Drives industry-specific GTM, solution strategy, and reference development.'));
+  c.push(bulletBold('Data Architect — ', 'Designs client data model, hub strategy, and cloud data platform alignment.'));
+  c.push(bulletBold('Data Integration — ', 'Moves data into and out of Anaplan reliably — ADO, CloudWorks, APIs, ETL.'));
+
+  c.push(h2('Client Management'));
+  c.push(body('Owns the client relationship end-to-end, from commercial terms to technical direction.'));
+  c.push(bulletBold('Client Account Lead — ', 'Owns the commercial relationship, orchestrates delivery, and drives expansion.'));
+  c.push(bulletBold('Technical Account Lead — ', 'Client-facing technical advisor on solution direction, roadmap, and escalations.'));
+
+  c.push(h2('Practice Management'));
+  c.push(body('Inside the partner itself — the function that owns the Anaplan practice as a business.'));
+  c.push(bulletBold('Anaplan Practice Lead — ', 'Practice strategy, growth, hiring, tiering, and business planning.'));
 
   c.push(h2('RACI — Role Definition & Journey Assignment'));
   c.push(raciTable([
@@ -229,9 +247,10 @@ function buildDoc() {
     ['Map existing partner resources to roles', '', '', '', '', '', ''],
   ]));
 
-  c.push(prompt('Are there other critical roles? Marketing, Executive Sponsor, TAM, Customer Success, Data Engineer, QA, Training Lead?'));
+  c.push(prompt('Does this taxonomy capture your partner ecosystem? Are there roles we have missed — Executive Sponsor, TAM, QA, Training Lead, Support?'));
+  c.push(prompt('Where are the boundaries fuzziest? For example: when does a senior Model Builder become a Solution Architect? When does a Data Architect overlap with Data Integration?'));
   c.push(inputLabel('Workshop Input — Additional Roles'));
-  c.push(emptyTbl(['Role Name', 'Responsibility', 'How It Differs', 'Who Decides', 'Priority'], 6));
+  c.push(emptyTbl(['Role Name', 'Category', 'Responsibility', 'How It Differs', 'Priority'], 6));
   c.push(pb());
 
   // ── Part 5: Journeys ──
@@ -291,13 +310,13 @@ function buildDoc() {
   c.push(body('Achievements are Layer 3 outcomes — designations earned by completing a combination of journeys and additional enablement.'));
   c.push(h2('Current Achievements'));
   c.push(tbl(['Achievement', 'Composed Of'], [
-    ['💰 Finance Expert', 'IFP + Financial Close + Finance Suite'],
-    ['🛍 Retail Expert', 'Assortment + Demand + Inventory'],
-    ['📦 Supply Chain Expert', 'TPM + Production + IBP'],
-    ['👥 Workforce Expert', 'OWP + Contact Center + Resource Planning'],
-    ['🤖 AI Products Expert', 'CoModeler + Agent Studio'],
-    ['🏦 Agentic Office of the CFO', 'Finance + AI + Connected Planning'],
-    ['🏆 Connected Planning Champion', 'Expert across multiple domains'],
+    ['Finance Expert', 'IFP + Financial Close + Finance Suite'],
+    ['Retail Expert', 'Assortment + Demand + Inventory'],
+    ['Supply Chain Expert', 'TPM + Production + IBP'],
+    ['Workforce Expert', 'OWP + Contact Center + Resource Planning'],
+    ['AI Products Expert', 'CoModeler + Agent Studio'],
+    ['Agentic Office of the CFO', 'Finance + AI + Connected Planning'],
+    ['Connected Planning Champion', 'Expert across multiple domains'],
   ]));
 
   c.push(h2('RACI — Achievement Lifecycle'));
@@ -365,15 +384,15 @@ function buildDoc() {
   // ── Part 8: Measurement ──
   c.push(h1('Part 9 — Measurement & Impact'));
   c.push(body('Every journey and achievement should connect to measurable business outcomes.'));
-  c.push(h2('📈 Pipeline Growth'));
+  c.push(h2('Pipeline Growth'));
   c.push(bulletBold('Lagging: ', 'Partner-sourced pipeline ($), win rate (%), deal size, time-to-close.'));
   c.push(bulletBold('Leading: ', 'Opportunities registered, co-sell motions, executive presentations delivered.'));
   c.push(bulletBold('Correlation: ', 'Do partners with more Sales-certified resources generate more pipeline?'));
-  c.push(h2('🎓 Technical Expertise'));
+  c.push(h2('Technical Expertise'));
   c.push(bulletBold('Certifications: ', 'L1/L2 Model Builder, app-specific certs, SA credentials.'));
   c.push(bulletBold('Depth: ', 'Applications covered, cross-domain capability, blueprint contributions.'));
   c.push(bulletBold('Quality: ', 'SA scorecard ratings, model review outcomes, peer assessments.'));
-  c.push(h2('⭐ Delivery Excellence'));
+  c.push(h2('Delivery Excellence'));
   c.push(bulletBold('Satisfaction: ', 'CSAT, NPS, reference willingness.'));
   c.push(bulletBold('Delivery: ', 'On-time %, scope change rate, go-live success, hypercare outcomes.'));
   c.push(bulletBold('Ecosystem: ', 'Supervised-to-independent ratio, mentor-to-mentee ratio, time-to-independence.'));
@@ -409,7 +428,7 @@ function buildDoc() {
 
   // Exercise A: 2x2 Prioritization Quadrant
   c.push(h2('Exercise A — 2×2 Prioritization Quadrant'));
-  c.push(body('⏱ Time: 15–20 minutes (5 min individual, 10–15 min group discussion)'));
+  c.push(body('Time: 15–20 minutes (5 min individual, 10–15 min group discussion)'));
   c.push(body('Purpose: Prioritize which journeys, assets, or initiatives to build first by plotting them on an Impact vs. Complexity grid.'));
   c.push(h3('Instructions'));
   c.push(bullet('Each participant receives a set of sticky notes (or digital cards) with items to prioritize.'));
@@ -420,8 +439,8 @@ function buildDoc() {
   c.push(tbl(
     ['', 'Low Complexity / Fast', 'High Complexity / Slow'],
     [
-      ['HIGH IMPACT', '✅  DO FIRST\n(Quick wins with high return)', '📋  PLAN & INVEST\n(Worth it but needs resources & time)'],
-      ['LOW IMPACT', '🔄  FILL IN LATER\n(Easy but not urgent)', '⛔  DEPRIORITIZE\n(Hard and low return — skip for now)'],
+      ['HIGH IMPACT', 'DO FIRST\n(Quick wins with high return)', 'PLAN & INVEST\n(Worth it but needs resources & time)'],
+      ['LOW IMPACT', 'FILL IN LATER\n(Easy but not urgent)', 'DEPRIORITIZE\n(Hard and low return — skip for now)'],
     ]
   ));
   c.push(h3('Run it three times'));
@@ -437,10 +456,10 @@ function buildDoc() {
 
   // Exercise B: Dot Voting
   c.push(h2('Exercise B — Dot Voting'));
-  c.push(body('⏱ Time: 5–10 minutes'));
+  c.push(body('Time: 5–10 minutes'));
   c.push(body('Purpose: Quickly surface the group\'s collective priorities without lengthy debate.'));
   c.push(h3('Instructions'));
-  c.push(bullet('Post the full list of items on the wall or screen (e.g., all 8 roles, all proposed journeys, all content gaps).'));
+  c.push(bullet('Post the full list of items on the wall or screen (e.g., all 14 roles, all proposed journeys, all content gaps).'));
   c.push(bullet('Each participant gets 3 dots (stickers, markers, or digital votes).'));
   c.push(bullet('Place all 3 dots on the items you think are most important. You can put multiple dots on one item.'));
   c.push(bullet('Count the dots. The top vote-getters are the group\'s priorities.'));
@@ -453,10 +472,10 @@ function buildDoc() {
 
   // Exercise C: Persona Empathy Mapping
   c.push(h2('Exercise C — Persona Empathy Map'));
-  c.push(body('⏱ Time: 15 minutes (pick 1–2 personas)'));
+  c.push(body('Time: 15 minutes (pick 1–2 personas)'));
   c.push(body('Purpose: Build shared understanding of what a specific role needs by mapping their experience from multiple angles.'));
   c.push(h3('Instructions'));
-  c.push(bullet('Select one of the 8 roles (e.g., a brand-new Sales resource at a partner who has never sold Anaplan).'));
+  c.push(bullet('Select one of the 14 roles (e.g., a brand-new Sales resource at a partner who has never sold Anaplan, or a Data Architect joining their first Polaris engagement).'));
   c.push(bullet('As a group, fill in the four quadrants of the empathy map.'));
   c.push(h3('Empathy Map Template'));
   c.push(tbl(
@@ -471,7 +490,7 @@ function buildDoc() {
 
   // Exercise D: Card Sort — Assets to Stages
   c.push(h2('Exercise D — Card Sort: Assets into Stages'));
-  c.push(body('⏱ Time: 15–20 minutes'));
+  c.push(body('Time: 15–20 minutes'));
   c.push(body('Purpose: Physically assemble a journey by sorting enablement assets into stages. This makes the framework tangible.'));
   c.push(h3('Instructions'));
   c.push(bullet('Print or display cards for 15–20 enablement assets (mix of Academy courses, workshops, and specialist engagements).'));
@@ -484,20 +503,20 @@ function buildDoc() {
 
   // Exercise E: Rose / Thorn / Bud
   c.push(h2('Exercise E — Rose / Thorn / Bud'));
-  c.push(body('⏱ Time: 10 minutes'));
+  c.push(body('Time: 10 minutes'));
   c.push(body('Purpose: A structured reflection on the current state of partner enablement before designing the future state.'));
   c.push(h3('Instructions'));
   c.push(bullet('Each participant writes 1–2 sticky notes for each category:'));
-  c.push(bulletBold('🌹 Rose — ', 'Something that is working well in partner enablement today.'));
-  c.push(bulletBold('🥀 Thorn — ', 'Something that is a pain point or clearly broken.'));
-  c.push(bulletBold('🌱 Bud — ', 'Something with potential that hasn\'t been fully developed yet.'));
+  c.push(bulletBold('Rose — ', 'Something that is working well in partner enablement today.'));
+  c.push(bulletBold('Thorn — ', 'Something that is a pain point or clearly broken.'));
+  c.push(bulletBold('Bud — ', 'Something with potential that hasn\'t been fully developed yet.'));
   c.push(bullet('Post all notes. Group by theme. The themes become the workshop\'s priority topics.'));
   c.push(inputLabel('Rose / Thorn / Bud — Themes'));
   c.push(emptyTbl(['Category', 'Theme', 'Number of Notes', 'Priority?'], 6));
 
   // Exercise F: "How Might We" Reframing
   c.push(h2('Exercise F — "How Might We" Reframing'));
-  c.push(body('⏱ Time: 10 minutes'));
+  c.push(body('Time: 10 minutes'));
   c.push(body('Purpose: Transform problems and complaints into actionable opportunity statements.'));
   c.push(h3('Instructions'));
   c.push(bullet('Take the top 3–5 Thorns from Exercise E.'));
@@ -508,7 +527,7 @@ function buildDoc() {
 
   // Exercise G: Lightning Decision Jam
   c.push(h2('Exercise G — Lightning Decision Jam'));
-  c.push(body('⏱ Time: 20 minutes'));
+  c.push(body('Time: 20 minutes'));
   c.push(body('Purpose: Move from discussion to decisions fast. Good for the end of the workshop when energy is high and time is short.'));
   c.push(h3('Steps'));
   c.push(bulletBold('1. Problems (2 min): ', 'Everyone writes problems on sticky notes silently. One problem per note.'));
@@ -522,7 +541,7 @@ function buildDoc() {
 
   // Exercise H: Before / After Self-Assessment
   c.push(h2('Exercise H — Before / After Self-Assessment'));
-  c.push(body('⏱ Time: 5 minutes at the START of the workshop, 5 minutes at the END'));
+  c.push(body('Time: 5 minutes at the START of the workshop, 5 minutes at the END'));
   c.push(body('Purpose: Capture a subjective baseline before the workshop and measure the shift afterward. This gives the facilitator immediate feedback on which topics landed and which need follow-up. It also gives participants a visible sense of their own growth across the session.'));
   c.push(h3('Instructions'));
   c.push(bullet('At the BEGINNING of the workshop, ask each participant to rate themselves 1–10 on each statement below. Record in the "Before" column.'));
@@ -597,7 +616,7 @@ function buildDoc() {
 
   // Session details per stakeholder
   c.push(h2('Session 1 — Academy'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('The Academy is the engine of Layer 1. Self-paced courses are the most scalable enablement asset. But today, of the 54 courses available, many were created for a general audience and may not be role-specific, journey-aligned, or genuinely self-service. Connected Enablement creates a clear demand signal: every journey stage specifies exactly which courses are needed.'));
   c.push(h3('The Ask'));
@@ -613,7 +632,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 2 — Professional Services'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('Professional Services owns the highest-value enablement touchpoints: SA pairings, supervised delivery, architecture reviews, and delivery scorecards. These are the gates that determine whether a partner is truly ready to deliver independently. Without PS participation, the framework has no teeth.'));
   c.push(h3('The Ask'));
@@ -629,7 +648,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 3 — Partner Success (PSMs)'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('PSMs are the face of enablement to the partner. They assign journeys, conduct gate reviews, deliver workshops, and track progress. Connected Enablement replaces ad-hoc enablement planning ("what should this partner do next?") with a prescriptive system ("the journey says they need X, Y, Z to reach the next stage").'));
   c.push(h3('The Ask'));
@@ -645,7 +664,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 4 — Sales Operations'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('Connected Enablement exists to drive business outcomes, not just training completions. Sales Operations owns the pipeline data that proves (or disproves) whether enablement is working. The hypothesis: partners with more certified, journey-progressed resources generate more pipeline, close more deals, and do so faster.'));
   c.push(h3('The Ask'));
@@ -659,7 +678,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 5 — Customer Success'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('The ultimate test of partner enablement is customer outcomes. Customer Success owns the data that shows whether enabled partners deliver better results: higher CSAT, better adoption, more renewals, more expansion. Connected Enablement creates a traceable path from "partner completed this journey" to "customer got this outcome."'));
   c.push(h3('The Ask'));
@@ -673,7 +692,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 6 — Product'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('New products (CoModeler, Agent Studio, Polaris) launch with minimal partner enablement. Partners may wait months post-GA before role-specific training exists. Connected Enablement creates a "new product enablement readiness" process: Product provides early content and SME access, Academy builds the courses, PS builds the blueprints — all before GA, not after.'));
   c.push(h3('The Ask'));
@@ -687,7 +706,7 @@ function buildDoc() {
   c.push(emptyTbl(['Commitment', 'Owner', 'Due Date', 'Dependencies'], 4));
 
   c.push(h2('Session 7 — Partner Leadership & Strategy'));
-  c.push(body('⏱ 30 minutes'));
+  c.push(body('Time: 30 minutes'));
   c.push(h3('The Story'));
   c.push(body('Connected Enablement provides objective, measurable partner capability data. This data should inform partner tiering, investment decisions, and strategic planning. Achievements become the language of partner capability — not "they say they can do Finance" but "they have earned the Finance Expert designation backed by certified resources and proven delivery."'));
   c.push(h3('The Ask'));
@@ -805,12 +824,24 @@ async function main() {
   const doc = new Document({
     creator: 'Connected Enablement',
     title: 'Connected Enablement — Workshop Guide',
+    styles: {
+      default: {
+        document: { run: { font: 'Aptos', size: 22, color: '1C2345' } },
+        heading1: { run: { font: 'Aptos', size: 36, bold: true, color: '0A2F46' }, paragraph: { spacing: { before: 400, after: 160 } } },
+        heading2: { run: { font: 'Aptos', size: 28, bold: true, color: '0A2F46' }, paragraph: { spacing: { before: 320, after: 120 } } },
+        heading3: { run: { font: 'Aptos', size: 24, bold: true, color: 'FF6100' }, paragraph: { spacing: { before: 240, after: 100 } } }
+      }
+    },
     numbering: { config: [{ reference: 'bullets', levels: [{ level: 0, format: 'bullet', text: '•', alignment: AlignmentType.LEFT, style: { paragraph: { indent: { left: 400, hanging: 200 } } } }] }] },
     sections: [{ properties: {}, children: buildDoc() }]
   });
-  const buf = await Packer.toBuffer(doc);
+  const generatedBuf = await Packer.toBuffer(doc);
+  const merged = await injectIntoTemplate(generatedBuf, {
+    coverTitle: 'Connected Enablement',
+    coverSubtitle: 'Workshop Guide'
+  });
   const outPath = path.join(guideDir, 'Connected-Enablement-Workshop-Guide.docx');
-  fs.writeFileSync(outPath, buf);
+  fs.writeFileSync(outPath, merged);
   console.log(`✓ Workshop guide written to ${path.relative(projectRoot, outPath)}`);
 }
 

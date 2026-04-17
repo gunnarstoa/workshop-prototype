@@ -1,122 +1,59 @@
 {
   "outcomes": [
-    {
-      "id": "finance-expert",
-      "icon": "💰",
-      "title": "Finance Expert",
-      "sub": "IFP + Financial Close + Finance Suite",
-      "appearsAtMonth": 8
-    },
-    {
-      "id": "rsc-expert",
-      "icon": "⚙️",
-      "title": "Retail & Supply Chain Expert",
-      "sub": "Assortment Planning + RSC Application Suite",
-      "appearsAtMonth": 12
-    },
-    {
-      "id": "ai-expert",
-      "icon": "🤖",
-      "title": "AI Products Expert",
-      "sub": "CoModeler + Agent Studio",
-      "appearsAtMonth": 18
-    },
-    {
-      "id": "champion",
-      "icon": "🏆",
-      "title": "Connected Planning Champion",
-      "sub": "Expert across Finance, RSC, and AI",
-      "champion": true,
-      "appearsAtMonth": 22
-    }
+    { "id": "finance-expert",      "icon": "💰", "title": "Finance Expert",                 "sub": "IFP + Financial Close + Finance Suite", "appearsAtMonth": 5 },
+    { "id": "agentic-cfo",         "icon": "🏦", "title": "Agentic Office of the CFO",      "sub": "Finance + AI + Connected Planning",     "appearsAtMonth": 6 },
+    { "id": "retail-expert",       "icon": "🛍", "title": "Retail Expert",                  "sub": "Assortment + Demand + Inventory",       "appearsAtMonth": 7 },
+    { "id": "supply-chain-expert", "icon": "📦", "title": "Supply Chain Expert",            "sub": "TPM + Production + IBP",                "appearsAtMonth": 8 },
+    { "id": "workforce-expert",    "icon": "👥", "title": "Workforce Expert",               "sub": "OWP + Contact Center + Resource Planning", "appearsAtMonth": 9 },
+    { "id": "ai-expert",           "icon": "🤖", "title": "AI Products Expert",             "sub": "CoModeler + Agent Studio",              "appearsAtMonth": 10 },
+    { "id": "connected-planning",  "icon": "🏆", "title": "Connected Planning Champion",    "sub": "Expert across multiple domains",        "appearsAtMonth": 12 }
   ],
   "journeys": [
-    {
-      "id": "ifp-delivery",
-      "product": "Finance · Integrated Financial Planning",
-      "persona": "Delivery Resource",
-      "accent": "fin",
-      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
-      "appearsAtMonth": 3
-    },
-    {
-      "id": "ap-delivery",
-      "product": "RSC · Assortment Planning",
-      "persona": "Delivery Resource",
-      "accent": "sc",
-      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
-      "appearsAtMonth": 6
-    },
-    {
-      "id": "ap-sales",
-      "product": "RSC · Assortment Planning",
-      "persona": "Sales Resource",
-      "accent": "sc",
-      "stages": ["Registered", "Trained", "Certified", "Presenting", "Expert"],
-      "appearsAtMonth": 9
-    },
-    {
-      "id": "fcc-delivery",
-      "product": "Finance · Financial Close & Consolidation",
-      "persona": "Delivery Resource",
-      "accent": "fin",
-      "stages": ["Registered", "Trained", "Certified", "Delivering", "Expert"],
-      "appearsAtMonth": 11
-    },
-    {
-      "id": "comodeler-presales",
-      "product": "AI · CoModeler",
-      "persona": "Pre-Sales Resource",
-      "accent": "ai",
-      "stages": ["Registered", "Trained", "Certified", "Solutioning", "Expert"],
-      "appearsAtMonth": 18
-    }
+    { "id": "ifp-delivery",       "product": "Finance · Integrated Financial Planning",    "persona": "Delivery Resource",  "accent": "fin",  "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 2 },
+    { "id": "ifp-sales",          "product": "Finance · Integrated Financial Planning",    "persona": "Sales Resource",     "accent": "fin",  "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 3 },
+    { "id": "ifp-presales",       "product": "Finance · Integrated Financial Planning",    "persona": "Pre-Sales Resource", "accent": "fin",  "stages": ["Registered","Trained","Certified","Solutioning","Expert"],   "appearsAtMonth": 3 },
+    { "id": "ap-delivery",        "product": "RSC · Assortment Planning",                  "persona": "Delivery Resource",  "accent": "sc",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 3 },
+    { "id": "fcc-delivery",       "product": "Finance · Financial Close & Consolidation",  "persona": "Delivery Resource",  "accent": "fin",  "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 4 },
+    { "id": "pa-delivery",        "product": "Finance · Profitability Analysis",           "persona": "Delivery Resource",  "accent": "fin",  "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 4 },
+    { "id": "ap-sales",           "product": "RSC · Assortment Planning",                  "persona": "Sales Resource",     "accent": "sc",   "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 4 },
+    { "id": "dp-delivery",        "product": "RSC · Demand Planning",                      "persona": "Delivery Resource",  "accent": "sc",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 5 },
+    { "id": "ip-delivery",        "product": "RSC · Inventory Planning",                   "persona": "Delivery Resource",  "accent": "sc",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 5 },
+    { "id": "sf-delivery",        "product": "S&M · Sales Forecasting",                    "persona": "Delivery Resource",  "accent": "sm",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 5 },
+    { "id": "mfp-delivery",       "product": "RSC · Merchandise Financial Planning",       "persona": "Delivery Resource",  "accent": "sc",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 6 },
+    { "id": "tpm-delivery",       "product": "RSC · Trade Promotion",                      "persona": "Delivery Resource",  "accent": "sc",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 6 },
+    { "id": "dp-sales",           "product": "RSC · Demand Planning",                      "persona": "Sales Resource",     "accent": "sc",   "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 6 },
+    { "id": "owp-delivery",       "product": "HR · Operational Workforce Planning",        "persona": "Delivery Resource",  "accent": "hr",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 7 },
+    { "id": "ccp-delivery",       "product": "HR · Contact Center Planning",               "persona": "Delivery Resource",  "accent": "hr",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 7 },
+    { "id": "tq-sales",           "product": "S&M · Territory & Quota",                    "persona": "Sales Resource",     "accent": "sm",   "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 8 },
+    { "id": "gtm-delivery",       "product": "S&M · GTM Capacity",                         "persona": "Delivery Resource",  "accent": "sm",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 8 },
+    { "id": "owp-sales",          "product": "HR · Operational Workforce Planning",        "persona": "Sales Resource",     "accent": "hr",   "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 9 },
+    { "id": "srp-sales",          "product": "Finance · Subscription Revenue",             "persona": "Sales Resource",     "accent": "fin",  "stages": ["Registered","Trained","Certified","Presenting","Expert"],    "appearsAtMonth": 9 },
+    { "id": "dp-presales",        "product": "RSC · Demand Planning",                      "persona": "Pre-Sales Resource", "accent": "sc",   "stages": ["Registered","Trained","Certified","Solutioning","Expert"],   "appearsAtMonth": 10 },
+    { "id": "como-delivery",      "product": "AI · CoModeler",                             "persona": "Delivery Resource",  "accent": "ai",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 10 },
+    { "id": "cmp-delivery",       "product": "Finance · Consensus Margin",                 "persona": "Delivery Resource",  "accent": "fin",  "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 11 },
+    { "id": "as-delivery",        "product": "AI · Agent Studio",                          "persona": "Delivery Resource",  "accent": "ai",   "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 11 },
+    { "id": "como-presales",      "product": "AI · CoModeler",                             "persona": "Pre-Sales Resource", "accent": "ai",   "stages": ["Registered","Trained","Certified","Solutioning","Expert"],   "appearsAtMonth": 12 },
+    { "id": "polaris-delivery",   "product": "Platform · Polaris",                         "persona": "Delivery Resource",  "accent": "plat", "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 12 },
+    { "id": "ado-delivery",       "product": "Platform · ADO",                             "persona": "Delivery Resource",  "accent": "plat", "stages": ["Registered","Trained","Certified","Delivering","Expert"],    "appearsAtMonth": 12 }
   ],
   "assets": [
     {
       "id": "self-paced",
       "name": "Self-Paced Academy",
       "accent": "sp",
-      "items": [
-        { "name": "Anaplan Essentials", "appearsAtMonth": 0 },
-        { "name": "Essentials of Model Building", "appearsAtMonth": 1 },
-        { "name": "Level 1 Model Building — On Demand", "appearsAtMonth": 1 },
-        { "name": "IFP Application Overview", "appearsAtMonth": 2 },
-        { "name": "Demand Planning App Overview", "appearsAtMonth": 3 },
-        { "name": "Inventory Planning App Overview", "appearsAtMonth": 4 },
-        { "name": "Statistical Forecasting Overview", "appearsAtMonth": 5 },
-        { "name": "Data Integration", "appearsAtMonth": 6 },
-        { "name": "Anaplan Modeling for Enterprise Scale", "appearsAtMonth": 8 },
-        { "name": "MFP Configuration", "appearsAtMonth": 10 },
-        { "name": "Designing UX Pages", "appearsAtMonth": 12 },
-        { "name": "Anaplan Intelligence Overview", "appearsAtMonth": 16 },
-        { "name": "CoModeler Overview", "appearsAtMonth": 18 },
-        { "name": "Agent Studio Overview", "appearsAtMonth": 20 }
-      ]
+      "items": []
     },
     {
       "id": "ilt",
       "name": "Instructor-Led & Workshops",
       "accent": "ilt",
-      "items": [
-        { "name": "L1 Model Building Workshop", "appearsAtMonth": 2 },
-        { "name": "Assortment Planning Delivery Workshop", "appearsAtMonth": 5 },
-        { "name": "Applications Hands-on Delivery Lab", "appearsAtMonth": 8 },
-        { "name": "Finance Applications Delivery Workshop", "appearsAtMonth": 11 },
-        { "name": "AI Products Workshop", "appearsAtMonth": 17 }
-      ]
+      "items": []
     },
     {
       "id": "specialist",
       "name": "Specialist Engagements",
       "accent": "se",
-      "items": [
-        { "name": "IFP V2 Delivery Blueprint", "appearsAtMonth": 4 },
-        { "name": "SC Delivery Blueprint", "appearsAtMonth": 7 },
-        { "name": "SA Pairing — Supervised Delivery", "appearsAtMonth": 10 },
-        { "name": "FCR Delivery Blueprint", "appearsAtMonth": 13 },
-        { "name": "OWP Delivery Blueprint", "appearsAtMonth": 16 }
-      ]
+      "items": []
     }
   ]
 }

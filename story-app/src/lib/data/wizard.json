@@ -1,4 +1,36 @@
 {
+  "categories": [
+    {
+      "id": "business-development",
+      "name": "Business Development",
+      "icon": "📈",
+      "personaIds": ["sales", "marketing", "presales"]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "icon": "🛠",
+      "personaIds": ["model-builder", "solution-architect", "program-management", "delivery-lead"]
+    },
+    {
+      "id": "advisory",
+      "name": "Advisory",
+      "icon": "💡",
+      "personaIds": ["change-management", "industry-lead", "data-architect", "data-integration"]
+    },
+    {
+      "id": "client-management",
+      "name": "Client Management",
+      "icon": "👥",
+      "personaIds": ["account-lead", "client-technical-lead"]
+    },
+    {
+      "id": "practice-management",
+      "name": "Practice Management",
+      "icon": "🏛",
+      "personaIds": ["practice-lead"]
+    }
+  ],
   "personas": [
     {
       "id": "sales",
@@ -13,17 +45,8 @@
             { "id": "finance", "icon": "💰", "label": "Finance (IFP, Close, Revenue)" },
             { "id": "rsc", "icon": "📦", "label": "Retail & Supply Chain" },
             { "id": "workforce", "icon": "👥", "label": "HR & Workforce" },
-            { "id": "sales-marketing", "icon": "📈", "label": "Sales & Marketing" },
+            { "id": "sales-marketing", "icon": "📊", "label": "Sales & Marketing" },
             { "id": "multi", "icon": "🌐", "label": "Multiple / All of the above" }
-          ]
-        },
-        {
-          "id": "experience-level",
-          "prompt": "What's your Anaplan selling experience?",
-          "options": [
-            { "id": "new", "icon": "🌱", "label": "New to Anaplan — never sold it before" },
-            { "id": "some", "icon": "🚀", "label": "Some experience — closed 1–3 deals" },
-            { "id": "experienced", "icon": "🏆", "label": "Experienced — consistent pipeline" }
           ]
         }
       ],
@@ -40,8 +63,37 @@
       ]
     },
     {
+      "id": "marketing",
+      "name": "Marketing",
+      "icon": "📣",
+      "tagline": "Drive demand and amplify Anaplan messaging",
+      "questions": [
+        {
+          "id": "focus-area",
+          "prompt": "What's your primary marketing motion?",
+          "options": [
+            { "id": "demand-gen", "icon": "🎯", "label": "Demand generation & campaigns" },
+            { "id": "content", "icon": "📝", "label": "Content & thought leadership" },
+            { "id": "events", "icon": "🎤", "label": "Events & field marketing" },
+            { "id": "partner-marketing", "icon": "🤝", "label": "Co-marketing with Anaplan" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Marketing enablement journey",
+      "journeyItems": [
+        "Anaplan Brand & Messaging Guidelines",
+        "Connected Planning Category Overview",
+        "Industry & Application Value Propositions",
+        "Customer Reference Library",
+        "Campaign Playbook (by focus area)",
+        "Co-Marketing with Anaplan Field Team",
+        "Partner Marketing Development Funds",
+        "Event & Webinar Kit"
+      ]
+    },
+    {
       "id": "presales",
-      "name": "Pre-Sales",
+      "name": "Pre-Sales Technical",
       "icon": "🔍",
       "tagline": "Lead discovery, demos, and technical solutioning",
       "questions": [
@@ -54,15 +106,6 @@
             { "id": "ai", "icon": "🤖", "label": "AI Products (CoModeler, Agent Studio)" },
             { "id": "platform", "icon": "⚙️", "label": "Platform (ADO, Polaris, Forecaster)" },
             { "id": "multi", "icon": "🌐", "label": "Multiple / All of the above" }
-          ]
-        },
-        {
-          "id": "experience-level",
-          "prompt": "What's your Anaplan technical depth?",
-          "options": [
-            { "id": "new", "icon": "🌱", "label": "New — haven't built models or demos yet" },
-            { "id": "some", "icon": "🧑‍💻", "label": "Intermediate — L1 certified, some demos" },
-            { "id": "deep", "icon": "🧠", "label": "Advanced — comfortable architecting solutions" }
           ]
         }
       ],
@@ -80,14 +123,14 @@
       ]
     },
     {
-      "id": "delivery",
-      "name": "Delivery",
-      "icon": "🛠",
-      "tagline": "Implement and configure Anaplan for clients",
+      "id": "model-builder",
+      "name": "Model Builder",
+      "icon": "🧱",
+      "tagline": "Build and configure Anaplan models for client deployments",
       "questions": [
         {
           "id": "focus-area",
-          "prompt": "Which applications will you be delivering?",
+          "prompt": "Which applications will you be building?",
           "options": [
             { "id": "finance", "icon": "💰", "label": "Finance (IFP, Close, Revenue)" },
             { "id": "rsc", "icon": "📦", "label": "Retail & Supply Chain" },
@@ -95,18 +138,9 @@
             { "id": "ai", "icon": "🤖", "label": "AI Products" },
             { "id": "multi", "icon": "🌐", "label": "Multiple / All of the above" }
           ]
-        },
-        {
-          "id": "experience-level",
-          "prompt": "What's your Anaplan delivery experience?",
-          "options": [
-            { "id": "new", "icon": "🌱", "label": "New — no client deployments yet" },
-            { "id": "some", "icon": "🛠", "label": "1–2 supervised projects completed" },
-            { "id": "independent", "icon": "🏅", "label": "Independent — delivering solo" }
-          ]
         }
       ],
-      "journeyIntro": "Your recommended Delivery enablement journey",
+      "journeyIntro": "Your recommended Model Builder enablement journey",
       "journeyItems": [
         "Anaplan Essentials",
         "Essentials of Model Building",
@@ -118,6 +152,62 @@
         "Delivery Blueprint (by focus area)",
         "SA Pairing — Supervised Delivery",
         "Pass 2 Supervised Projects"
+      ]
+    },
+    {
+      "id": "solution-architect",
+      "name": "Solution Architect",
+      "icon": "🏗",
+      "tagline": "Design scalable Anaplan solutions across domains",
+      "questions": [
+        {
+          "id": "scope",
+          "prompt": "What's the scope of your solution design work?",
+          "options": [
+            { "id": "single", "icon": "🎯", "label": "Single application / domain" },
+            { "id": "cross-domain", "icon": "🔗", "label": "Cross-domain connected planning" },
+            { "id": "platform", "icon": "🏗", "label": "Platform architecture (data, integration, UX)" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Solution Architect enablement journey",
+      "journeyItems": [
+        "Anaplan Modeling for Enterprise Scale",
+        "Application Architecture Patterns",
+        "Data Hub & Integration Design",
+        "UX & Dashboard Design",
+        "Cross-Domain Connected Planning",
+        "Solution Design Review Process",
+        "Peer Review & Mentorship Program",
+        "SA Certification Assessment"
+      ]
+    },
+    {
+      "id": "program-management",
+      "name": "Program Management",
+      "icon": "📊",
+      "tagline": "Orchestrate multi-workstream Anaplan programs",
+      "questions": [
+        {
+          "id": "scope",
+          "prompt": "What kind of programs will you manage?",
+          "options": [
+            { "id": "single-client", "icon": "🎯", "label": "Single-client multi-phase program" },
+            { "id": "multi-client", "icon": "🏢", "label": "Portfolio of concurrent client programs" },
+            { "id": "transformation", "icon": "🔄", "label": "Enterprise-wide planning transformation" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Program Management enablement journey",
+      "journeyItems": [
+        "Anaplan Delivery Methodology Overview",
+        "Program Governance Framework",
+        "Workstream Orchestration Playbook",
+        "Stakeholder Management & Reporting",
+        "Risk & Dependency Management",
+        "Resource & Budget Forecasting",
+        "Executive Steering Committee Facilitation",
+        "Program Lifecycle Review"
       ]
     },
     {
@@ -134,15 +224,6 @@
             { "id": "mid", "icon": "📦", "label": "Mid-size — multi-module, 3–6 months" },
             { "id": "large", "icon": "🏢", "label": "Large — enterprise rollouts, 6+ months" },
             { "id": "program", "icon": "🌐", "label": "Multi-phase programs across several clients" }
-          ]
-        },
-        {
-          "id": "experience-level",
-          "prompt": "What's your delivery management experience?",
-          "options": [
-            { "id": "new", "icon": "🌱", "label": "New to project management" },
-            { "id": "pm-new-to-anaplan", "icon": "🔄", "label": "Experienced PM, new to Anaplan delivery" },
-            { "id": "experienced", "icon": "🏆", "label": "Experienced Anaplan Delivery Lead" }
           ]
         }
       ],
@@ -161,78 +242,32 @@
       ]
     },
     {
-      "id": "solution-architect",
-      "name": "Solution Architect",
-      "icon": "🏗",
-      "tagline": "Design scalable Anaplan solutions across domains",
+      "id": "change-management",
+      "name": "Change Management",
+      "icon": "🔄",
+      "tagline": "Guide clients through planning transformation and adoption",
       "questions": [
         {
-          "id": "scope",
-          "prompt": "What's the scope of your solution design work?",
+          "id": "focus-area",
+          "prompt": "What's your primary change focus?",
           "options": [
-            { "id": "single", "icon": "🎯", "label": "Single application / domain" },
-            { "id": "cross-domain", "icon": "🔗", "label": "Cross-domain connected planning" },
-            { "id": "platform", "icon": "🏗", "label": "Platform architecture (data, integration, UX)" }
-          ]
-        },
-        {
-          "id": "experience-level",
-          "prompt": "Where are you on the SA track?",
-          "options": [
-            { "id": "aspiring", "icon": "🌱", "label": "Aspiring — strong delivery, moving into design" },
-            { "id": "practicing", "icon": "🛠", "label": "Practicing — designing solutions today" },
-            { "id": "lead", "icon": "🧑‍🏫", "label": "Lead — mentoring other SAs" }
+            { "id": "adoption", "icon": "📣", "label": "End-user adoption & training" },
+            { "id": "process", "icon": "⚙️", "label": "Business process redesign" },
+            { "id": "org", "icon": "🏛", "label": "Organizational design & operating model" },
+            { "id": "transformation", "icon": "🚀", "label": "Enterprise transformation leadership" }
           ]
         }
       ],
-      "journeyIntro": "Your recommended Solution Architect enablement journey",
+      "journeyIntro": "Your recommended Change Management enablement journey",
       "journeyItems": [
-        "Anaplan Modeling for Enterprise Scale",
-        "Application Architecture Patterns",
-        "Data Hub & Integration Design",
-        "UX & Dashboard Design",
-        "Cross-Domain Connected Planning",
-        "Solution Design Review Process",
-        "Peer Review & Mentorship Program",
-        "SA Certification Assessment"
-      ]
-    },
-    {
-      "id": "practice-lead",
-      "name": "Anaplan Practice Lead",
-      "icon": "🏛",
-      "tagline": "Own the Anaplan practice — strategy, growth, and team",
-      "questions": [
-        {
-          "id": "maturity",
-          "prompt": "Where is your Anaplan practice today?",
-          "options": [
-            { "id": "new", "icon": "🌱", "label": "Just starting — 0–2 certified resources" },
-            { "id": "growing", "icon": "📈", "label": "Growing — 3–10 resources, first clients" },
-            { "id": "established", "icon": "🏛", "label": "Established — 10+ resources, steady pipeline" }
-          ]
-        },
-        {
-          "id": "priority",
-          "prompt": "What's your top priority this year?",
-          "options": [
-            { "id": "hiring", "icon": "🧑‍💼", "label": "Hiring and certifying new resources" },
-            { "id": "applications", "icon": "🧩", "label": "Expanding into new application areas" },
-            { "id": "designations", "icon": "🎖", "label": "Earning partner-level designations" },
-            { "id": "revenue", "icon": "💰", "label": "Growing Anaplan-sourced revenue" }
-          ]
-        }
-      ],
-      "journeyIntro": "Your recommended Practice Lead enablement journey",
-      "journeyItems": [
-        "Anaplan Partner Tier Requirements",
-        "Practice Capacity Planning Workshop",
-        "Resource Hiring & Certification Roadmap",
-        "Investment & Hiring Plan",
-        "Mentorship Program Setup",
-        "Designation Tracking & Reporting",
-        "Quarterly OKR Reviews",
-        "Partner Business Planning with Anaplan"
+        "Connected Planning Change Framework",
+        "Stakeholder Impact Assessment",
+        "Adoption Measurement Playbook",
+        "Communication & Training Plans",
+        "Process Redesign Workshops",
+        "Operating Model Design",
+        "Change Agent Network Setup",
+        "Post-Go-Live Adoption Review"
       ]
     },
     {
@@ -252,15 +287,6 @@
             { "id": "healthcare", "icon": "🏥", "label": "Healthcare & Life Sciences" },
             { "id": "multi", "icon": "🌐", "label": "Multi-industry" }
           ]
-        },
-        {
-          "id": "goal",
-          "prompt": "What's the primary goal?",
-          "options": [
-            { "id": "positioning", "icon": "🎯", "label": "Industry-specific positioning & messaging" },
-            { "id": "solutions", "icon": "🧩", "label": "Pre-built industry solutions" },
-            { "id": "references", "icon": "⭐", "label": "Building industry reference customers" }
-          ]
         }
       ],
       "journeyIntro": "Your recommended Industry Lead enablement journey",
@@ -276,9 +302,67 @@
       ]
     },
     {
+      "id": "data-architect",
+      "name": "Data Architect",
+      "icon": "🗄",
+      "tagline": "Design the client data model and hub strategy for Anaplan",
+      "questions": [
+        {
+          "id": "focus-area",
+          "prompt": "What's the primary data architecture focus?",
+          "options": [
+            { "id": "data-hub", "icon": "🏢", "label": "Central data hub design" },
+            { "id": "master-data", "icon": "🗃", "label": "Master data & hierarchy management" },
+            { "id": "governance", "icon": "📐", "label": "Data governance & quality standards" },
+            { "id": "cloud-data", "icon": "☁️", "label": "Cloud data platform alignment (Snowflake, BigQuery, Databricks)" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Data Architect enablement journey",
+      "journeyItems": [
+        "Anaplan Data Hub Design Patterns",
+        "Enterprise Data Model for Planning",
+        "Hierarchy & Master Data Strategy",
+        "Data Governance Playbook",
+        "Cloud Data Platform Integration Patterns",
+        "Anaplan Polaris Data Model Considerations",
+        "Data Quality & Reconciliation Framework",
+        "Client Data Architecture Review Template"
+      ]
+    },
+    {
+      "id": "data-integration",
+      "name": "Data Integration",
+      "icon": "🔌",
+      "tagline": "Move data into and out of Anaplan reliably",
+      "questions": [
+        {
+          "id": "focus-area",
+          "prompt": "Which integration tooling will you primarily use?",
+          "options": [
+            { "id": "ado", "icon": "⚙️", "label": "Anaplan Data Orchestrator (ADO)" },
+            { "id": "cloudworks", "icon": "☁️", "label": "CloudWorks & native connectors" },
+            { "id": "etl", "icon": "🔄", "label": "Client ETL tooling (Informatica, Matillion, Fivetran)" },
+            { "id": "api", "icon": "🧩", "label": "Anaplan APIs & custom integrations" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Data Integration enablement journey",
+      "journeyItems": [
+        "Anaplan Data Integration Overview",
+        "ADO Design & Deployment",
+        "CloudWorks Connector Configuration",
+        "Anaplan API Fundamentals",
+        "ETL Pattern Library for Anaplan",
+        "Error Handling & Monitoring",
+        "Performance Tuning for Large Loads",
+        "Integration Runbook Template"
+      ]
+    },
+    {
       "id": "account-lead",
       "name": "Client Account Lead",
-      "icon": "👥",
+      "icon": "👤",
       "tagline": "Own client relationships and orchestrate delivery",
       "questions": [
         {
@@ -289,18 +373,9 @@
             { "id": "expanding", "icon": "📈", "label": "Expanding — adding applications or users" },
             { "id": "renewing", "icon": "🔁", "label": "Renewing — driving adoption and retention" }
           ]
-        },
-        {
-          "id": "priority",
-          "prompt": "What's your biggest challenge?",
-          "options": [
-            { "id": "discovery", "icon": "🔍", "label": "Shaping engagements and discovery" },
-            { "id": "coordination", "icon": "🎯", "label": "Coordinating delivery resources" },
-            { "id": "growth", "icon": "🌳", "label": "Finding expansion opportunities" }
-          ]
         }
       ],
-      "journeyIntro": "Your recommended Account Lead enablement journey",
+      "journeyIntro": "Your recommended Client Account Lead enablement journey",
       "journeyItems": [
         "Client Discovery Methodology",
         "Stakeholder Mapping Workshop",
@@ -311,6 +386,63 @@
         "Renewal Playbook",
         "Expansion Mapping Workshop",
         "Reference Customer Program"
+      ]
+    },
+    {
+      "id": "client-technical-lead",
+      "name": "Technical Account Lead",
+      "icon": "🧑‍🔧",
+      "tagline": "Client-facing technical advisor on solution direction",
+      "questions": [
+        {
+          "id": "focus-area",
+          "prompt": "What kind of technical advisory will you provide?",
+          "options": [
+            { "id": "architecture", "icon": "🏗", "label": "Architecture review & guidance" },
+            { "id": "roadmap", "icon": "🗺", "label": "Client roadmap & platform strategy" },
+            { "id": "escalation", "icon": "🚨", "label": "Technical escalation & issue resolution" },
+            { "id": "center-of-excellence", "icon": "🎯", "label": "Client CoE enablement" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Technical Account Lead enablement journey",
+      "journeyItems": [
+        "Anaplan Platform Architecture Overview",
+        "Client Solution Review Framework",
+        "Roadmap & Capability Mapping",
+        "Escalation Management Playbook",
+        "Client Center of Excellence Setup",
+        "Platform Governance Standards",
+        "Technical Stakeholder Communication",
+        "Quarterly Technical Review Template"
+      ]
+    },
+    {
+      "id": "practice-lead",
+      "name": "Anaplan Practice Lead",
+      "icon": "🏛",
+      "tagline": "Own the Anaplan practice — strategy, growth, and team",
+      "questions": [
+        {
+          "id": "maturity",
+          "prompt": "Where is your Anaplan practice today?",
+          "options": [
+            { "id": "new", "icon": "🌱", "label": "Just starting — 0–2 certified resources" },
+            { "id": "growing", "icon": "📈", "label": "Growing — 3–10 resources, first clients" },
+            { "id": "established", "icon": "🏛", "label": "Established — 10+ resources, steady pipeline" }
+          ]
+        }
+      ],
+      "journeyIntro": "Your recommended Practice Lead enablement journey",
+      "journeyItems": [
+        "Anaplan Partner Tier Requirements",
+        "Practice Capacity Planning Workshop",
+        "Resource Hiring & Certification Roadmap",
+        "Investment & Hiring Plan",
+        "Mentorship Program Setup",
+        "Designation Tracking & Reporting",
+        "Quarterly OKR Reviews",
+        "Partner Business Planning with Anaplan"
       ]
     }
   ]

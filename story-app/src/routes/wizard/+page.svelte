@@ -1,22 +1,27 @@
 <script lang="ts">
-  import { wizardPersonas, individualPaths, type WizardPersona } from '$lib/data';
+  import { wizardPersonas, wizardCategories, individualPaths, type WizardPersona } from '$lib/data';
 
   let selectedPersona = $state<WizardPersona | null>(null);
   let answers = $state<Record<string, string>>({});
   let showJourneyView = $state(false);
+  let expandedCategoryId = $state<string | null>(null);
 
-  // Staged reveal — only first 3 personas visible until first click
-  const INITIAL_VISIBLE_COUNT = 3;
-  let revealed = $state(false);
+  const personaById = $derived(
+    new Map(wizardPersonas.map((p) => [p.id, p]))
+  );
 
-  $effect(() => {
-    if (revealed || selectedPersona) return;
-    function onDocClick() {
-      revealed = true;
-    }
-    document.addEventListener('click', onDocClick, { once: true });
-    return () => document.removeEventListener('click', onDocClick);
-  });
+  const categoryGroups = $derived(
+    wizardCategories.map((c) => ({
+      ...c,
+      personas: c.personaIds
+        .map((id) => personaById.get(id))
+        .filter((p): p is WizardPersona => Boolean(p))
+    }))
+  );
+
+  function toggleCategory(id: string) {
+    expandedCategoryId = expandedCategoryId === id ? null : id;
+  }
 
   // Step tracking: persona(0) → question(1) → journey(2)
   const totalSteps = $derived(selectedPersona ? 3 : 1);
@@ -34,10 +39,6 @@
   let pinnedStageIdx = $state<number | null>(null);
 
   function selectPersona(p: WizardPersona) {
-    if (!revealed) {
-      revealed = true;
-      return;
-    }
     selectedPersona = p;
     answers = {};
     showJourneyView = false;
@@ -79,35 +80,48 @@
       <div class="wiz-step-header wiz-step-header-intro">
         <div class="wiz-intro-eyebrow">The Story Begins</div>
         <div class="wiz-intro-question">
-          {#if revealed}
-            Eight personas. Eight distinct journeys.
-          {:else}
-            Three personas. Three distinct journeys.
-          {/if}
+          Five categories. Twelve distinct journeys.
         </div>
         <div class="wiz-intro-sub">
           Every persona has a different enablement journey, and every journey is entirely
-          <strong>opt-in</strong>. We show the recommended path — you choose what's relevant to you.
+          <strong>opt-in</strong>. Pick a category to see the roles inside.
         </div>
       </div>
 
-      <div class="wiz-persona-grid">
-        {#each wizardPersonas as p, i (p.id)}
-          {@const isHidden = !revealed && i >= INITIAL_VISIBLE_COUNT}
+      <div class="wiz-category-grid">
+        {#each categoryGroups as cat (cat.id)}
+          {@const isExpanded = expandedCategoryId === cat.id}
           <button
-            class="wiz-persona-card"
-            class:hidden-persona={isHidden}
-            style="--reveal-delay: {(i - INITIAL_VISIBLE_COUNT) * 0.1}s"
-            onclick={() => selectPersona(p)}
+            class="wiz-category-card"
+            class:expanded={isExpanded}
+            onclick={() => toggleCategory(cat.id)}
           >
-            <div class="wiz-persona-icon">{p.icon}</div>
-            <div class="wiz-persona-name">{p.name}</div>
-            <div class="wiz-persona-tag">{p.tagline}</div>
+            <div class="wiz-category-card-icon">{cat.icon}</div>
+            <div class="wiz-category-card-name">{cat.name}</div>
+            <div class="wiz-category-card-count">{cat.personas.length} {cat.personas.length === 1 ? 'role' : 'roles'}</div>
           </button>
         {/each}
       </div>
-      {#if !revealed}
-        <div class="wiz-reveal-hint">Click anywhere to see the full set of roles →</div>
+
+      {#if expandedCategoryId}
+        {@const cat = categoryGroups.find((c) => c.id === expandedCategoryId)}
+        {#if cat}
+          <div class="wiz-subpersona-panel">
+            <div class="wiz-subpersona-header">
+              <span class="wiz-subpersona-eyebrow">Select a role in</span>
+              <span class="wiz-subpersona-cat">{cat.icon}&nbsp;{cat.name}</span>
+            </div>
+            <div class="wiz-persona-grid">
+              {#each cat.personas as p (p.id)}
+                <button class="wiz-persona-card" onclick={() => selectPersona(p)}>
+                  <div class="wiz-persona-icon">{p.icon}</div>
+                  <div class="wiz-persona-name">{p.name}</div>
+                  <div class="wiz-persona-tag">{p.tagline}</div>
+                </button>
+              {/each}
+            </div>
+          </div>
+        {/if}
       {/if}
     </div>
 

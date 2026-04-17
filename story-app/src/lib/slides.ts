@@ -54,5 +54,10 @@ export const slides: Slide[] = [
     path: '/dashboard',
     title: 'Facilitator Dashboard',
     subtitle: 'Real-time participant progress across all workshop labs'
+  },
+  {
+    path: '/psm-activity',
+    title: 'PSM Activity Map',
+    subtitle: 'Where PSM time goes today — drag to reflect reality'
   }
 ];

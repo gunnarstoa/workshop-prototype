@@ -160,7 +160,15 @@ export type AdminPath = {
   stages: PathStage[];
 };
 
+export type WizardCategory = {
+  id: string;
+  name: string;
+  icon: string;
+  personaIds: string[];
+};
+
 export const wizardPersonas: WizardPersona[] = wizardRaw.personas as WizardPersona[];
+export const wizardCategories: WizardCategory[] = (wizardRaw as { categories: WizardCategory[] }).categories;
 export const adminPaths: AdminPath[] = adminPathsRaw.paths as AdminPath[];
 
 export type IndividualPath = {

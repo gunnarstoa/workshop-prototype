@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PSM Activity Map</title>
+<style>
+  :root {
+    --navy: #0A2F46; --orange: #FF6100; --teal: #0D9488;
+    --green: #1A7A47; --amber: #B45309; --red: #991B1B;
+    --purple: #6B21A8; --cream: #F2F1EE; --mid: #888;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, sans-serif;
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 16px 32px; color: var(--navy);
+  }
+  header {
+    width: 100%; max-width: 980px; margin-bottom: 18px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .title-block h1 { font-size: 21px; font-weight: bold; color: var(--navy); }
+  .title-block h1 span { color: var(--orange); }
+  .title-block p { font-size: 11px; color: var(--mid); margin-top: 3px; }
+  button.action {
+    font-size: 11px; padding: 6px 14px; border-radius: 3px;
+    cursor: pointer; border: 1px solid #c8c6c0;
+    background: white; color: var(--navy); transition: all 0.15s;
+  }
+  button.action:hover { background: #eeecea; }
+
+  /* Chart grid */
+  .outer {
+    width: 100%; max-width: 980px;
+    display: grid;
+    grid-template-columns: 26px 1fr;
+    grid-template-rows: 1fr 22px 16px;
+  }
+  .y-label {
+    grid-column:1; grid-row:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .y-label span {
+    font-size:9px; font-weight:bold; color:var(--mid);
+    letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+    transform:rotate(-90deg); display:block;
+  }
+  #chart {
+    grid-column:2; grid-row:1;
+    width:100%; aspect-ratio:1.6/1;
+    position:relative; border:1px solid #c8c6c0; background:white;
+    overflow:hidden;
+  }
+  .quad { position:absolute; width:50%; height:50%; pointer-events:none; }
+  .quad-tl { top:0;    left:0;  background:#FFFBEB; opacity:.7; }
+  .quad-tr { top:0;    right:0; background:#F0FDF4; opacity:.8; }
+  .quad-bl { bottom:0; left:0;  background:#F5F5F5; opacity:.8; }
+  .quad-br { bottom:0; right:0; background:#EFF6FF; opacity:.7; }
+  .div-v { position:absolute; left:50%; top:0; width:1px; height:100%; background:#d0cdc8; pointer-events:none; }
+  .div-h { position:absolute; top:50%; left:0; width:100%; height:1px; background:#d0cdc8; pointer-events:none; }
+  .qlabel {
+    position:absolute; font-size:9px; font-weight:bold;
+    letter-spacing:.06em; text-transform:uppercase;
+    padding:3px 8px; border-radius:3px; pointer-events:none;
+  }
+  .ql-tl { top:8px;    left:10px;  background:#FEF3C7; color:#92400E; }
+  .ql-tr { top:8px;    right:10px; background:#D1FAE5; color:#065F46; }
+  .ql-bl { bottom:8px; left:10px;  background:#F3F4F6; color:#6B7280; }
+  .ql-br { bottom:8px; right:10px; background:#DBEAFE; color:#1D4ED8; }
+
+  /* Dots */
+  .dot {
+    position:absolute; width:42px; height:42px; border-radius:50%;
+    cursor:grab; transform:translate(-50%,-50%);
+    display:flex; align-items:center; justify-content:center;
+    font-size:9px; font-weight:bold; color:white;
+    user-select:none; border:2px solid rgba(255,255,255,0.45);
+    box-shadow:0 2px 6px rgba(0,0,0,0.22);
+    transition:box-shadow .15s; z-index:10; text-align:center;
+    line-height:1.1; padding:2px;
+  }
+  .dot:hover { box-shadow:0 4px 14px rgba(0,0,0,0.32); z-index:20; }
+  .dot.dragging { cursor:grabbing; z-index:100; box-shadow:0 8px 24px rgba(0,0,0,0.38); }
+  .dot[data-cat="low-admin"]   { background: var(--amber); }
+  .dot[data-cat="low-ops"]     { background: var(--red); }
+  .dot[data-cat="mid"]         { background: var(--teal); }
+  .dot[data-cat="high"]        { background: var(--green); }
+  .dot[data-cat="high-exec"]   { background: var(--navy); }
+
+  .x-label { grid-column:2; grid-row:2; text-align:center; font-size:9px; font-weight:bold; color:var(--mid); letter-spacing:.08em; text-transform:uppercase; padding-top:5px; }
+  .x-ends  { grid-column:2; grid-row:3; display:flex; justify-content:space-between; font-size:9px; color:#bbb; padding:0 4px; }
+
+  /* Legend */
+  .legend {
+    width:100%; max-width:980px; margin-top:14px;
+    display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#555;
+  }
+  .li { display:flex; align-items:center; gap:6px; }
+  .ld { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .ld.low-admin  { background:var(--amber); }
+  .ld.low-ops    { background:var(--red); }
+  .ld.mid        { background:var(--teal); }
+  .ld.high       { background:var(--green); }
+  .ld.high-exec  { background:var(--navy); }
+
+  /* Tooltip */
+  #tip {
+    position:fixed; background:var(--navy); color:white;
+    font-size:11px; padding:8px 12px; border-radius:4px;
+    pointer-events:none; opacity:0; transition:opacity .15s;
+    z-index:300; max-width:260px; line-height:1.6;
+  }
+  #tip.vis { opacity:1; }
+  #tip .tip-title { font-weight:bold; font-size:12px; margin-bottom:4px; color:#FF9955; }
+  #tip .tip-bullet { color:rgba(255,255,255,0.8); font-size:10.5px; }
+  #tip .tip-bullet::before { content:'· '; }
+
+  .save-note { font-size:10px; color:#bbb; margin-top:10px; text-align:center; width:100%; max-width:980px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title-block">
+    <h1>PSM Activity Map — <span>Current State</span></h1>
+    <p>Drag activities to reflect actual time allocation &nbsp;·&nbsp; Hover for detail &nbsp;·&nbsp; Positions auto-saved</p>
+  </div>
+  <button class="action" id="resetBtn">Reset to defaults</button>
+</header>
+
+<div class="outer">
+  <div class="y-label"><span>PERSONALIZED EFFORT</span></div>
+  <div id="chart">
+    <div class="quad quad-tl"></div>
+    <div class="quad quad-tr"></div>
+    <div class="quad quad-bl"></div>
+    <div class="quad quad-br"></div>
+    <div class="div-v"></div>
+    <div class="div-h"></div>
+    <div class="qlabel ql-tl">Automate or Eliminate</div>
+    <div class="qlabel ql-tr">Protect &amp; Scale</div>
+    <div class="qlabel ql-bl">Deprioritise</div>
+    <div class="qlabel ql-br">Invest &amp; Grow</div>
+  </div>
+  <div class="x-label">VALUE TO PARTNER ECOSYSTEM</div>
+  <div class="x-ends"><span>Low Value</span><span>High Value</span></div>
+</div>
+
+<div class="legend">
+  <div class="li"><div class="ld low-admin"></div>Admin &amp; Ops (low value)</div>
+  <div class="li"><div class="ld low-ops"></div>Reactive / Compliance (low value)</div>
+  <div class="li"><div class="ld mid"></div>Enablement &amp; Comms (mid value)</div>
+  <div class="li"><div class="ld high"></div>Strategic Delivery (high value)</div>
+  <div class="li"><div class="ld high-exec"></div>Executive &amp; GTM (high value)</div>
+</div>
+<div class="save-note">Positions remembered in browser &nbsp;·&nbsp; Drag to reposition &nbsp;·&nbsp; Hover for sub-tasks</div>
+<div id="tip"></div>
+
+<script>
+// px = % from left, py = % from BOTTOM (converted to top in render)
+const ACTS = [
+  { id:'admin-ops',        lbl:'Admin\n& Ops',      cat:'low-admin',  dx:8,  dy:32,
+    name:'Admin & Ops',
+    bullets:['Password resets','Demo provisioning','Seismic & LMS uploads','LMS administration','Portal access requests','License management','Status reports','Bulk Partner Boost invitations'] },
+  { id:'health-status',    lbl:'Health\n& Status',  cat:'low-admin',  dx:8,  dy:49,
+    name:'Health & Status',
+    bullets:['Implementation health updates','Certification status updates'] },
+  { id:'scheduling',       lbl:'Scheduling',        cat:'low-admin',  dx:26, dy:32,
+    name:'Scheduling',
+    bullets:['Workshop scheduling','Enablement calendar management'] },
+  { id:'content-admin',    lbl:'Content\nAdmin',    cat:'low-admin',  dx:26, dy:49,
+    name:'Content Admin',
+    bullets:['Blueprint updates','SA submission reviews'] },
+  { id:'training-delivery',lbl:'Training\nDelivery',cat:'low-admin',  dx:16, dy:17,
+    name:'Training Delivery',
+    bullets:['Deliver product training sessions'] },
+  { id:'compliance',       lbl:'Compliance',        cat:'low-ops',    dx:4,  dy:82,
+    name:'Compliance Tracking',
+    bullets:['Certification tracking','Model utilization'] },
+  { id:'reactive-support', lbl:'Reactive\nSupport', cat:'low-ops',    dx:24, dy:82,
+    name:'Reactive Support',
+    bullets:['One-off custom demos','Low-tier ad-hoc requests'] },
+  { id:'content-enablement',lbl:'Content\nEnablement',cat:'mid',      dx:53, dy:32,
+    name:'Content Enablement',
+    bullets:['Curate & share resources','Partner portal updates'] },
+  { id:'proactive-comms',  lbl:'Proactive\nComms',  cat:'mid',        dx:73, dy:32,
+    name:'Proactive Comms',
+    bullets:['Release notes & partner updates','Training reminders'] },
+  { id:'exec-engagement',  lbl:'Executive\nEngage', cat:'high-exec',  dx:55, dy:97,
+    name:'Executive Engagement',
+    bullets:['Client project oversight','Co-selling & exec alignment'] },
+  { id:'delivery-readiness',lbl:'Delivery\nReadiness',cat:'high',     dx:73, dy:97,
+    name:'Delivery Readiness',
+    bullets:['Pre-project team enablement','Solutioning reviews'] },
+  { id:'partner-journey',  lbl:'Partner\nJourney',  cat:'high-exec',  dx:55, dy:73,
+    name:'Partner Journey',
+    bullets:['Tier progression & QBRs','Individual coaching'] },
+  { id:'early-release',    lbl:'Early\nRelease',    cat:'high',       dx:73, dy:73,
+    name:'Early Release Programs',
+    bullets:['Beta access coordination','Partner feedback loops to product','Roadmap influence & advocacy'] },
+  { id:'partner-apps',     lbl:'Partner\nApps',     cat:'high-exec',  dx:55, dy:50,
+    name:'Partner Applications',
+    bullets:['Strategic partner evaluation','Onboarding white-glove partners'] },
+  { id:'delivery-quality', lbl:'Delivery\nQuality',  cat:'high',      dx:73, dy:50,
+    name:'Delivery Prep & Quality',
+    bullets:['Pre-project team enablement','Solutioning & delivery reviews','Live project quality oversight'] },
+];
+
+const KEY = 'psm_map_v5';
+function load() { try { return JSON.parse(localStorage.getItem(KEY)||'{}'); } catch { return {}; } }
+function save(p) { try { localStorage.setItem(KEY, JSON.stringify(p)); } catch {} }
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  localStorage.removeItem(KEY);
+  render();
+});
+
+function render() {
+  const saved = load();
+  const chart = document.getElementById('chart');
+  chart.querySelectorAll('.dot').forEach(d => d.remove());
+  ACTS.forEach(act => {
+    const dot = document.createElement('div');
+    dot.className = 'dot';
+    dot.dataset.id = act.id;
+    dot.dataset.cat = act.cat;
+    // Multi-line label
+    dot.innerHTML = act.lbl.split('\n').map(t => `<span style="display:block">${t}</span>`).join('');
+    const p = saved[act.id];
+    // dy is % from bottom → convert to % from top
+    dot.style.left = (p ? p.x : act.dx) + '%';
+    dot.style.top  = (p ? p.y : (100 - act.dy)) + '%';
+    dot.addEventListener('mousedown', startDrag);
+    dot.addEventListener('touchstart', e => { e.preventDefault(); startDrag(e); }, { passive:false });
+    dot.addEventListener('mouseenter', showTip);
+    dot.addEventListener('mouseleave', hideTip);
+    dot.addEventListener('mousemove', moveTip);
+    chart.appendChild(dot);
+  });
+}
+
+function startDrag(e) {
+  hideTip();
+  const dot = e.currentTarget || e.target.closest('.dot');
+  const chart = document.getElementById('chart');
+  const r = chart.getBoundingClientRect();
+  dot.classList.add('dragging');
+  function move(ev) {
+    const cx = ev.touches ? ev.touches[0].clientX : ev.clientX;
+    const cy = ev.touches ? ev.touches[0].clientY : ev.clientY;
+    dot.style.left = Math.max(2,Math.min(98,(cx-r.left)/r.width*100)) + '%';
+    dot.style.top  = Math.max(2,Math.min(98,(cy-r.top)/r.height*100)) + '%';
+  }
+  function up() {
+    dot.classList.remove('dragging');
+    const saved = load();
+    saved[dot.dataset.id] = { x:parseFloat(dot.style.left), y:parseFloat(dot.style.top) };
+    save(saved);
+    document.removeEventListener('mousemove', move);
+    document.removeEventListener('mouseup', up);
+    document.removeEventListener('touchmove', move);
+    document.removeEventListener('touchend', up);
+  }
+  document.addEventListener('mousemove', move);
+  document.addEventListener('mouseup', up);
+  document.addEventListener('touchmove', move, { passive:false });
+  document.addEventListener('touchend', up);
+}
+
+function showTip(e) {
+  const act = ACTS.find(a => a.id === e.currentTarget.dataset.id);
+  if (!act) return;
+  const tip = document.getElementById('tip');
+  tip.innerHTML = `<div class="tip-title">${act.name}</div>` +
+    act.bullets.map(b => `<div class="tip-bullet">${b}</div>`).join('');
+  tip.classList.add('vis');
+  positionTip(e.clientX, e.clientY);
+}
+function moveTip(e) { positionTip(e.clientX, e.clientY); }
+function positionTip(x, y) {
+  const tip = document.getElementById('tip');
+  const tw = tip.offsetWidth || 200;
+  const left = x + tw + 20 > window.innerWidth ? x - tw - 12 : x + 14;
+  tip.style.left = left + 'px';
+  tip.style.top  = (y - 10) + 'px';
+}
+function hideTip() { document.getElementById('tip').classList.remove('vis'); }
+
+render();
+</script>
+</body>
+</html>

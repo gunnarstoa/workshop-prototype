@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { framework, timeline } from '$lib/data';
+  import { framework, timeline, academy, iltWorkshops, specialistEngagements } from '$lib/data';
 
   const totalMonths = timeline.months.length;
   const lastMonth = totalMonths - 1;
@@ -60,133 +60,6 @@
     }
   }
 
-  // ── Animated connector lines at month 5 ──────────────────────────────────
-  // Draws curved SVG paths from the three asset columns up to the stages
-  // of the visible journey card, with flowing dots — same pattern as the
-  // original connected_enablement.html deck.
-  let connectorsSvg: SVGSVGElement | undefined = $state();
-  const CONNECTOR_TRIGGER_MONTH = 5;
-  let connectorTimers: ReturnType<typeof setTimeout>[] = [];
-
-  function clearConnectors() {
-    if (!connectorsSvg) return;
-    connectorsSvg.innerHTML = '';
-    connectorTimers.forEach((t) => clearTimeout(t));
-    connectorTimers = [];
-  }
-
-  function drawLine(
-    svg: SVGSVGElement,
-    fromEl: Element,
-    toEl: Element,
-    color: string,
-    delay: string
-  ) {
-    const fR = fromEl.getBoundingClientRect();
-    const tR = toEl.getBoundingClientRect();
-    const x1 = fR.left + fR.width * 0.5;
-    const y1 = fR.top + 2;
-    const x2 = tR.left + tR.width * 0.5;
-    const y2 = tR.bottom - 1;
-    const dy = Math.abs(y1 - y2);
-    const d = `M${x1},${y1} C${x1},${y1 - dy * 0.4} ${x2},${y2 + dy * 0.4} ${x2},${y2}`;
-
-    // Low-opacity trail
-    const trail = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    trail.setAttribute('d', d);
-    trail.setAttribute('fill', 'none');
-    trail.setAttribute('stroke', color);
-    trail.setAttribute('stroke-width', '1.5');
-    trail.setAttribute('stroke-opacity', '0.15');
-    svg.appendChild(trail);
-
-    // Animated dashed flow line
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    line.setAttribute('d', d);
-    line.setAttribute('fill', 'none');
-    line.setAttribute('stroke', color);
-    line.setAttribute('stroke-width', '2');
-    line.setAttribute('stroke-opacity', '0.75');
-    line.setAttribute('stroke-dasharray', '7 5');
-    line.style.animation = `flowUp 3.5s linear ${delay} infinite`;
-    svg.appendChild(line);
-
-    // Flowing dot
-    const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    dot.setAttribute('r', '4');
-    dot.setAttribute('fill', color);
-    dot.setAttribute('fill-opacity', '0.9');
-    const am = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
-    am.setAttribute('dur', '3.5s');
-    am.setAttribute('begin', delay);
-    am.setAttribute('repeatCount', 'indefinite');
-    am.setAttribute('path', d);
-    am.setAttribute('calcMode', 'linear');
-    dot.appendChild(am);
-    svg.appendChild(dot);
-  }
-
-  function drawConnectors() {
-    if (!connectorsSvg) return;
-    clearConnectors();
-
-    const sp = document.querySelector('.asset-col.sp');
-    const ilt = document.querySelector('.asset-col.ilt');
-    const se = document.querySelector('.asset-col.se');
-    const journey = document.querySelector('.journey-card-mini');
-    if (!sp || !ilt || !se || !journey) return;
-
-    const stages = journey.querySelectorAll('.jcs-mini');
-    if (stages.length < 5) return;
-
-    const svg = connectorsSvg;
-
-    // Self-Paced (green) → Registered, Trained
-    connectorTimers.push(
-      setTimeout(() => {
-        drawLine(svg, sp, stages[0], '#1A8A4A', '0s');
-        drawLine(svg, sp, stages[1], '#1A8A4A', '0.8s');
-      }, 400)
-    );
-    // Instructor-Led (blue) → Trained, Certified
-    connectorTimers.push(
-      setTimeout(() => {
-        drawLine(svg, ilt, stages[1], '#1A5276', '0s');
-        drawLine(svg, ilt, stages[2], '#1A5276', '0.8s');
-      }, 2400)
-    );
-    // Specialist Engagements (amber) → Delivering, Expert
-    connectorTimers.push(
-      setTimeout(() => {
-        drawLine(svg, se, stages[3], '#B7540F', '0s');
-        drawLine(svg, se, stages[4], '#B7540F', '0.8s');
-      }, 4400)
-    );
-  }
-
-  // Trigger when currentMonth hits the connector month
-  $effect(() => {
-    if (currentMonth === CONNECTOR_TRIGGER_MONTH) {
-      // Let Svelte render new asset items and journey card first
-      const t = setTimeout(drawConnectors, 150);
-      return () => {
-        clearTimeout(t);
-        clearConnectors();
-      };
-    } else {
-      clearConnectors();
-    }
-  });
-
-  // Redraw on resize so lines track the layout
-  $effect(() => {
-    function onResize() {
-      if (currentMonth === CONNECTOR_TRIGGER_MONTH) drawConnectors();
-    }
-    window.addEventListener('resize', onResize);
-    return () => window.removeEventListener('resize', onResize);
-  });
-
   // Reactive filtering
   const visibleOutcomes = $derived(
     framework.outcomes.filter((o) => o.appearsAtMonth <= currentMonth)
@@ -194,11 +67,68 @@
   const visibleJourneys = $derived(
     framework.journeys.filter((j) => j.appearsAtMonth <= currentMonth)
   );
-  const visibleAssetItems = $derived((catId: string) => {
-    const cat = framework.assets.find((a) => a.id === catId);
-    if (!cat) return [];
-    return cat.items.filter((i) => i.appearsAtMonth <= currentMonth);
-  });
+
+  // ── Asset reveal schedule across 12 months ───────────────────────────────
+  // M0 starts blank. M1 jumps Academy to "most of the catalog" + 4 delivery
+  // readiness workshops. Specialist engagements don't appear until M2.
+  // Academy grows to the full catalog by M4; ILT and Specialist keep growing
+  // through M12 until each reaches the full library.
+  const assetCountSchedule: Record<'academy' | 'ilt' | 'specialist', number[]> = {
+    //          M0  M1  M2  M3  M4  M5  M6  M7  M8  M9  M10 M11 M12
+    academy:  [  0, 48, 50, 52, 54, 54, 54, 54, 54, 54, 54, 54, 54 ],
+    ilt:      [  0,  4,  7,  9, 11, 13, 14, 15, 16, 17, 18, 19, 20 ],
+    specialist:[ 0,  0,  2,  4,  6,  8, 10, 12, 14, 16, 18, 20, 22 ]
+  };
+
+  // Curated reveal order so the right workshops/engagements appear first.
+  const iltOrder = [
+    'drw-ifp', 'drw-scm', 'drw-rpm', 'drw-wfp',              // M1: 4 DRWs
+    'anaplan-way-apps', 'presales-workshop', 'drw-fcr',       // M2: +3
+    'drw-polaris', 'model-building-l2',                        // M3: +2
+    'gtm-finance', 'data-integration-workshop',                // M4: +2 (Finance)
+    'forecaster-workshop', 'ux-design-workshop',               // M5: +2
+    'discovery-workshop',                                      // M6: +1
+    'comodeler-best-practices',                                // M7: +1
+    'lifecycle-management',                                    // M8: +1
+    'agent-studio-workshop',                                   // M9: +1
+    'gtm-supply-chain',                                        // M10: +1
+    'gtm-workforce',                                           // M11: +1
+    'connected-planning-exec'                                  // M12: +1
+  ];
+  const specialistOrder = [
+    'pre-project-content-review', 'project-kickoff',                                    // M2: 2
+    'data-validation-reviews', 'mid-project-checkpoint',                                 // M3: +2
+    'solution-design-review', 'performance-tuning-session',                              // M4: +2 (Finance)
+    'go-live-readiness-review', 'post-go-live-health-check',                             // M5: +2
+    'supervised-delivery-pairing', 'delivery-scorecard-review',                          // M6: +2
+    'model-optimization-audit', 'extension-assessments',                                 // M7: +2
+    'ux-design-review', 'integration-architecture-review',                               // M8: +2
+    'polaris-model-review', 'beta-tester',                                               // M9: +2
+    'app-led-workshop', 'cross-app-connected-planning',                                  // M10: +2
+    'customer-discovery-coaching', 'competitive-response-clinic',                        // M11: +2
+    'executive-briefing-prep', 'product-advisory-board'                                  // M12: +2
+  ];
+
+  const academyItems = $derived(
+    academy.courses.slice(0, assetCountSchedule.academy[currentMonth] ?? 0)
+  );
+  const iltItems = $derived(
+    iltOrder
+      .slice(0, assetCountSchedule.ilt[currentMonth] ?? 0)
+      .map((id) => iltWorkshops.find((w) => w.id === id))
+      .filter((w): w is (typeof iltWorkshops)[number] => Boolean(w))
+  );
+  const specialistItems = $derived(
+    specialistOrder
+      .slice(0, assetCountSchedule.specialist[currentMonth] ?? 0)
+      .map((id) => specialistEngagements.find((e) => e.id === id))
+      .filter((e): e is (typeof specialistEngagements)[number] => Boolean(e))
+  );
+
+  const totalAssets = $derived(academyItems.length + iltItems.length + specialistItems.length);
+  const totalAchievements = $derived(
+    visibleOutcomes.length + (currentMonth >= lastMonth ? 1 : 0)
+  );
 
   const currentMonthData = $derived(timeline.months[currentMonth]);
   const markerX = $derived(padLeft + currentMonth * stepX);
@@ -211,21 +141,29 @@
   <div class="layer layer-outcomes">
     <div class="side-label">
       <div class="sl-num">Layer 3</div>
-      <div class="sl-name">Outcomes</div>
+      <div class="sl-name">Achievements</div>
       <div class="sl-desc">Designations &amp; recognition</div>
+      <div class="sl-total"><span class="sl-total-num">{totalAchievements}</span> <span class="sl-total-lbl">total</span></div>
     </div>
     <div class="layer-body">
       {#if visibleOutcomes.length === 0}
         <div class="empty-row-text">— No outcomes earned yet —</div>
       {:else}
-        <div class="outcomes-row">
+        <div class="build-mini-journeys">
           {#each visibleOutcomes as o (o.id)}
-            <div class="outcome-badge" class:champion={o.champion}>
-              <div class="outcome-icon">{o.icon}</div>
-              <div class="outcome-title">{o.title}</div>
-              <div class="outcome-sub">{o.sub}</div>
+            <div class="build-ach-card-v2">
+              <div class="build-ach-v2-icon">{o.icon}</div>
+              <div class="build-ach-v2-title">{o.title}</div>
+              <div class="build-ach-v2-sub">{o.sub}</div>
             </div>
           {/each}
+          {#if currentMonth >= lastMonth}
+            <div class="build-ach-card-v2 ach-more">
+              <div class="build-ach-v2-icon">+</div>
+              <div class="build-ach-v2-title">More</div>
+              <div class="build-ach-v2-sub">Additional achievements coming soon</div>
+            </div>
+          {/if}
         </div>
       {/if}
     </div>
@@ -237,21 +175,17 @@
       <div class="sl-num">Layer 2</div>
       <div class="sl-name">Journeys</div>
       <div class="sl-desc">Role &amp; product paths</div>
+      <div class="sl-total"><span class="sl-total-num">{visibleJourneys.length}</span> <span class="sl-total-lbl">total</span></div>
     </div>
     <div class="layer-body">
       {#if visibleJourneys.length === 0}
         <div class="empty-row-text">— No journeys started yet —</div>
       {:else}
-        <div class="journeys-row">
+        <div class="build-mini-journeys">
           {#each visibleJourneys as j (j.id)}
-            <div class="journey-card-mini {j.accent}">
-              <div class="jc-product">{j.product}</div>
-              <div class="jc-persona">{j.persona}</div>
-              <div class="jc-stages-mini">
-                {#each j.stages as stage}
-                  <div class="jcs-mini">{stage}</div>
-                {/each}
-              </div>
+            <div class="build-mini-card {j.accent}">
+              <div class="build-mini-product">{j.product}</div>
+              <div class="build-mini-persona">{j.persona}</div>
             </div>
           {/each}
         </div>
@@ -265,22 +199,49 @@
       <div class="sl-num">Layer 1</div>
       <div class="sl-name">Enablement Assets</div>
       <div class="sl-desc">Courses, workshops &amp; engagements</div>
+      <div class="sl-total"><span class="sl-total-num">{totalAssets}</span> <span class="sl-total-lbl">total</span></div>
     </div>
     <div class="layer-body">
       <div class="assets-row">
-        {#each framework.assets as cat (cat.id)}
-          {@const items = visibleAssetItems(cat.id)}
-          <div class="asset-col {cat.accent}">
-            <h4>{cat.name}</h4>
-            <div class="asset-list">
-              {#each items as item (item.name)}
-                <div class="asset-item">{item.name}</div>
-              {:else}
-                <div class="asset-empty">— Nothing yet —</div>
-              {/each}
-            </div>
+        <div class="asset-col sp">
+          <h4>
+            <span>Self-Paced Academy</span>
+            <span class="asset-count">{academyItems.length}</span>
+          </h4>
+          <div class="asset-list">
+            {#each academyItems as item (item.uuid)}
+              <div class="asset-item">{item.name}</div>
+            {:else}
+              <div class="asset-empty">— Nothing yet —</div>
+            {/each}
           </div>
-        {/each}
+        </div>
+        <div class="asset-col ilt">
+          <h4>
+            <span>Instructor-Led &amp; Workshops</span>
+            <span class="asset-count">{iltItems.length}</span>
+          </h4>
+          <div class="asset-list">
+            {#each iltItems as item (item.id)}
+              <div class="asset-item">{item.name}</div>
+            {:else}
+              <div class="asset-empty">— Nothing yet —</div>
+            {/each}
+          </div>
+        </div>
+        <div class="asset-col se">
+          <h4>
+            <span>Specialist Engagements</span>
+            <span class="asset-count">{specialistItems.length}</span>
+          </h4>
+          <div class="asset-list">
+            {#each specialistItems as item (item.id)}
+              <div class="asset-item">{item.name}</div>
+            {:else}
+              <div class="asset-empty">— Nothing yet —</div>
+            {/each}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -320,8 +281,8 @@
         />
       {/each}
 
-      <!-- Month labels every 3 months -->
-      {#each [0, 3, 6, 9, 12, 15, 18, 21, 24] as m}
+      <!-- Month labels every 2 months -->
+      {#each [0, 2, 4, 6, 8, 10, 12] as m}
         <text
           x={padLeft + m * stepX}
           y={labelY}
@@ -375,10 +336,3 @@
   </div>
 </div>
 
-<!-- Animated connector lines overlay — active only at month 5 -->
-<svg
-  bind:this={connectorsSvg}
-  class="connectors-overlay"
-  xmlns="http://www.w3.org/2000/svg"
-  aria-hidden="true"
-></svg>
