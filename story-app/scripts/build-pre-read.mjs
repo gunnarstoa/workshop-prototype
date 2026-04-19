@@ -39,27 +39,23 @@ function buildDoc() {
 
   // Template provides the cover page — begin with a brief introduction page
   c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { before: 400, after: 200 }, children: [new TextRun({ text: 'Please review this document and complete the short exercises before the workshop.', bold: true, size: 22, color: NAVY })] }));
-  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: 'Time required: approximately 30–40 minutes.', size: 22, color: '555555' })] }));
+  c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 200 }, children: [new TextRun({ text: 'Time required: approximately 45–50 minutes.', size: 22, color: '555555' })] }));
   c.push(new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 400 }, children: [new TextRun({ text: 'Come prepared to share your responses — we will open the workshop with a brief round-table discussion based on your answers.', italics: true, size: 22, color: NAVY })] }));
   c.push(pb());
 
   // ── What this workshop is about ──
   c.push(h1('What this workshop is about'));
-  c.push(body('We are redesigning how Anaplan enables its partner ecosystem. Today, enablement is largely one-size-fits-all: a catalog of Academy courses, a handful of workshops, and an informal path from "new partner" to "delivering independently." That model doesn\'t scale, and it doesn\'t account for the reality that different roles need fundamentally different things.'));
-  c.push(body('The workshop will introduce a framework called Connected Enablement, built on three principles:'));
-  c.push(bulletBold('Prescriptive — ', 'every role gets a recommended path with defined stages and clear progression criteria.'));
-  c.push(bulletBold('Targeted — ', 'the path is shaped by role, product area, and experience level — not one curriculum for everyone.'));
+  c.push(body('We are taking a close look at how Anaplan enables and supports its partner ecosystem. Today, enablement is largely one-size-fits-all: a catalog of Academy courses, a handful of workshops, and an informal path from "new partner" to "delivering independently." It can be difficult to objectively assess where partners are in their enablement journeys, and to quickly create new journeys where needed. That current model is difficult to scale, challenging to automate, and it doesn\'t account for the reality that different roles may need fundamentally different things.'));
+  c.push(body('The workshop will introduce a framework called Connected Enablement, but it is really a platform and supporting methodology for partner engagement built on three principles:'));
+  c.push(bulletBold('Prescriptive — ', 'every role gets a recommended journey with defined stages and clear progression criteria.'));
+  c.push(bulletBold('Targeted — ', 'journeys are shaped by role, product area, and experience level — not one curriculum for everyone.'));
   c.push(bulletBold('Opt-in — ', 'we show the recommended journey, the partner chooses what to pursue.'));
-  c.push(body('The workshop is a working session. We will define the building blocks together: which roles need journeys, what goes in each stage, what gates separate stages, and what achievements partners can earn. Your input before the session will make the conversation richer and faster.'));
+  c.push(body('The workshop is a working session where we will define the building blocks of how we engage with partners: which roles need journeys, what goes in each stage, what gates separate stages, what achievements partners can earn, and ultimately how we measure outcomes. Thinking through these topics and scenarios before the session will make the conversation richer and faster.'));
   c.push(pb());
 
   // ── The three pillars ──
   c.push(h1('The three pillars'));
-  c.push(body('Everything in Connected Enablement ties back to three business outcomes. As you read through the pre-work, keep asking: "Does this support pipeline growth, technical expertise, or delivery excellence — and how would we know?"'));
-  c.push(new Paragraph({ spacing: { before: 120, after: 120 }, children: [
-    new TextRun({ text: 'Pipeline Growth', bold: true, size: 24, color: NAVY })
-  ]}));
-  c.push(body('Equip partner sales and pre-sales teams to identify, qualify, position, present, and close Anaplan opportunities across every product and industry.'));
+  c.push(body('Everything in Connected Enablement ties back to business outcomes. As you read through the pre-work, keep asking: "Does this support pipeline growth, increase a partner\'s technical expertise, or ensure delivery excellence — and how would we know?"'));
   c.push(new Paragraph({ spacing: { before: 120, after: 120 }, children: [
     new TextRun({ text: 'Technical Expertise', bold: true, size: 24, color: NAVY })
   ]}));
@@ -67,13 +63,19 @@ function buildDoc() {
   c.push(new Paragraph({ spacing: { before: 120, after: 120 }, children: [
     new TextRun({ text: 'Delivery Excellence', bold: true, size: 24, color: NAVY })
   ]}));
-  c.push(body('Ensure every client engagement meets Anaplan\'s quality bar — from supervised delivery through independent practice.'));
+  c.push(body('Ensure every client engagement meets Anaplan\'s quality bar — from supervised delivery through delivering projects independently and consistently.'));
+  c.push(new Paragraph({ spacing: { before: 120, after: 120 }, children: [
+    new TextRun({ text: 'Pipeline Growth', bold: true, size: 24, color: NAVY })
+  ]}));
+  c.push(body('Equip partner business development teams to identify, qualify, position, present, and close Anaplan opportunities across every product and industry.'));
+  c.push(ask('Which of the three pillars feels weakest for partners today, and why?'));
+  c.push(...blank(3));
   c.push(pb());
 
   // ── Pre-work exercise 1: Roles ──
   c.push(h1('Exercise 1 — Roles (5 minutes)'));
-  c.push(body('Most partner enablement programs focus on two roles: model builders and solution architects. In reality, a partner organization has many more people who interact with Anaplan — and each of them needs something different.'));
-  c.push(body('We have identified fourteen roles grouped into five categories that reflect how partner teams are organized. Review the list below and think about whether it captures your partner ecosystem completely.'));
+  c.push(body('Most partner enablement programs focus on three roles: sales, pre-sales, and delivery resources. In reality, a partner organization can have many more people who interact with Anaplan and their clients — and each of them often needs something different. Conversely, some Anaplan partners have just a few technical roles, and don\'t need the journeys that larger, more complex teams may need.'));
+  c.push(body('We have identified fourteen roles grouped into five categories that reflect how partner teams may be organized. Review the list below and think about whether it captures your partner ecosystem completely — from the very large to the very small.'));
   c.push(tbl(['Category', 'Role', 'What they do'], [
     ['Business Development', 'Sales', 'Build pipeline, qualify opportunities, present the value proposition'],
     ['Business Development', 'Marketing', 'Drive demand generation, content, events, co-marketing'],
@@ -90,7 +92,7 @@ function buildDoc() {
     ['Client Management', 'Technical Account Lead', 'Client-facing technical advisor on solution direction and escalations'],
     ['Practice Management', 'Anaplan Practice Lead', 'Practice strategy, growth, hiring, tiering, business planning'],
   ]));
-  c.push(ask('Are there roles missing from this list? Think about your own organization or your partners — who interacts with Anaplan that isn\'t represented here?'));
+  c.push(ask('Are there roles missing from this list? Imagine yourself as an Anaplan partner — who would need to interact with Anaplan and your clients that isn\'t represented here?'));
   c.push(...blank(3));
   c.push(ask('Pick one role from the list that you think is most underserved by current enablement. Why?'));
   c.push(...blank(3));
@@ -100,15 +102,15 @@ function buildDoc() {
 
   // ── Pre-work exercise 2: Two kinds of partners ──
   c.push(h1('Exercise 2 — Two Kinds of Partners (10 minutes)'));
-  c.push(body('For a moment, put yourself in the shoes of two very different Anaplan partner owners. Read both scenarios, then answer the questions below. The point of this exercise is to get past the idea that there is one kind of partner — and that one enablement program serves them all.'));
+  c.push(body('For a moment, imagine yourself in the shoes of two very different Anaplan partners. Read both scenarios and profiles, then answer the questions below. The point of this exercise is to get past the idea that there is one kind of partner — and that one generic enablement program serving them all.'));
 
   c.push(h2('Scenario A — The Boutique Specialist'));
-  c.push(body('You own a boutique Anaplan partner. Your team has grown to 15 people — a deep bench of industry and technical experts who know everything there is to know about CPG Supply Chain challenges, with a specialty in Trade Promotion Management. Your clients trust you and your team completely. You have delivered several complex Anaplan projects, including custom Trade Promotion planning models that your competitors cannot match.'));
+  c.push(body('You own and lead a boutique consulting firm that specializes in Anaplan engagements. Over the years, your team has grown to 15 people — a deep bench of industry and technical experts who know everything there is to know about CPG Supply Chain challenges, with a specialty in Trade Promotion Management. Your clients trust you and your team completely. You have delivered several complex Anaplan projects, including custom Trade Promotion planning models that your competitors cannot match. Your clients have tried just about every other TPM solution and are happy with your approach and experience with Anaplan.'));
   c.push(body('Your team of 15 works on a few new projects each year and provides periodic oversight for changes your existing clients need to their Anaplan deployments. You have no desire to double your business or double your team. Skilled Anaplan resources are hard to come by and take a long time to become technically self-sufficient — and your clients value you precisely because of the consistency and depth you deliver, not because you can scale.'));
-  c.push(body('Your engagements are highly configured, deeply customized, and precisely address each client\'s unique business requirements. You deliver great projects, consistently, to a small set of clients who become long-term partners.'));
+  c.push(body('Your engagements are highly configured, deeply customized, and precisely address each client\'s unique business requirements. You deliver great projects, consistently, to a small set of clients who become long-term engagements.'));
 
   c.push(h2('Scenario B — The Global System Integrator'));
-  c.push(body('You lead the Anaplan practice at a large Global System Integrator. You have hundreds of Anaplan-trained resources spread across multiple continents, delivering implementations for Fortune 500 clients across every industry Anaplan sells into. Your practice grows 30% year over year — you are constantly hiring, training, and onboarding new resources.'));
+  c.push(body('You lead the Anaplan practice at a large Global System Integrator. You have hundreds of Anaplan-trained resources spread across multiple continents, delivering implementations for Fortune 500 clients across every industry Anaplan sells into. Your practice grows 30% year over year — you are constantly hiring, training, and onboarding new resources. 30% annual growth may seem nice, but other practices in your firm are growing 3x as fast with a more predictable resource pool and higher margins.'));
   c.push(body('Your delivery model is process-driven and standardized: project templates, consistent methodology, scalable staffing across tiers. Your resources range from junior consultants just out of university to seasoned solution architects with 10+ years of experience. Many work remotely across time zones. Turnover happens — attrition and internal movement are constant. You run both custom client-specific implementations AND large-scale rollouts of Anaplan\'s pre-built applications.'));
   c.push(body('Your competitive advantage is scale, breadth, and the ability to put a team anywhere in the world on a week\'s notice.'));
 
@@ -136,7 +138,7 @@ function buildDoc() {
   c.push(bodyBold('A delivery resource ', 'needs to know what ships out of the box as a Trade Promotion Management application, how to deploy common extensions, and how to load client data. They will likely never respond to an RFP or build an executive pitch.'));
   c.push(body('Their enablement needs share almost no overlap — yet many programs treat them with the same curriculum.'));
   c.push(ask('Think about a role you work with closely. What are the top 3 things that person needs to know or be able to do that current enablement does NOT cover?'));
-  c.push(tbl(['Role', 'Gap 1', 'Gap 2', 'Gap 3'], [['', '', '', ''], ['', '', '', '']]));
+  c.push(tbl(['Role', 'Gap 1', 'Gap 2', 'Gap 3'], [['', '', '', ''], ['', '', '', ''], ['', '', '', ''], ['', '', '', '']]));
   c.push(pb());
 
   // ── Pre-work exercise 4: Stages and gates ──
@@ -165,8 +167,24 @@ function buildDoc() {
   c.push(...blank(2));
   c.push(pb());
 
-  // ── Pre-work exercise 6: One thing ──
-  c.push(h1('Exercise 6 — One Thing (2 minutes)'));
+  // ── Pre-work exercise 6: Measurement ──
+  c.push(h1('Exercise 6 — Measuring What Matters (3 minutes)'));
+  c.push(body('Connected Enablement only works if we can tell whether it is working. Every pillar, every journey, every achievement should connect to something measurable — not just training completions, but the business outcomes they are meant to drive.'));
+  c.push(body('For each pillar, sketch one leading indicator (an early signal) and one lagging indicator (the outcome itself). Don\'t worry about perfection — rough is fine.'));
+  c.push(tbl(
+    ['Pillar', 'Leading indicator', 'Lagging indicator', 'Data source (if known)'],
+    [
+      ['Technical Expertise', '', '', ''],
+      ['Delivery Excellence', '', '', ''],
+      ['Pipeline Growth', '', '', ''],
+    ]
+  ));
+  c.push(ask('Of the metrics above, which one do we NOT measure today but probably should? What is stopping us?'));
+  c.push(...blank(3));
+  c.push(pb());
+
+  // ── Pre-work exercise 7: One thing ──
+  c.push(h1('Exercise 7 — One Thing (2 minutes)'));
   c.push(body('This is the question we will open the workshop with. Take a moment to think about it now so you are ready to share.'));
   c.push(ask('If you could fix ONE thing about how Anaplan enables its partners today, what would it be and why?'));
   c.push(...blank(4));
@@ -175,7 +193,7 @@ function buildDoc() {
   // ── What to expect at the workshop ──
   c.push(h1('What to expect at the workshop'));
   c.push(body('The workshop will be a working session — not a presentation. We will:'));
-  c.push(bullet('Open with a round-table: each participant shares their answer to Exercise 5'));
+  c.push(bullet('Open with a round-table: each participant shares their answer to Exercise 7'));
   c.push(bullet('Walk through the Connected Enablement framework interactively'));
   c.push(bullet('Define the building blocks together: roles, journeys, stages, gates, achievements'));
   c.push(bullet('Identify gaps and priorities'));
