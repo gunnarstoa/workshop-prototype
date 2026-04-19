@@ -1,6 +1,7 @@
 node_modules/
 .svelte-kit/
 build/
+!story-app/src/routes/build/
 .vite/
 .env
 .env.*
