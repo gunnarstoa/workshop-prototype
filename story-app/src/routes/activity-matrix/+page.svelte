@@ -4,8 +4,8 @@
 
   let cells = $state([
     ['',  '',  ''  ],  // Identify
-    ['★', '★', '★' ],  // Create
-    ['',  '',  '★' ],  // Certify
+    ['★', '',  '★' ],  // Create
+    ['★', '★', '★' ],  // Certify
     ['★', '★', ''  ],  // Distribute
   ]);
 
