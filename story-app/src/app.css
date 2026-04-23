@@ -270,7 +270,7 @@ body {
 
 .layer-outcomes {
   background: white;
-  flex: 0.85;
+  flex: 1.1;
 }
 
 .layer-journeys {
@@ -832,6 +832,9 @@ body {
   animation: wiz-reveal-pulse 1.8s ease-in-out infinite;
   white-space: nowrap;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .build-hint-done {
@@ -854,6 +857,23 @@ body {
 }
 
 .build-reset:hover {
+  background: white;
+  color: var(--color-ink);
+}
+
+.build-back {
+  pointer-events: auto;
+  background: none;
+  border: 1px solid var(--color-rule);
+  color: var(--color-muted);
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.build-back:hover {
   background: white;
   color: var(--color-ink);
 }
@@ -1157,20 +1177,22 @@ body {
   font-size: 13px;
 }
 
-/* Featured Finance Expert — droppable */
+/* Featured achievements — droppable, fill layer height */
 .build-ach-featured {
   flex: 1;
   max-width: 320px;
-  min-height: 220px;
+  min-height: 0;
+  align-self: stretch;
   background: white;
   border: 2px dashed var(--color-rule);
   border-radius: 10px;
-  padding: 22px 24px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  gap: 8px;
+  gap: 6px;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -1212,29 +1234,30 @@ body {
   justify-content: center;
 }
 
-/* Achievement card row — centered both axes */
+/* Achievement card row — stretch items to fill layer height */
 .layer-outcomes .build-mini-journeys {
   justify-content: center;
   align-content: center;
-  align-items: center;
+  align-items: stretch;
 }
 
 /* Achievement cards — icon centered on top, title, description */
 .build-ach-card-v2 {
-  width: 150px;
-  height: 130px;
+  flex: 1;
+  min-width: 110px;
+  max-width: 155px;
+  min-height: 0;
   background: white;
   border: 1px solid var(--color-rule);
   border-top: 3px solid #b74a0c;
   border-radius: 0 0 8px 8px;
-  padding: 14px 10px;
+  padding: 10px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   gap: 4px;
-  flex-shrink: 0;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
 }
 
@@ -1931,25 +1954,25 @@ body {
 .wiz-option-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
+  gap: 12px;
   justify-content: center;
   width: 100%;
-  max-width: 1000px;
+  max-width: 1100px;
 }
 
 .wiz-option-card {
-  width: 200px;
-  min-height: 150px;
+  width: 180px;
+  min-height: 120px;
   background: white;
   border: 2px solid var(--color-rule);
   border-radius: 10px;
-  padding: 20px 14px 18px;
+  padding: 16px 12px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 12px;
+  gap: 10px;
   cursor: pointer;
   font-family: inherit;
   color: inherit;
@@ -1969,12 +1992,12 @@ body {
 }
 
 .wiz-option-card-icon {
-  font-size: 42px;
+  font-size: 34px;
   line-height: 1;
 }
 
 .wiz-option-card-label {
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--color-ink);
   line-height: 1.4;
@@ -2236,6 +2259,13 @@ body {
   color: var(--color-ink);
 }
 
+.wiz-jcard-duration {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--color-orange);
+  white-space: nowrap;
+}
+
 /* Expandable content: hidden by default, revealed on hover/pin */
 .wiz-jcard-expand {
   display: grid;
@@ -2343,11 +2373,16 @@ body {
   padding: 0 20px;
   flex-shrink: 0;
   gap: 12px;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .adm-path-tabs {
   display: flex;
   gap: 0;
+  overflow-x: auto;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .adm-path-tab {
@@ -2499,10 +2534,48 @@ body {
 /* Stage progression strip */
 .adm-strip {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   padding: 0 20px 12px;
   gap: 0;
   flex-shrink: 0;
+}
+
+.adm-stage-group {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.adm-group-stages {
+  display: flex;
+  align-items: center;
+}
+
+.adm-group-label {
+  font-size: 9px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 4px 4px 0 0;
+  text-align: center;
+}
+
+.adm-group-learning {
+  background: #EBF5FB;
+  color: #1A5276;
+  border-top: 2px solid #1A5276;
+}
+
+.adm-group-doing {
+  background: #FEF5EC;
+  color: #C06010;
+  border-top: 2px solid #C06010;
+}
+
+.adm-group-divider {
+  margin-bottom: 8px;
 }
 
 .adm-strip-stage {
@@ -2729,8 +2802,10 @@ body {
   flex: 1;
   display: flex;
   flex-direction: column;
+  gap: 16px;
   padding: 0 20px 16px;
   min-height: 0;
+  overflow: hidden;
 }
 
 .adm-overview-hint {
@@ -2738,6 +2813,25 @@ body {
   color: var(--color-muted);
   margin-bottom: 12px;
   flex-shrink: 0;
+}
+
+.adm-ov-group-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.adm-ov-group-label {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-self: flex-start;
+  gap: 5px;
 }
 
 .adm-overview-grid {

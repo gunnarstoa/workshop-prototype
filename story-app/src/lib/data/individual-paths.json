@@ -2,7 +2,7 @@
   "paths": [
     {
       "id": "delivery",
-      "name": "Delivery Resource",
+      "name": "Delivery Track",
       "icon": "🛠",
       "description": "Implements, configures, and supports Anaplan applications for client projects.",
       "stages": [
@@ -38,7 +38,7 @@
             "Attend Delivery Workshop"
           ],
           "gateTo": {
-            "label": "→ Certified",
+            "label": "→ Accredited",
             "requirements": [
               { "metric": "L1 coursework", "comparison": "complete" },
               { "metric": "Application Overview", "comparison": "complete" },
@@ -49,7 +49,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Certified",
+          "name": "Accredited",
           "color": "#1A7A47",
           "tasks": [
             "Pass L1 Model Builder Certification",
@@ -102,7 +102,7 @@
     },
     {
       "id": "sales",
-      "name": "Sales Resource",
+      "name": "Sales Track",
       "icon": "💼",
       "description": "Builds pipeline, qualifies opportunities, and presents the Anaplan value proposition.",
       "stages": [
@@ -136,7 +136,7 @@
             "Attend Discovery for Sellers workshop"
           ],
           "gateTo": {
-            "label": "→ Certified",
+            "label": "→ Accredited",
             "requirements": [
               { "metric": "Anaplan Way — Sales", "comparison": "complete" },
               { "metric": "Value Proposition course", "comparison": "complete" },
@@ -147,7 +147,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Certified",
+          "name": "Accredited",
           "color": "#1A7A47",
           "tasks": [
             "Pass Sales certification assessment",
@@ -155,7 +155,7 @@
             "Complete Competitive Positioning"
           ],
           "gateTo": {
-            "label": "→ Presenting",
+            "label": "→ Delivering",
             "requirements": [
               { "metric": "Sales certification", "comparison": "passed" },
               { "metric": "Business Case course", "comparison": "complete" },
@@ -166,7 +166,7 @@
         {
           "id": "presenting",
           "number": 4,
-          "name": "Presenting",
+          "name": "Delivering",
           "color": "#C06010",
           "tasks": [
             "Deliver first qualified discovery meeting",
@@ -200,7 +200,7 @@
     },
     {
       "id": "presales",
-      "name": "Pre-Sales Resource",
+      "name": "Pre-Sales Track",
       "icon": "🔍",
       "description": "Leads technical discovery, delivers demos, and architects solutions in the sales cycle.",
       "stages": [
@@ -229,12 +229,11 @@
           "name": "Trained",
           "color": "#1A5276",
           "tasks": [
-            "Complete Level 1 Model Building",
-            "Complete Application Demo Mastery (focus area)",
-            "Complete SC / Finance Discovery Framework"
+            "Complete SC Discovery Framework",
+            "Complete Pre-Sales Workshop"
           ],
           "gateTo": {
-            "label": "→ Certified",
+            "label": "→ Accredited",
             "requirements": [
               { "metric": "L1 Model Building", "comparison": "complete" },
               { "metric": "Demo Mastery", "comparison": "complete" },
@@ -245,7 +244,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Certified",
+          "name": "Accredited",
           "color": "#1A7A47",
           "tasks": [
             "Pass Pre-Sales certification assessment",
@@ -253,7 +252,7 @@
             "Complete Technical Objection Handling"
           ],
           "gateTo": {
-            "label": "→ Solutioning",
+            "label": "→ Delivering",
             "requirements": [
               { "metric": "Pre-Sales certification", "comparison": "passed" },
               { "metric": "Gap-Fit Analysis", "comparison": "complete" },
@@ -264,7 +263,7 @@
         {
           "id": "solutioning",
           "number": 4,
-          "name": "Solutioning",
+          "name": "Delivering",
           "color": "#C06010",
           "tasks": [
             "Deliver 3 coached application demos",
@@ -428,7 +427,7 @@
             "Complete Risk Management Framework"
           ],
           "gateTo": {
-            "label": "→ Certified",
+            "label": "→ Accredited",
             "requirements": [
               { "metric": "SOW Templates", "comparison": "complete" },
               { "metric": "Sprint Planning", "comparison": "complete" },
@@ -439,7 +438,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Certified",
+          "name": "Accredited",
           "color": "#1A7A47",
           "tasks": [
             "Pass Delivery Lead certification",
