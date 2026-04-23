@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from '$app/state';
   import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
   import { slides } from '$lib/slides';
   import '../app.css';
 
@@ -17,7 +18,7 @@
   function go(delta: number) {
     const next = currentIndex + delta;
     if (next >= 0 && next < slides.length) {
-      goto(slides[next].path);
+      goto(base + slides[next].path);
     }
   }
 
@@ -52,7 +53,7 @@
         class="dot"
         class:on={i === currentIndex}
         title={slide.title}
-        onclick={() => goto(slide.path)}
+        onclick={() => goto(base + slide.path)}
         aria-label={slide.title}
       ></button>
     {/each}
