@@ -2,7 +2,7 @@
   import { products } from '$lib/data';
 </script>
 
-<div class="center-stage">
+<div class="prod-stage">
   <div style="width:100%;max-width:1200px;display:flex;flex-direction:column;gap:14px;">
     <div style="text-align:center;margin-bottom:4px;">
       <div style="font-size:18px;font-weight:bold;color:var(--color-ink);">Our Products</div>
@@ -28,3 +28,16 @@
     </div>
   </div>
 </div>
+
+<style>
+  .prod-stage {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px 32px;
+    overflow-y: auto;
+    min-height: 0;
+  }
+</style>

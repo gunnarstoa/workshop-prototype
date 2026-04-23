@@ -70,7 +70,7 @@
 
   // ── Asset reveal schedule across 12 months ───────────────────────────────
   // M0 starts blank. M1 jumps Academy to "most of the catalog" + 4 delivery
-  // readiness workshops. Specialist engagements don't appear until M2.
+  // readiness workshops. Masterclass engagements don't appear until M2.
   // Academy grows to the full catalog by M4; ILT and Specialist keep growing
   // through M12 until each reaches the full library.
   const assetCountSchedule: Record<'academy' | 'ilt' | 'specialist', number[]> = {
@@ -205,7 +205,7 @@
       <div class="assets-row">
         <div class="asset-col sp">
           <h4>
-            <span>Self-Paced Academy</span>
+            <span>Digital Learning</span>
             <span class="asset-count">{academyItems.length}</span>
           </h4>
           <div class="asset-list">
@@ -218,7 +218,7 @@
         </div>
         <div class="asset-col ilt">
           <h4>
-            <span>Instructor-Led &amp; Workshops</span>
+            <span>Capstone Projects/Hands-On Workshops</span>
             <span class="asset-count">{iltItems.length}</span>
           </h4>
           <div class="asset-list">
@@ -231,7 +231,7 @@
         </div>
         <div class="asset-col se">
           <h4>
-            <span>Specialist Engagements</span>
+            <span>Masterclass & Continuous Learning</span>
             <span class="asset-count">{specialistItems.length}</span>
           </h4>
           <div class="asset-list">

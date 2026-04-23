@@ -31,7 +31,7 @@
           "name": "Enabled",
           "color": "#1565C0",
           "tasks": [
-            "Certified Model Builders ≥ 2",
+            "Experienced Model Builders ≥ 2",
             "Complete sales enablement track",
             "Complete pre-sales enablement track",
             "Register pipeline opportunities"
@@ -39,7 +39,7 @@
           "gateTo": {
             "label": "→ Supervised Delivery",
             "requirements": [
-              { "metric": "Certified MB count", "comparison": "≥ 2" },
+              { "metric": "Experienced MB count", "comparison": "≥ 2" },
               { "metric": "Sales enablement", "comparison": "complete" },
               { "metric": "Registered pipeline", "comparison": "≥ $500K" }
             ]
@@ -86,7 +86,7 @@
             "requirements": [
               { "metric": "Independent deliveries", "comparison": "≥ 4" },
               { "metric": "Active pipeline", "comparison": "≥ $2M" },
-              { "metric": "Certified resources", "comparison": "≥ 6" }
+              { "metric": "Experienced resources", "comparison": "≥ 6" }
             ]
           }
         },
@@ -155,7 +155,7 @@
           "name": "Delivery Ready",
           "color": "#1D4ED8",
           "tasks": [
-            "Certified Model Builders ≥ 1",
+            "Experienced Model Builders ≥ 1",
             "Complete application-specific training",
             "Complete delivery workshop",
             "Pass certification assessment"
@@ -163,7 +163,7 @@
           "gateTo": {
             "label": "→ Supervised Delivery",
             "requirements": [
-              { "metric": "Certified MB count", "comparison": "≥ 1" },
+              { "metric": "Experienced MB count", "comparison": "≥ 1" },
               { "metric": "App-specific training", "comparison": "complete" },
               { "metric": "Certification assessment", "comparison": "passed" }
             ]

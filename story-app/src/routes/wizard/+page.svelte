@@ -195,6 +195,9 @@
                 {/if}
                 <span class="wiz-jcard-num">Stage {stage.number}</span>
                 <span class="wiz-jcard-name">{stage.name}</span>
+                {#if stage.duration}
+                  <span class="wiz-jcard-duration">{stage.duration}</span>
+                {/if}
               </div>
               <div class="wiz-jcard-expand">
                 <div class="wiz-jcard-expand-inner">

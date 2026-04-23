@@ -1,19 +1,19 @@
 {
   "title": "Connected Enablement — RACI Matrix",
   "subtitle": "Roles and responsibilities across the connected enablement lifecycle",
-  "roles": ["Academy", "Partner Success", "Professional Services", "Partner Leadership", "Partner Resource", "Product"],
+  "roles": ["Academy", "Partner Success", "Professional Services", "Partner Leadership", "Partner Resource", "Product", "GTM Enablement", "Solution Marketing", "Solution Consulting"],
   "activities": [
-    { "name": "Define journey structure, stages & gate criteria",    "assignments": ["C", "R/A", "C", "C", "I", "C"] },
-    { "name": "Develop self-paced course content",                   "assignments": ["R/A", "C", "C", "I", "I", "R"] },
-    { "name": "Design & maintain ILT workshop curriculum",           "assignments": ["A", "C", "R", "I", "I", "C"] },
-    { "name": "Deliver PSM-led workshops & orientations",            "assignments": ["I", "R/A", "C", "I", "C", "I"] },
-    { "name": "Build & maintain specialist delivery blueprints",     "assignments": ["I", "C", "R/A", "I", "C", "C"] },
-    { "name": "Assign partner to correct journey path",             "assignments": ["I", "R/A", "C", "C", "I", "I"] },
-    { "name": "Conduct gate reviews & stage progression sign-off",  "assignments": ["I", "A", "R", "C", "C", "I"] },
-    { "name": "Complete journey tasks & submit evidence",            "assignments": ["I", "A", "C", "C", "R", "I"] },
-    { "name": "Deliver supervised delivery oversight (SA pairing)",  "assignments": ["I", "C", "R/A", "I", "R", "I"] },
-    { "name": "New product enablement readiness (post-GA)",          "assignments": ["R", "A", "C", "I", "I", "R/A"] },
-    { "name": "Track partner progress & enablement health",          "assignments": ["I", "R/A", "C", "C", "I", "I"] },
-    { "name": "Award Connected Planning designations",               "assignments": ["C", "R/A", "C", "I", "I", "I"] }
+    { "name": "Define journey structure, stages & gate criteria",    "assignments": ["C", "R/A", "C", "C", "I", "C", "C", "I", "C"] },
+    { "name": "Develop self-paced course content",                   "assignments": ["R/A", "C", "C", "I", "I", "R", "C", "R", "C"] },
+    { "name": "Design & maintain ILT workshop curriculum",           "assignments": ["A", "C", "R", "I", "I", "C", "I", "C", "R"] },
+    { "name": "Deliver PSM-led workshops & orientations",            "assignments": ["I", "R/A", "C", "I", "C", "I", "C", "I", "C"] },
+    { "name": "Build & maintain specialist delivery blueprints",     "assignments": ["I", "C", "R/A", "I", "C", "C", "I", "I", "R"] },
+    { "name": "Assign partner to correct journey path",              "assignments": ["I", "R/A", "C", "C", "I", "I", "I", "I", "I"] },
+    { "name": "Conduct gate reviews & stage progression sign-off",   "assignments": ["I", "A", "R", "C", "C", "I", "I", "I", "C"] },
+    { "name": "Complete journey tasks & submit evidence",            "assignments": ["I", "A", "C", "C", "R", "I", "I", "I", "I"] },
+    { "name": "Deliver supervised delivery oversight (SA pairing)",  "assignments": ["I", "C", "R/A", "I", "R", "I", "I", "I", "R"] },
+    { "name": "New product enablement readiness (post-GA)",          "assignments": ["R", "A", "C", "I", "I", "R/A", "R", "C", "C"] },
+    { "name": "Track partner progress & enablement health",          "assignments": ["I", "R/A", "C", "C", "I", "I", "I", "I", "I"] },
+    { "name": "Award Connected Planning designations",               "assignments": ["C", "R/A", "C", "I", "I", "I", "I", "I", "I"] }
   ]
 }

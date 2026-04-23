@@ -149,6 +149,7 @@ export type PathStage = {
   number: number;
   name: string;
   color: string;
+  duration?: string;
   tasks: string[];
   gateTo: StageGate | null;
 };

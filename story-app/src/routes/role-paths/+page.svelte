@@ -71,20 +71,49 @@
 
     <!-- Stage progression strip -->
     <div class="adm-strip">
-      {#each selectedPath.stages as stage, i (stage.id)}
-        <button
-          class="adm-strip-stage"
-          class:active={selectedStageId === stage.id}
-          style="background: {stage.color};"
-          onclick={() => selectStage(stage.id)}
-        >
-          <span class="adm-strip-num">Stage {stage.number}</span>
-          <span class="adm-strip-name">{stage.name}</span>
-        </button>
-        {#if i < selectedPath.stages.length - 1}
-          <div class="adm-strip-arrow">›</div>
-        {/if}
-      {/each}
+      <!-- Learning group: stages 1–3 -->
+      <div class="adm-stage-group">
+        <div class="adm-group-label adm-group-learning">📚 Learning</div>
+        <div class="adm-group-stages">
+          {#each selectedPath.stages.slice(0, 3) as stage, i (stage.id)}
+            <button
+              class="adm-strip-stage"
+              class:active={selectedStageId === stage.id}
+              style="background: {stage.color};"
+              onclick={() => selectStage(stage.id)}
+            >
+              <span class="adm-strip-num">Stage {stage.number}</span>
+              <span class="adm-strip-name">{stage.name}</span>
+            </button>
+            {#if i < 2}
+              <div class="adm-strip-arrow">›</div>
+            {/if}
+          {/each}
+        </div>
+      </div>
+
+      <div class="adm-strip-arrow adm-group-divider">›</div>
+
+      <!-- Doing group: stages 4–5 -->
+      <div class="adm-stage-group">
+        <div class="adm-group-label adm-group-doing">🏗 Doing</div>
+        <div class="adm-group-stages">
+          {#each selectedPath.stages.slice(3) as stage, i (stage.id)}
+            <button
+              class="adm-strip-stage"
+              class:active={selectedStageId === stage.id}
+              style="background: {stage.color};"
+              onclick={() => selectStage(stage.id)}
+            >
+              <span class="adm-strip-num">Stage {stage.number}</span>
+              <span class="adm-strip-name">{stage.name}</span>
+            </button>
+            {#if i < 1}
+              <div class="adm-strip-arrow">›</div>
+            {/if}
+          {/each}
+        </div>
+      </div>
     </div>
 
     {#if selectedStage}
@@ -141,38 +170,81 @@
     {:else}
       <div class="adm-overview">
         <div class="adm-overview-hint">Click any stage above to see tasks &amp; gate criteria, or browse the overview below.</div>
-        <div class="adm-overview-grid">
-          {#each selectedPath.stages as stage (stage.id)}
-            <button class="adm-overview-card" onclick={() => selectStage(stage.id)}>
-              <div class="adm-ov-head" style="background: {stage.color};">
-                <span class="adm-ov-num">Stage {stage.number}</span>
-                <span class="adm-ov-name">{stage.name}</span>
-              </div>
-              <div class="adm-ov-body">
-                <div class="adm-ov-section">
-                  <div class="adm-ov-label">{stage.tasks.length} Tasks</div>
-                  {#each stage.tasks.slice(0, 3) as task}
-                    <div class="adm-ov-item">{task}</div>
-                  {/each}
-                  {#if stage.tasks.length > 3}
-                    <div class="adm-ov-more">+ {stage.tasks.length - 3} more</div>
-                  {/if}
+
+        <!-- Learning group -->
+        <div class="adm-ov-group-row">
+          <div class="adm-ov-group-label adm-group-learning">📚 Learning</div>
+          <div class="adm-overview-grid adm-overview-grid-3">
+            {#each selectedPath.stages.slice(0, 3) as stage (stage.id)}
+              <button class="adm-overview-card" onclick={() => selectStage(stage.id)}>
+                <div class="adm-ov-head" style="background: {stage.color};">
+                  <span class="adm-ov-num">Stage {stage.number}</span>
+                  <span class="adm-ov-name">{stage.name}</span>
                 </div>
-                {#if stage.gateTo}
-                  <div class="adm-ov-section adm-ov-gate">
-                    <div class="adm-ov-label">{stage.gateTo.requirements.length} Gate Requirements</div>
-                    {#each stage.gateTo.requirements.slice(0, 2) as req}
-                      <div class="adm-ov-item">✓ {req.metric} {req.comparison}</div>
+                <div class="adm-ov-body">
+                  <div class="adm-ov-section">
+                    <div class="adm-ov-label">{stage.tasks.length} Tasks</div>
+                    {#each stage.tasks.slice(0, 3) as task}
+                      <div class="adm-ov-item">{task}</div>
                     {/each}
-                    {#if stage.gateTo.requirements.length > 2}
-                      <div class="adm-ov-more">+ {stage.gateTo.requirements.length - 2} more</div>
+                    {#if stage.tasks.length > 3}
+                      <div class="adm-ov-more">+ {stage.tasks.length - 3} more</div>
                     {/if}
                   </div>
-                {/if}
-              </div>
-            </button>
-          {/each}
+                  {#if stage.gateTo}
+                    <div class="adm-ov-section adm-ov-gate">
+                      <div class="adm-ov-label">{stage.gateTo.requirements.length} Gate Requirements</div>
+                      {#each stage.gateTo.requirements.slice(0, 2) as req}
+                        <div class="adm-ov-item">✓ {req.metric} {req.comparison}</div>
+                      {/each}
+                      {#if stage.gateTo.requirements.length > 2}
+                        <div class="adm-ov-more">+ {stage.gateTo.requirements.length - 2} more</div>
+                      {/if}
+                    </div>
+                  {/if}
+                </div>
+              </button>
+            {/each}
+          </div>
         </div>
+
+        <!-- Doing group -->
+        <div class="adm-ov-group-row">
+          <div class="adm-ov-group-label adm-group-doing">🏗 Doing</div>
+          <div class="adm-overview-grid adm-overview-grid-2">
+            {#each selectedPath.stages.slice(3) as stage (stage.id)}
+              <button class="adm-overview-card" onclick={() => selectStage(stage.id)}>
+                <div class="adm-ov-head" style="background: {stage.color};">
+                  <span class="adm-ov-num">Stage {stage.number}</span>
+                  <span class="adm-ov-name">{stage.name}</span>
+                </div>
+                <div class="adm-ov-body">
+                  <div class="adm-ov-section">
+                    <div class="adm-ov-label">{stage.tasks.length} Tasks</div>
+                    {#each stage.tasks.slice(0, 3) as task}
+                      <div class="adm-ov-item">{task}</div>
+                    {/each}
+                    {#if stage.tasks.length > 3}
+                      <div class="adm-ov-more">+ {stage.tasks.length - 3} more</div>
+                    {/if}
+                  </div>
+                  {#if stage.gateTo}
+                    <div class="adm-ov-section adm-ov-gate">
+                      <div class="adm-ov-label">{stage.gateTo.requirements.length} Gate Requirements</div>
+                      {#each stage.gateTo.requirements.slice(0, 2) as req}
+                        <div class="adm-ov-item">✓ {req.metric} {req.comparison}</div>
+                      {/each}
+                      {#if stage.gateTo.requirements.length > 2}
+                        <div class="adm-ov-more">+ {stage.gateTo.requirements.length - 2} more</div>
+                      {/if}
+                    </div>
+                  {/if}
+                </div>
+              </button>
+            {/each}
+          </div>
+        </div>
+
       </div>
     {/if}
   {/if}

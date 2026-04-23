@@ -15,8 +15,7 @@
   // 10: Clear connectors, shrink to mini card
   // 11: Fill Layer 2 with many journey cards
   // 12: Highlight the 3 IFP role variants
-  // 13: Layer 3 ("Achievements") appears with Finance Expert — drag journeys/assets to it
-  // 14: Fill Layer 3 with more achievements
+  // 13: Layer 3 ("Achievements") appears — fill with all achievement cards
 
   const miniJourneys = [
     { id: 'ifp-delivery', product: 'Finance · Integrated Financial Planning', persona: 'Delivery Resource', accent: 'fin', isIFP: true },
@@ -48,24 +47,23 @@
   ];
 
   const achievements = [
-    { id: 'finance-expert', icon: '💰', title: 'Finance Expert', sub: 'IFP + Financial Close + Finance Suite', primary: true },
-    { id: 'retail-expert', icon: '🛍', title: 'Retail Expert', sub: 'Assortment + Demand + Inventory', primary: false },
-    { id: 'supply-chain-expert', icon: '📦', title: 'Supply Chain Expert', sub: 'TPM + Production + IBP', primary: false },
-    { id: 'workforce-expert', icon: '👥', title: 'Workforce Expert', sub: 'OWP + Contact Center + Resource Planning', primary: false },
-    { id: 'ai-expert', icon: '🤖', title: 'AI Products Expert', sub: 'CoModeler + Agent Studio', primary: false },
-    { id: 'agentic-cfo', icon: '🏦', title: 'Agentic Office of the CFO', sub: 'Finance + AI + Connected Planning', primary: false },
-    { id: 'connected-planning', icon: '🏆', title: 'Connected Planning Champion', sub: 'Expert across multiple domains', primary: false },
+    { id: 'agentic-cfo',        icon: '🏦', title: 'Agentic Office of the CFO',          sub: 'Finance + AI + Connected Planning',           featured: true  },
+    { id: 'connected-financial', icon: '💡', title: 'Connected Financial Planning',        sub: 'Cross-domain finance expertise',              featured: true  },
+    { id: 'connected-sc',        icon: '🔗', title: 'Connected Supply Chain Planning',     sub: 'End-to-end supply chain mastery',             featured: true  },
+    { id: 'retail-expert',       icon: '🛍', title: 'Retail Expert',                       sub: 'Assortment + Demand + Inventory',             featured: false },
+    { id: 'supply-chain-expert', icon: '📦', title: 'Supply Chain Expert',                 sub: 'TPM + Production + IBP',                     featured: false },
+    { id: 'workforce-expert',    icon: '👥', title: 'Workforce Expert',                    sub: 'OWP + Contact Center + Resource Planning',   featured: false },
+    { id: 'ai-expert',           icon: '🤖', title: 'AI Products Expert',                  sub: 'CoModeler + Agent Studio',                   featured: false },
+    { id: 'connected-planning',  icon: '🏆', title: 'Connected Planning',                  sub: 'Expert across multiple domains',             featured: false },
   ];
 
   function handleMainClick() {
-    if (buildStep <= 11) {
+    if (buildStep <= 12) {
       if (buildStep === 9) { clearAllConnectors(); droppedItems = []; }
       buildStep += 1;
     } else if (buildStep === 13) {
-      clearAllConnectors();
-      clearAchievementConnectors();
       achievementDrops = [];
-      droppedItems = [];
+      clearAchievementConnectors();
       buildStep = 14;
     }
   }
@@ -115,37 +113,30 @@
     if (sourceEl && targetEl) drawLine(connectorSvg, sourceEl, targetEl, stageColors[item.sourceType] || '#0A2F46');
   }
 
-  // ── Drag to achievements (step 13) ─────────────────────────────────────
-  type AchievementDrop = { name: string; sourceLayer: string; target: string };
+  // ── Drag to achievements (step 13) ────────────────────────────────────
+  type AchievementDrop = { name: string; target: string };
   let achievementDrops = $state<AchievementDrop[]>([]);
   let achConnectorSvg: SVGSVGElement | undefined = $state();
 
-  function onDropAchievement(e: DragEvent, target: string) {
+  function onDropAchievement(e: DragEvent, targetId: string) {
     e.preventDefault(); e.stopPropagation();
     if (!dragData) return;
-    const item: AchievementDrop = { name: dragData.name, sourceLayer: dragData.sourceType, target };
+    const item: AchievementDrop = { name: dragData.name, target: targetId };
     achievementDrops = [...achievementDrops, item];
-    const savedDrag = { ...dragData };
+    const name = dragData.name;
     dragData = null;
-    requestAnimationFrame(() => requestAnimationFrame(() => drawAchievementConnector(savedDrag.name, savedDrag.sourceType, target)));
+    requestAnimationFrame(() => requestAnimationFrame(() => drawAchievementConnector(name, targetId)));
   }
 
-  function drawAchievementConnector(name: string, sourceType: string, target: string) {
+  function drawAchievementConnector(name: string, targetId: string) {
     if (!achConnectorSvg) return;
     let sourceEl: Element | null = null;
-    const journeyCards = document.querySelectorAll('.build-mini-card');
-    journeyCards.forEach((el) => {
+    document.querySelectorAll('.build-mini-card').forEach((el) => {
       const p = el.querySelector('.build-mini-product');
       const r = el.querySelector('.build-mini-persona');
       if (p && r && (p.textContent + ' — ' + r.textContent).includes(name)) sourceEl = el;
     });
-    if (!sourceEl) {
-      const assetItems = document.querySelectorAll('.build-drag-item');
-      assetItems.forEach((el) => { if (el.textContent?.trim() === name) sourceEl = el; });
-    }
-    // Find the correct drop zone by index (finance=0, agentic=1)
-    const dropZones = document.querySelectorAll('.build-ach-drop-zone');
-    const targetEl = target === 'agentic' ? dropZones[1] : dropZones[0];
+    const targetEl = document.querySelector(`.build-ach-drop-zone[data-achid="${targetId}"]`);
     if (sourceEl && targetEl) drawLine(achConnectorSvg, sourceEl, targetEl, '#FF6100');
   }
 
@@ -196,14 +187,16 @@
     return map;
   });
 
-  const isDragMode = $derived(buildStep === 9 || buildStep === 13);
+  const isDragMode = $derived(buildStep === 9 || buildStep === 13 || buildStep === 14);
+  const featuredAchievements = achievements.filter(a => a.featured);
+  const allAchievements = achievements;
 </script>
 
 <div
   class="scrubber-stage"
   onclick={handleMainClick}
   role="presentation"
-  style="cursor:{buildStep <= 11 || buildStep === 13 ? 'pointer' : 'default'};"
+  style="cursor:{buildStep < 14 ? 'pointer' : 'default'};"
 >
 
   <!-- Layer 3: Achievements -->
@@ -220,77 +213,60 @@
       <div class="sl-desc">Designations &amp; recognition</div>
     </div>
     <div class="layer-body">
-      {#if buildStep >= 13}
+      {#if buildStep === 13}
+        <!-- Step 14: 3 featured achievements as drop targets -->
         <div class="build-mini-journeys">
-          {#if buildStep === 13}
-            <!-- Finance Expert: drop zone -->
+          {#each featuredAchievements as ach (ach.id)}
             <div
               class="build-ach-featured build-ach-drop-zone"
               class:drop-active={dragData !== null}
+              data-achid={ach.id}
               ondragover={onDragOver}
-              ondrop={(e) => onDropAchievement(e, 'finance')}
+              ondrop={(e) => onDropAchievement(e, ach.id)}
             >
-              <div class="build-ach-feat-icon">💰</div>
-              <div class="build-ach-feat-title">Finance Expert</div>
-              <div class="build-ach-feat-sub">A combination of completed journeys and enablement</div>
-              {#if achievementDrops.filter(d => d.target === 'finance').length > 0}
+              <div class="build-ach-feat-icon">{ach.icon}</div>
+              <div class="build-ach-feat-title">{ach.title}</div>
+              <div class="build-ach-feat-sub">{ach.sub}</div>
+              {#if achievementDrops.filter(d => d.target === ach.id).length > 0}
                 <div class="build-ach-drops">
-                  {#each achievementDrops.filter(d => d.target === 'finance') as drop}
+                  {#each achievementDrops.filter(d => d.target === ach.id) as drop}
                     <div class="build-ach-drop-chip">{drop.name}</div>
                   {/each}
                 </div>
               {:else}
-                <div class="build-ach-drop-hint">Drag journeys or assets here</div>
+                <div class="build-ach-drop-hint">Drag journeys here</div>
               {/if}
             </div>
-            <!-- Agentic Office of the CFO: drop zone -->
+          {/each}
+        </div>
+      {:else if buildStep >= 14}
+        <!-- Step 15: all achievements -->
+        <div class="build-mini-journeys">
+          {#each allAchievements as ach (ach.id)}
             <div
-              class="build-ach-featured build-ach-drop-zone"
+              class="build-ach-card-v2 build-ach-drop-zone"
               class:drop-active={dragData !== null}
+              data-achid={ach.id}
               ondragover={onDragOver}
-              ondrop={(e) => onDropAchievement(e, 'agentic')}
+              ondrop={(e) => onDropAchievement(e, ach.id)}
             >
-              <div class="build-ach-feat-icon">🏦</div>
-              <div class="build-ach-feat-title">Agentic Office of the CFO</div>
-              <div class="build-ach-feat-sub">Finance + AI + Connected Planning</div>
-              {#if achievementDrops.filter(d => d.target === 'agentic').length > 0}
+              <div class="build-ach-v2-icon">{ach.icon}</div>
+              <div class="build-ach-v2-title">{ach.title}</div>
+              <div class="build-ach-v2-sub">{ach.sub}</div>
+              {#if achievementDrops.filter(d => d.target === ach.id).length > 0}
                 <div class="build-ach-drops">
-                  {#each achievementDrops.filter(d => d.target === 'agentic') as drop}
+                  {#each achievementDrops.filter(d => d.target === ach.id) as drop}
                     <div class="build-ach-drop-chip">{drop.name}</div>
                   {/each}
                 </div>
-              {:else}
-                <div class="build-ach-drop-hint">Drag journeys or assets here</div>
               {/if}
             </div>
-          {:else}
-            <!-- All achievement cards at step 14 -->
-            <div class="build-ach-card-v2">
-              <div class="build-ach-v2-icon">💰</div>
-              <div class="build-ach-v2-title">Finance Expert</div>
-              <div class="build-ach-v2-sub">IFP + Financial Close + Finance Suite</div>
-            </div>
-            <div class="build-ach-card-v2">
-              <div class="build-ach-v2-icon">🏦</div>
-              <div class="build-ach-v2-title">Agentic Office of the CFO</div>
-              <div class="build-ach-v2-sub">Finance + AI + Connected Planning</div>
-            </div>
-          {/if}
-
-          {#if buildStep >= 14}
-            {#each achievements.filter(a => !a.primary && a.id !== 'agentic-cfo') as ach (ach.id)}
-              <div class="build-ach-card-v2">
-                <div class="build-ach-v2-icon">{ach.icon}</div>
-                <div class="build-ach-v2-title">{ach.title}</div>
-                <div class="build-ach-v2-sub">{ach.sub}</div>
-              </div>
-            {/each}
-            <div class="build-ach-card-v2 ach-more">
-              <div class="build-ach-v2-icon">+</div>
-              <div class="build-ach-v2-title">More</div>
-              <div class="build-ach-v2-sub">Additional achievements coming soon</div>
-            </div>
-          {/if}
+          {/each}
+          <div class="build-ach-card-v2 ach-more">
+            <div class="build-ach-v2-icon">+</div>
+            <div class="build-ach-v2-title">More</div>
+            <div class="build-ach-v2-sub">Additional achievements coming soon</div>
+          </div>
         </div>
       {:else}
         <div class="empty-row-text">Designations earned through completed journeys and enablement</div>
@@ -319,7 +295,7 @@
               </div>
             </div>
             <div class="build-journey-stages">
-              {#each ['Registered', 'Trained', 'Certified', 'Delivering', 'Expert'] as stage, i}
+              {#each ['Registered', 'Trained', 'Experienced', 'Delivering', 'Expert'] as stage, i}
                 <div class="build-jcs build-drop-stage" class:drop-active={dragData !== null}
                   ondragover={onDragOver} ondrop={(e) => onDropStage(e, i)}>{stage}
                   {#if stageDrops()[i]}<span class="build-drop-count">{stageDrops()[i].length}</span>{/if}
@@ -349,9 +325,9 @@
               class:build-hidden={!isVisible}
               class:highlight={buildStep === 12 && j.isIFP}
               class:dimmed={buildStep === 12 && !j.isIFP}
-              draggable={buildStep === 13 ? 'true' : 'false'}
+              draggable={buildStep >= 13 ? 'true' : 'false'}
+              class:draggable={buildStep >= 13}
               ondragstart={(e) => onDragStart(e, j.product + ' — ' + j.persona, 'journey-' + j.accent)}
-              class:draggable={buildStep === 13}
             >
               <div class="build-mini-product">{j.product}</div>
               <div class="build-mini-persona">{j.persona}</div>
@@ -372,7 +348,7 @@
     <div class="layer-body">
       <div class="assets-row">
         <div class="asset-col sp" class:build-hidden={buildStep < 2}>
-          <h4>Self-Paced Academy</h4>
+          <h4>Digital Learning</h4>
           {#if buildStep >= 3}
             <div class="build-courses">
               {#each academy.courses as course (course.uuid)}
@@ -387,7 +363,7 @@
           {:else}<div class="asset-empty">Self-paced courses in the library</div>{/if}
         </div>
         <div class="asset-col ilt" class:build-hidden={buildStep < 4}>
-          <h4>Instructor-Led &amp; Workshops</h4>
+          <h4>Capstone Projects/Hands-On Workshops</h4>
           {#if buildStep >= 5}
             <div class="build-courses">
               {#each iltWorkshops as ws (ws.id)}
@@ -403,7 +379,7 @@
           {:else}<div class="asset-empty">PSM-led workshops and ILT sessions</div>{/if}
         </div>
         <div class="asset-col se" class:build-hidden={buildStep < 6}>
-          <h4>Specialist Engagements</h4>
+          <h4>Masterclass & Continuous Learning</h4>
           {#if buildStep >= 7}
             <div class="build-courses">
               {#each specialistEngagements as eng (eng.id)}
@@ -430,15 +406,15 @@
   {#if buildStep < 9}
     <div class="build-hint">Click anywhere to continue · Step {buildStep + 1} of 15</div>
   {:else if buildStep === 9}
-    <div class="build-hint build-hint-done" style="animation:none;">Drag assets into journey stages · Click to continue<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
+    <div class="build-hint build-hint-done" style="animation:none;">Drag assets into journey stages · Click to continue · Step {buildStep + 1} of 15<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
   {:else if buildStep >= 10 && buildStep <= 11}
-    <div class="build-hint">Click anywhere to continue</div>
+    <div class="build-hint">Click anywhere to continue · Step {buildStep + 1} of 15</div>
   {:else if buildStep === 12}
-    <div class="build-hint">Same application — three distinct journeys by role · Click above to continue</div>
+    <div class="build-hint">Same application — three distinct journeys by role · Click above to continue · Step {buildStep + 1} of 15</div>
   {:else if buildStep === 13}
-    <div class="build-hint build-hint-done" style="animation:none;">Drag journeys or assets to the Finance Expert achievement · Click to continue<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
+    <div class="build-hint build-hint-done" style="animation:none;">Drag journeys to achievement cards · Click to reveal all achievements · Step {buildStep + 1} of 15<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
   {:else}
-    <div class="build-hint build-hint-done">Framework complete · Press → to advance<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
+    <div class="build-hint build-hint-done">Framework complete · Press → to advance · Step {buildStep + 1} of 15<button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button></div>
   {/if}
 </div>
 
