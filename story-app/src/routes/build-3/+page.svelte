@@ -1,5 +1,7 @@
 <script lang="ts">
   import { academy, iltWorkshops, specialistEngagements } from '$lib/data';
+  import RoleRaciTable from '../digital-learning/RoleRaciTable.svelte';
+  import type { RoleRow } from '../digital-learning/RoleRaciTable.svelte';
 
   // IFP Delivery journey — featured workshops shown first, in progression order
   const ifpDeliveryWorkshopsFirst = [
@@ -225,69 +227,53 @@
   const featuredAchievements = achievements.filter(a => a.featured);
   const allAchievements = achievements;
 
-  // ── RACI overlay ──────────────────────────────────────────────────────────
+  // ── RACI side panel ───────────────────────────────────────────────────────
   let showRaci = $state(false);
 
-  const raciColors: Record<string, { color: string; bg: string }> = {
-    R: { color: '#1A7A47', bg: 'rgba(26,122,71,0.10)' },
-    A: { color: '#C06010', bg: 'rgba(192,96,16,0.10)' },
-    C: { color: '#1A5276', bg: 'rgba(26,82,118,0.10)' },
-    I: { color: '#777',    bg: 'rgba(0,0,0,0.04)'     },
-  };
-
-  const raciTracks = [
-    {
-      name: 'Sales', icon: '💼', color: '#1A5276', sub: 'GTM & Pipeline',
-      stakeholders: [
-        { id: 'academy', label: 'Academy' },
-        { id: 'psm',     label: 'PSM'     },
-        { id: 'partner', label: 'Partner Mgr' },
-        { id: 'learner', label: 'Seller'  },
-      ],
-      activities: [
-        { name: 'Define GTM objectives',   academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
-        { name: 'Develop sales content',   academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
-        { name: 'Assign to sellers',       academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
-        { name: 'Complete coursework',     academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
-        { name: 'Track readiness',         academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
-        { name: 'Validate certification',  academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
-      ],
-    },
-    {
-      name: 'Pre-Sales', icon: '🔍', color: '#1A7A47', sub: 'Technical Discovery',
-      stakeholders: [
-        { id: 'academy', label: 'Academy' },
-        { id: 'psm',     label: 'PSM'     },
-        { id: 'partner', label: 'Partner Mgr' },
-        { id: 'learner', label: 'Pre-Seller' },
-      ],
-      activities: [
-        { name: 'Define tech objectives',  academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
-        { name: 'Develop demo content',    academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
-        { name: 'Assign to pre-sales',     academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
-        { name: 'Complete coursework',     academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
-        { name: 'Track demo readiness',    academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
-        { name: 'Validate certification',  academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
-      ],
-    },
-    {
-      name: 'Delivery', icon: '🛠', color: '#C06010', sub: 'Implementation',
-      stakeholders: [
-        { id: 'academy', label: 'Academy' },
-        { id: 'psm',     label: 'PSM'     },
-        { id: 'partner', label: 'Partner Mgr' },
-        { id: 'learner', label: 'Consultant' },
-      ],
-      activities: [
-        { name: 'Define delivery objectives', academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
-        { name: 'Develop delivery content',   academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
-        { name: 'Assign to delivery team',    academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
-        { name: 'Complete coursework',        academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
-        { name: 'Track delivery readiness',   academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
-        { name: 'Validate certification',     academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
-      ],
-    },
+  const blankRows = (): RoleRow[] => [
+    { activity: 'Identify',   academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
+    { activity: 'Create',     academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
+    { activity: 'Certify',    academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
+    { activity: 'Distribute', academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
   ];
+
+  const salesRows    = blankRows();
+  const presalesRows = blankRows();
+  const deliveryRows = blankRows();
+
+  let raciTriggerEl  = $state<HTMLElement | undefined>();
+  let raciEl0        = $state<HTMLElement | undefined>();
+  let raciEl1        = $state<HTMLElement | undefined>();
+  let raciEl2        = $state<HTMLElement | undefined>();
+  let raciLineSvg    = $state<SVGSVGElement | undefined>();
+
+  function drawRaciLines() {
+    if (!raciLineSvg || !raciTriggerEl) return;
+    raciLineSvg.innerHTML = '';
+    const svgR = raciLineSvg.getBoundingClientRect();
+    const tR   = raciTriggerEl.getBoundingClientRect();
+    const x1   = tR.right - svgR.left;
+    const y0   = tR.top + tR.height / 2 - svgR.top;
+    for (const el of [raciEl0, raciEl1, raciEl2]) {
+      if (!el) continue;
+      const eR = el.getBoundingClientRect();
+      const x2 = eR.left  - svgR.left;
+      const y2 = eR.top + eR.height / 2 - svgR.top;
+      const mx = x1 + (x2 - x1) * 0.55;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', `M${x1},${y0} C${mx},${y0} ${mx},${y2} ${x2},${y2}`);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', '#FF6100');
+      path.setAttribute('stroke-width', '1.5');
+      path.setAttribute('stroke-opacity', '0.55');
+      raciLineSvg.appendChild(path);
+    }
+  }
+
+  $effect(() => {
+    if (!showRaci) return;
+    requestAnimationFrame(drawRaciLines);
+  });
 </script>
 
 <div
@@ -383,9 +369,10 @@
       <div class="assets-row">
         <div class="asset-col sp" class:build-hidden={buildStep < 2}>
           <h4>Digital Learning</h4>
-          <button class="raci-trigger" onclick={(e) => { e.stopPropagation(); showRaci = true; }}>
+          <button class="raci-trigger" bind:this={raciTriggerEl}
+            onclick={(e) => { e.stopPropagation(); showRaci = !showRaci; }}>
             <span class="raci-trigger-icon">⊞</span>
-            <span>RACI Matrix</span>
+            <span>{showRaci ? 'Close RACI' : 'RACI Matrix'}</span>
           </button>
         </div>
       </div>
@@ -431,48 +418,18 @@
     </div>
   {/if}
 
-  <!-- RACI overlay -->
+  <!-- RACI side panel + connector lines -->
   {#if showRaci}
-    <div class="raci-overlay" onclick={(e) => { e.stopPropagation(); showRaci = false; }} role="dialog">
-      <div class="raci-panel" onclick={(e) => e.stopPropagation()}>
-        <div class="raci-panel-head">
-          <div class="raci-panel-title">Digital Learning — RACI Matrix</div>
-          <button class="raci-close" onclick={(e) => { e.stopPropagation(); showRaci = false; }}>✕ Close</button>
-        </div>
-        <div class="raci-cards">
-          {#each raciTracks as track}
-            <div class="raci-card">
-              <div class="raci-card-head" style="background:{track.color};">
-                <span class="raci-card-icon">{track.icon}</span>
-                <div>
-                  <div class="raci-card-name">{track.name}</div>
-                  <div class="raci-card-sub">{track.sub}</div>
-                </div>
-              </div>
-              <div class="raci-card-body">
-                <table class="raci-table">
-                  <thead>
-                    <tr>
-                      <th class="raci-th-act">Activity</th>
-                      {#each track.stakeholders as s}<th class="raci-th-role">{s.label}</th>{/each}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {#each track.activities as act}
-                      <tr>
-                        <td class="raci-td-act">{act.name}</td>
-                        {#each track.stakeholders as s}
-                          {@const v = (act as Record<string,string>)[s.id] ?? ''}
-                          <td class="raci-td-val" style="color:{raciColors[v]?.color};background:{raciColors[v]?.bg};">{v}</td>
-                        {/each}
-                      </tr>
-                    {/each}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          {/each}
-        </div>
+    <svg bind:this={raciLineSvg} class="raci-lines-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
+    <div class="raci-side-panel" onclick={(e) => e.stopPropagation()}>
+      <div class="raci-side-wrap" bind:this={raciEl0}>
+        <RoleRaciTable title="Sales" rows={salesRows} />
+      </div>
+      <div class="raci-side-wrap" bind:this={raciEl1}>
+        <RoleRaciTable title="Pre-Sales" rows={presalesRows} />
+      </div>
+      <div class="raci-side-wrap" bind:this={raciEl2}>
+        <RoleRaciTable title="Delivery" rows={deliveryRows} />
       </div>
     </div>
   {/if}
@@ -529,139 +486,30 @@
     line-height: 1;
   }
 
-  /* RACI overlay */
-  :global(.build3 .raci-overlay) {
+  /* RACI side panel + connector lines */
+  :global(.build3 .raci-lines-svg) {
     position: absolute;
     inset: 0;
-    z-index: 30;
-    background: rgba(10, 47, 70, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    pointer-events: auto;
-  }
-  :global(.build3 .raci-panel) {
-    background: #f5f4f0;
-    border-radius: 10px;
-    overflow: hidden;
     width: 100%;
-    max-height: 100%;
+    height: 100%;
+    z-index: 25;
+    pointer-events: none;
+  }
+  :global(.build3 .raci-side-panel) {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 52px;
+    width: 62%;
+    z-index: 26;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
-  }
-  :global(.build3 .raci-panel-head) {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 20px;
-    background: #0a2f46;
-    flex-shrink: 0;
-  }
-  :global(.build3 .raci-panel-title) {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: white;
-  }
-  :global(.build3 .raci-close) {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
-    color: white;
-    padding: 4px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 11px;
-    font-family: inherit;
-    font-weight: 600;
-    pointer-events: auto;
-  }
-  :global(.build3 .raci-close:hover) { background: rgba(255,255,255,0.22); }
-
-  :global(.build3 .raci-cards) {
-    display: flex;
-    gap: 12px;
-    padding: 14px;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-  :global(.build3 .raci-card) {
-    flex: 1;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  }
-  :global(.build3 .raci-card-head) {
-    padding: 14px 16px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-  }
-  :global(.build3 .raci-card-icon) { font-size: 22px; }
-  :global(.build3 .raci-card-name) {
-    font-size: 18px;
-    font-weight: 800;
-    color: white;
-    line-height: 1.1;
-  }
-  :global(.build3 .raci-card-sub) {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255,255,255,0.6);
-    margin-top: 2px;
-  }
-  :global(.build3 .raci-card-body) {
-    flex: 1;
+    gap: 8px;
     overflow-y: auto;
-    padding: 10px 12px;
+    pointer-events: auto;
+    padding: 4px 0;
   }
-  :global(.build3 .raci-table) {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  :global(.build3 .raci-th-act) {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #aaa;
-    padding: 4px 6px 6px;
-    border-bottom: 2px solid #eee;
-    text-align: left;
-  }
-  :global(.build3 .raci-th-role) {
-    font-size: 9px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: #aaa;
-    padding: 4px 6px 6px;
-    border-bottom: 2px solid #eee;
-    text-align: center;
-    white-space: nowrap;
-  }
-  :global(.build3 .raci-td-act) {
-    font-size: 12px;
-    color: #0a2f46;
-    padding: 7px 6px;
-    border-bottom: 1px solid #f0eeea;
-    line-height: 1.3;
-  }
-  :global(.build3 .raci-td-val) {
-    text-align: center;
-    padding: 7px 6px;
-    border-bottom: 1px solid #f0eeea;
-    font-weight: 800;
-    font-size: 12px;
-    border-radius: 3px;
+  :global(.build3 .raci-side-wrap) {
+    flex-shrink: 0;
   }
 </style>
