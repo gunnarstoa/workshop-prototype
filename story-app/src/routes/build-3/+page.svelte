@@ -514,15 +514,15 @@
   :global(.build3 .raci-dialog-close:hover) { background: rgba(255,255,255,0.22); }
   :global(.build3 .raci-dialog-body) {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
     padding: 12px;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
-    align-items: flex-start;
   }
   :global(.build3 .raci-dialog-col) {
-    flex: 1;
-    min-width: 0;
+    flex-shrink: 0;
+    width: 100%;
   }
 </style>
