@@ -16,7 +16,7 @@
 
   <div class="am-left">
     <div class="am-eyebrow">Activity × Role</div>
-    <div class="am-title">Who<br />Does<br />What</div>
+    <div class="am-title">Big<br />Rocks</div>
     <div class="am-rule"></div>
   </div>
 
