@@ -227,8 +227,9 @@
   const featuredAchievements = achievements.filter(a => a.featured);
   const allAchievements = achievements;
 
-  // ── RACI side panel ───────────────────────────────────────────────────────
-  let showRaci = $state(false);
+  // ── RACI modal ───────────────────────────────────────────────────────────
+  let showRaci    = $state(false);
+  let populateKey = $state(0);
 
   const blankRows = (): RoleRow[] => [
     { activity: 'Identify',   academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
@@ -237,9 +238,32 @@
     { activity: 'Distribute', academy: '', psm: '', sales: '', presales: '', ps: '', gtm: '', product: '', solmktg: '' },
   ];
 
-  const salesRows    = blankRows();
-  const presalesRows = blankRows();
-  const deliveryRows = blankRows();
+  let salesRows    = $state(blankRows());
+  let presalesRows = $state(blankRows());
+  let deliveryRows = $state(blankRows());
+
+  // Pre-filled values from the Digital Learning slide
+  function loadDigitalLearningRaci() {
+    salesRows = [
+      { activity: 'Identify',   academy: 'I', psm: 'I', sales: 'I', presales: '',  ps: '',  gtm: 'R', product: '',  solmktg: ''  },
+      { activity: 'Create',     academy: 'I', psm: 'C', sales: 'I', presales: 'I', ps: 'I', gtm: 'A', product: 'I', solmktg: 'R' },
+      { activity: 'Certify',    academy: 'R', psm: 'C', sales: 'C', presales: 'I', ps: 'C', gtm: 'C', product: 'I', solmktg: 'I' },
+      { activity: 'Distribute', academy: 'R', psm: 'I', sales: '',  presales: '',  ps: '',  gtm: '',  product: '',  solmktg: ''  },
+    ];
+    presalesRows = [
+      { activity: 'Identify',   academy: 'I', psm: 'I', sales: '',  presales: 'R', ps: '',  gtm: 'C', product: '',  solmktg: ''  },
+      { activity: 'Create',     academy: 'I', psm: 'C', sales: 'I', presales: 'R', ps: '',  gtm: 'C', product: '',  solmktg: ''  },
+      { activity: 'Certify',    academy: 'R', psm: 'C', sales: 'C', presales: 'I', ps: 'C', gtm: 'C', product: 'I', solmktg: 'I' },
+      { activity: 'Distribute', academy: 'R', psm: 'I', sales: '',  presales: '',  ps: '',  gtm: '',  product: '',  solmktg: ''  },
+    ];
+    deliveryRows = [
+      { activity: 'Identify',   academy: 'I', psm: 'C', sales: '',  presales: 'C', ps: 'R', gtm: 'C', product: 'I', solmktg: ''  },
+      { activity: 'Create',     academy: 'A', psm: 'C', sales: '',  presales: '',  ps: 'C', gtm: 'I', product: 'R', solmktg: ''  },
+      { activity: 'Certify',    academy: 'R', psm: 'C', sales: 'C', presales: 'I', ps: 'C', gtm: 'C', product: 'I', solmktg: 'I' },
+      { activity: 'Distribute', academy: 'R', psm: 'I', sales: '',  presales: '',  ps: '',  gtm: '',  product: '',  solmktg: ''  },
+    ];
+    populateKey++;
+  }
 
 </script>
 
@@ -391,17 +415,28 @@
     <div class="raci-dialog" onclick={(e) => e.stopPropagation()}>
       <div class="raci-dialog-head">
         <div class="raci-dialog-title">Digital Learning — RACI Matrix</div>
-        <button class="raci-dialog-close" onclick={(e) => { e.stopPropagation(); showRaci = false; }}>✕ Close</button>
+        <div class="raci-dialog-actions">
+          <button class="raci-populate-btn" onclick={(e) => { e.stopPropagation(); loadDigitalLearningRaci(); }}>
+            ↓ Load from Digital Learning
+          </button>
+          <button class="raci-dialog-close" onclick={(e) => { e.stopPropagation(); showRaci = false; }}>✕ Close</button>
+        </div>
       </div>
       <div class="raci-dialog-body">
         <div class="raci-dialog-col">
-          <RoleRaciTable title="Sales" rows={salesRows} />
+          {#key populateKey}
+            <RoleRaciTable title="Sales" rows={salesRows} />
+          {/key}
         </div>
         <div class="raci-dialog-col">
-          <RoleRaciTable title="Pre-Sales" rows={presalesRows} />
+          {#key populateKey}
+            <RoleRaciTable title="Pre-Sales" rows={presalesRows} />
+          {/key}
         </div>
         <div class="raci-dialog-col">
-          <RoleRaciTable title="Delivery" rows={deliveryRows} />
+          {#key populateKey}
+            <RoleRaciTable title="Delivery" rows={deliveryRows} />
+          {/key}
         </div>
       </div>
     </div>
@@ -499,6 +534,24 @@
     text-transform: uppercase;
     color: white;
   }
+  :global(.build3 .raci-dialog-actions) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  :global(.build3 .raci-populate-btn) {
+    background: rgba(255, 97, 0, 0.18);
+    border: 1px solid rgba(255, 97, 0, 0.5);
+    color: #ffc49a;
+    padding: 3px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: inherit;
+    font-weight: 600;
+    pointer-events: auto;
+  }
+  :global(.build3 .raci-populate-btn:hover) { background: rgba(255, 97, 0, 0.3); }
   :global(.build3 .raci-dialog-close) {
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);

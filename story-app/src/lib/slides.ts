@@ -166,14 +166,14 @@ export const slides: Slide[] = [
     subtitle: 'Drag assets from the library into journey stages'
   },
   {
-    path: '/digital-learning-2',
-    title: 'Digital Learning',
-    subtitle: 'Role-specific RACI for Sales, Pre-Sales, and Delivery'
-  },
-  {
     path: '/call-to-action',
     title: 'Call to Action',
     subtitle: 'What happens next'
+  },
+  {
+    path: '/digital-learning-2',
+    title: 'Digital Learning',
+    subtitle: 'Role-specific RACI for Sales, Pre-Sales, and Delivery'
   },
   {
     path: '/digital-learning',
