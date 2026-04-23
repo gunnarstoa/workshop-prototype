@@ -15,7 +15,7 @@
 <div class="am-stage">
 
   <div class="am-left">
-    <div class="am-eyebrow">Activity × Role</div>
+    <div class="am-eyebrow">Content &amp; Assets</div>
     <div class="am-title">Big<br />Rocks</div>
     <div class="am-rule"></div>
   </div>
