@@ -1,10 +1,9 @@
 <script lang="ts">
   import { browser } from '$app/environment';
   import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
 
   if (browser) {
-    goto(base + '/intro', { replaceState: true });
+    goto('/intro', { replaceState: true });
   }
 </script>
 
