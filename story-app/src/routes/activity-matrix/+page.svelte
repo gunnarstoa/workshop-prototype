@@ -1,6 +1,6 @@
 <script lang="ts">
   const rows = ['Identify', 'Create', 'Certify', 'Distribute'];
-  const cols = ['Sales', 'Pre-Sales', 'Delivery'];
+  const cols = ['GTM Enablement', 'Pre-Sales', 'Academy/PS/CoE'];
 
   let cells = $state([
     ['',  '',  ''  ],  // Identify
