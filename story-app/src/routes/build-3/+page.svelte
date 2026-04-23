@@ -515,8 +515,8 @@
   :global(.build3 .raci-dialog-body) {
     display: flex;
     flex-direction: column;
-    gap: 12px;
-    padding: 12px;
+    gap: 18px;
+    padding: 14px;
     flex: 1;
     min-height: 0;
     overflow-y: auto;
@@ -524,5 +524,22 @@
   :global(.build3 .raci-dialog-col) {
     flex-shrink: 0;
     width: 100%;
+  }
+
+  /* Scale up RoleRaciTable text inside the modal */
+  :global(.build3 .raci-dialog .rt-title) {
+    font-size: 12px;
+    padding: 7px 10px 6px;
+  }
+  :global(.build3 .raci-dialog .rt-th) {
+    font-size: 10px;
+    padding: 5px 5px;
+  }
+  :global(.build3 .raci-dialog .rt-td) {
+    font-size: 12px;
+    padding: 6px 5px;
+  }
+  :global(.build3 .raci-dialog .rt-td-role) {
+    font-size: 11px;
   }
 </style>
