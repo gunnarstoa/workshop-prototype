@@ -241,39 +241,6 @@
   const presalesRows = blankRows();
   const deliveryRows = blankRows();
 
-  let raciTriggerEl  = $state<HTMLElement | undefined>();
-  let raciEl0        = $state<HTMLElement | undefined>();
-  let raciEl1        = $state<HTMLElement | undefined>();
-  let raciEl2        = $state<HTMLElement | undefined>();
-  let raciLineSvg    = $state<SVGSVGElement | undefined>();
-
-  function drawRaciLines() {
-    if (!raciLineSvg || !raciTriggerEl) return;
-    raciLineSvg.innerHTML = '';
-    const svgR = raciLineSvg.getBoundingClientRect();
-    const tR   = raciTriggerEl.getBoundingClientRect();
-    const x1   = tR.right - svgR.left;
-    const y0   = tR.top + tR.height / 2 - svgR.top;
-    for (const el of [raciEl0, raciEl1, raciEl2]) {
-      if (!el) continue;
-      const eR = el.getBoundingClientRect();
-      const x2 = eR.left  - svgR.left;
-      const y2 = eR.top + eR.height / 2 - svgR.top;
-      const mx = x1 + (x2 - x1) * 0.55;
-      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('d', `M${x1},${y0} C${mx},${y0} ${mx},${y2} ${x2},${y2}`);
-      path.setAttribute('fill', 'none');
-      path.setAttribute('stroke', '#FF6100');
-      path.setAttribute('stroke-width', '1.5');
-      path.setAttribute('stroke-opacity', '0.55');
-      raciLineSvg.appendChild(path);
-    }
-  }
-
-  $effect(() => {
-    if (!showRaci) return;
-    requestAnimationFrame(drawRaciLines);
-  });
 </script>
 
 <div
@@ -369,7 +336,7 @@
       <div class="assets-row">
         <div class="asset-col sp" class:build-hidden={buildStep < 2}>
           <h4>Digital Learning</h4>
-          <button class="raci-trigger" bind:this={raciTriggerEl}
+          <button class="raci-trigger"
             onclick={(e) => { e.stopPropagation(); showRaci = !showRaci; }}>
             <span class="raci-trigger-icon">⊞</span>
             <span>{showRaci ? 'Close RACI' : 'RACI Matrix'}</span>
@@ -418,18 +385,24 @@
     </div>
   {/if}
 
-  <!-- RACI side panel + connector lines -->
+  <!-- RACI modal -->
   {#if showRaci}
-    <svg bind:this={raciLineSvg} class="raci-lines-svg" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
-    <div class="raci-side-panel" onclick={(e) => e.stopPropagation()}>
-      <div class="raci-side-wrap" bind:this={raciEl0}>
-        <RoleRaciTable title="Sales" rows={salesRows} />
+    <div class="raci-backdrop" onclick={(e) => { e.stopPropagation(); showRaci = false; }}></div>
+    <div class="raci-dialog" onclick={(e) => e.stopPropagation()}>
+      <div class="raci-dialog-head">
+        <div class="raci-dialog-title">Digital Learning — RACI Matrix</div>
+        <button class="raci-dialog-close" onclick={(e) => { e.stopPropagation(); showRaci = false; }}>✕ Close</button>
       </div>
-      <div class="raci-side-wrap" bind:this={raciEl1}>
-        <RoleRaciTable title="Pre-Sales" rows={presalesRows} />
-      </div>
-      <div class="raci-side-wrap" bind:this={raciEl2}>
-        <RoleRaciTable title="Delivery" rows={deliveryRows} />
+      <div class="raci-dialog-body">
+        <div class="raci-dialog-col">
+          <RoleRaciTable title="Sales" rows={salesRows} />
+        </div>
+        <div class="raci-dialog-col">
+          <RoleRaciTable title="Pre-Sales" rows={presalesRows} />
+        </div>
+        <div class="raci-dialog-col">
+          <RoleRaciTable title="Delivery" rows={deliveryRows} />
+        </div>
       </div>
     </div>
   {/if}
@@ -486,30 +459,70 @@
     line-height: 1;
   }
 
-  /* RACI side panel + connector lines */
-  :global(.build3 .raci-lines-svg) {
+  /* RACI modal */
+  :global(.build3 .raci-backdrop) {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 25;
-    pointer-events: none;
+    z-index: 30;
+    background: rgba(10, 47, 70, 0.55);
+    pointer-events: auto;
   }
-  :global(.build3 .raci-side-panel) {
+  :global(.build3 .raci-dialog) {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    bottom: 52px;
-    width: 62%;
-    z-index: 26;
+    inset: 24px 24px 56px 24px;
+    z-index: 31;
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    overflow-y: auto;
+    background: #f5f4f0;
+    border-radius: 10px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.35);
+    overflow: hidden;
     pointer-events: auto;
-    padding: 4px 0;
+    animation: raciZoomIn 0.18s ease-out both;
   }
-  :global(.build3 .raci-side-wrap) {
+  @keyframes raciZoomIn {
+    from { opacity: 0; transform: scale(0.94); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  :global(.build3 .raci-dialog-head) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: #0a2f46;
     flex-shrink: 0;
+  }
+  :global(.build3 .raci-dialog-title) {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: white;
+  }
+  :global(.build3 .raci-dialog-close) {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 3px 11px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-family: inherit;
+    font-weight: 600;
+    pointer-events: auto;
+  }
+  :global(.build3 .raci-dialog-close:hover) { background: rgba(255,255,255,0.22); }
+  :global(.build3 .raci-dialog-body) {
+    display: flex;
+    gap: 10px;
+    padding: 12px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    align-items: flex-start;
+  }
+  :global(.build3 .raci-dialog-col) {
+    flex: 1;
+    min-width: 0;
   }
 </style>
