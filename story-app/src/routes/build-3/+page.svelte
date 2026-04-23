@@ -224,6 +224,70 @@
   const isDragMode = $derived(buildStep === 9 || buildStep === 13 || buildStep === 14);
   const featuredAchievements = achievements.filter(a => a.featured);
   const allAchievements = achievements;
+
+  // ── RACI overlay ──────────────────────────────────────────────────────────
+  let showRaci = $state(false);
+
+  const raciColors: Record<string, { color: string; bg: string }> = {
+    R: { color: '#1A7A47', bg: 'rgba(26,122,71,0.10)' },
+    A: { color: '#C06010', bg: 'rgba(192,96,16,0.10)' },
+    C: { color: '#1A5276', bg: 'rgba(26,82,118,0.10)' },
+    I: { color: '#777',    bg: 'rgba(0,0,0,0.04)'     },
+  };
+
+  const raciTracks = [
+    {
+      name: 'Sales', icon: '💼', color: '#1A5276', sub: 'GTM & Pipeline',
+      stakeholders: [
+        { id: 'academy', label: 'Academy' },
+        { id: 'psm',     label: 'PSM'     },
+        { id: 'partner', label: 'Partner Mgr' },
+        { id: 'learner', label: 'Seller'  },
+      ],
+      activities: [
+        { name: 'Define GTM objectives',   academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
+        { name: 'Develop sales content',   academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
+        { name: 'Assign to sellers',       academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
+        { name: 'Complete coursework',     academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
+        { name: 'Track readiness',         academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
+        { name: 'Validate certification',  academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
+      ],
+    },
+    {
+      name: 'Pre-Sales', icon: '🔍', color: '#1A7A47', sub: 'Technical Discovery',
+      stakeholders: [
+        { id: 'academy', label: 'Academy' },
+        { id: 'psm',     label: 'PSM'     },
+        { id: 'partner', label: 'Partner Mgr' },
+        { id: 'learner', label: 'Pre-Seller' },
+      ],
+      activities: [
+        { name: 'Define tech objectives',  academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
+        { name: 'Develop demo content',    academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
+        { name: 'Assign to pre-sales',     academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
+        { name: 'Complete coursework',     academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
+        { name: 'Track demo readiness',    academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
+        { name: 'Validate certification',  academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
+      ],
+    },
+    {
+      name: 'Delivery', icon: '🛠', color: '#C06010', sub: 'Implementation',
+      stakeholders: [
+        { id: 'academy', label: 'Academy' },
+        { id: 'psm',     label: 'PSM'     },
+        { id: 'partner', label: 'Partner Mgr' },
+        { id: 'learner', label: 'Consultant' },
+      ],
+      activities: [
+        { name: 'Define delivery objectives', academy: 'C', psm: 'R', partner: 'A', learner: 'I' },
+        { name: 'Develop delivery content',   academy: 'R', psm: 'C', partner: 'I', learner: 'I' },
+        { name: 'Assign to delivery team',    academy: 'I', psm: 'A', partner: 'R', learner: 'I' },
+        { name: 'Complete coursework',        academy: 'I', psm: 'I', partner: 'A', learner: 'R' },
+        { name: 'Track delivery readiness',   academy: 'I', psm: 'R', partner: 'A', learner: 'C' },
+        { name: 'Validate certification',     academy: 'R', psm: 'A', partner: 'C', learner: 'I' },
+      ],
+    },
+  ];
 </script>
 
 <div
@@ -319,6 +383,10 @@
       <div class="assets-row">
         <div class="asset-col sp" class:build-hidden={buildStep < 2}>
           <h4>Digital Learning</h4>
+          <button class="raci-trigger" onclick={(e) => { e.stopPropagation(); showRaci = true; }}>
+            <span class="raci-trigger-icon">⊞</span>
+            <span>RACI Matrix</span>
+          </button>
         </div>
       </div>
     </div>
@@ -362,6 +430,53 @@
       <button class="build-reset" onclick={(e) => { e.stopPropagation(); reset(); }}>↺ Replay</button>
     </div>
   {/if}
+
+  <!-- RACI overlay -->
+  {#if showRaci}
+    <div class="raci-overlay" onclick={(e) => { e.stopPropagation(); showRaci = false; }} role="dialog">
+      <div class="raci-panel" onclick={(e) => e.stopPropagation()}>
+        <div class="raci-panel-head">
+          <div class="raci-panel-title">Digital Learning — RACI Matrix</div>
+          <button class="raci-close" onclick={(e) => { e.stopPropagation(); showRaci = false; }}>✕ Close</button>
+        </div>
+        <div class="raci-cards">
+          {#each raciTracks as track}
+            <div class="raci-card">
+              <div class="raci-card-head" style="background:{track.color};">
+                <span class="raci-card-icon">{track.icon}</span>
+                <div>
+                  <div class="raci-card-name">{track.name}</div>
+                  <div class="raci-card-sub">{track.sub}</div>
+                </div>
+              </div>
+              <div class="raci-card-body">
+                <table class="raci-table">
+                  <thead>
+                    <tr>
+                      <th class="raci-th-act">Activity</th>
+                      {#each track.stakeholders as s}<th class="raci-th-role">{s.label}</th>{/each}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {#each track.activities as act}
+                      <tr>
+                        <td class="raci-td-act">{act.name}</td>
+                        {#each track.stakeholders as s}
+                          {@const v = (act as Record<string,string>)[s.id] ?? ''}
+                          <td class="raci-td-val" style="color:{raciColors[v]?.color};background:{raciColors[v]?.bg};">{v}</td>
+                        {/each}
+                      </tr>
+                    {/each}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
+  {/if}
+
 </div>
 
 <svg bind:this={connectorSvg} class="connectors-overlay" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"></svg>
@@ -381,5 +496,172 @@
   :global(.build3 .asset-col.sp) {
     flex: none;
     width: calc((100% - 20px) / 3);
+  }
+
+  /* RACI trigger button inside the Digital Learning card */
+  :global(.build3 .raci-trigger) {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: #f0f4f8;
+    border: 1.5px dashed #1A5276;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    color: #1A5276;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    width: 100%;
+    pointer-events: auto;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  :global(.build3 .raci-trigger:hover) {
+    background: #dce8f0;
+    border-color: #0a2f46;
+    color: #0a2f46;
+  }
+  :global(.build3 .raci-trigger-icon) {
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  /* RACI overlay */
+  :global(.build3 .raci-overlay) {
+    position: absolute;
+    inset: 0;
+    z-index: 30;
+    background: rgba(10, 47, 70, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    pointer-events: auto;
+  }
+  :global(.build3 .raci-panel) {
+    background: #f5f4f0;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+  }
+  :global(.build3 .raci-panel-head) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #0a2f46;
+    flex-shrink: 0;
+  }
+  :global(.build3 .raci-panel-title) {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: white;
+  }
+  :global(.build3 .raci-close) {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 11px;
+    font-family: inherit;
+    font-weight: 600;
+    pointer-events: auto;
+  }
+  :global(.build3 .raci-close:hover) { background: rgba(255,255,255,0.22); }
+
+  :global(.build3 .raci-cards) {
+    display: flex;
+    gap: 12px;
+    padding: 14px;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+  :global(.build3 .raci-card) {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  :global(.build3 .raci-card-head) {
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  :global(.build3 .raci-card-icon) { font-size: 22px; }
+  :global(.build3 .raci-card-name) {
+    font-size: 18px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.1;
+  }
+  :global(.build3 .raci-card-sub) {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.6);
+    margin-top: 2px;
+  }
+  :global(.build3 .raci-card-body) {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 12px;
+  }
+  :global(.build3 .raci-table) {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  :global(.build3 .raci-th-act) {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #aaa;
+    padding: 4px 6px 6px;
+    border-bottom: 2px solid #eee;
+    text-align: left;
+  }
+  :global(.build3 .raci-th-role) {
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #aaa;
+    padding: 4px 6px 6px;
+    border-bottom: 2px solid #eee;
+    text-align: center;
+    white-space: nowrap;
+  }
+  :global(.build3 .raci-td-act) {
+    font-size: 12px;
+    color: #0a2f46;
+    padding: 7px 6px;
+    border-bottom: 1px solid #f0eeea;
+    line-height: 1.3;
+  }
+  :global(.build3 .raci-td-val) {
+    text-align: center;
+    padding: 7px 6px;
+    border-bottom: 1px solid #f0eeea;
+    font-weight: 800;
+    font-size: 12px;
+    border-radius: 3px;
   }
 </style>
