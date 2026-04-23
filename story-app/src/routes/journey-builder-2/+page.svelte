@@ -2,7 +2,7 @@
   import { individualPaths } from '$lib/data';
 
   const stageColors = ['#4B5563', '#1A5276', '#1A7A47', '#C06010', '#922B21'];
-  const stageNames = ['Registered', 'Trained', 'Accredited', 'Delivering', 'Expert'];
+  const stageNames = ['Registered', 'Trained', 'Credentialized', 'Delivering', 'Expert'];
 
   const roles = [
     { id: 'sales',    name: 'Sales',     icon: '💼', desc: 'Build pipeline and close Anaplan opportunities' },

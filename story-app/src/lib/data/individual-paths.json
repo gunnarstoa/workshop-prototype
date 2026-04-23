@@ -38,7 +38,7 @@
             "Attend Delivery Workshop"
           ],
           "gateTo": {
-            "label": "→ Accredited",
+            "label": "→ Credentialized",
             "requirements": [
               { "metric": "L1 coursework", "comparison": "complete" },
               { "metric": "Application Overview", "comparison": "complete" },
@@ -49,7 +49,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Accredited",
+          "name": "Credentialized",
           "color": "#1A7A47",
           "tasks": [
             "Pass L1 Model Builder Certification",
@@ -136,7 +136,7 @@
             "Attend Discovery for Sellers workshop"
           ],
           "gateTo": {
-            "label": "→ Accredited",
+            "label": "→ Credentialized",
             "requirements": [
               { "metric": "Anaplan Way — Sales", "comparison": "complete" },
               { "metric": "Value Proposition course", "comparison": "complete" },
@@ -147,7 +147,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Accredited",
+          "name": "Credentialized",
           "color": "#1A7A47",
           "tasks": [
             "Pass Sales certification assessment",
@@ -233,7 +233,7 @@
             "Complete Pre-Sales Workshop"
           ],
           "gateTo": {
-            "label": "→ Accredited",
+            "label": "→ Credentialized",
             "requirements": [
               { "metric": "L1 Model Building", "comparison": "complete" },
               { "metric": "Demo Mastery", "comparison": "complete" },
@@ -244,7 +244,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Accredited",
+          "name": "Credentialized",
           "color": "#1A7A47",
           "tasks": [
             "Pass Pre-Sales certification assessment",
@@ -427,7 +427,7 @@
             "Complete Risk Management Framework"
           ],
           "gateTo": {
-            "label": "→ Accredited",
+            "label": "→ Credentialized",
             "requirements": [
               { "metric": "SOW Templates", "comparison": "complete" },
               { "metric": "Sprint Planning", "comparison": "complete" },
@@ -438,7 +438,7 @@
         {
           "id": "certified",
           "number": 3,
-          "name": "Accredited",
+          "name": "Credentialized",
           "color": "#1A7A47",
           "tasks": [
             "Pass Delivery Lead certification",
