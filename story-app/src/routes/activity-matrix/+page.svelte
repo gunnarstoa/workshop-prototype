@@ -4,9 +4,9 @@
 
   let cells = $state([
     ['',  '',  ''  ],  // Identify
-    ['t', 't', 't' ],  // Create
-    ['',  '',  't' ],  // Certify
-    ['t', 't', ''  ],  // Distribute
+    ['★', '★', '★' ],  // Create
+    ['',  '',  '★' ],  // Certify
+    ['★', '★', ''  ],  // Distribute
   ]);
 
   function stop(e: Event) { e.stopPropagation(); }
@@ -151,17 +151,16 @@
   .am-td-cell {
     height: 110px;
     padding: 14px 20px;
-    font-size: 14px;
+    font-size: 36px;
     font-weight: 400;
-    color: #333;
+    color: #FF6100;
     background: white;
     outline: none;
     cursor: text;
-    line-height: 1.5;
+    line-height: 1;
     text-align: center;
     vertical-align: middle;
     transition: background 0.12s;
-    word-break: break-word;
   }
 
   .am-td-cell:hover  { background: rgba(255,97,0,0.05); }
