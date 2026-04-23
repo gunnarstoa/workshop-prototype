@@ -2,7 +2,12 @@
   const rows = ['Identify', 'Create', 'Certify', 'Distribute'];
   const cols = ['Sales', 'Pre-Sales', 'Delivery'];
 
-  let cells = $state(rows.map(() => cols.map(() => '')));
+  let cells = $state([
+    ['',  '',  ''  ],  // Identify
+    ['t', 't', 't' ],  // Create
+    ['',  '',  't' ],  // Certify
+    ['t', 't', ''  ],  // Distribute
+  ]);
 
   function stop(e: Event) { e.stopPropagation(); }
 </script>
