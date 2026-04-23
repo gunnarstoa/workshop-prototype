@@ -68,6 +68,7 @@
     { id: 'como-delivery', product: 'AI · CoModeler', persona: 'Delivery Resource', accent: 'ai', isIFP: false },
     { id: 'como-presales', product: 'AI · CoModeler', persona: 'Pre-Sales Resource', accent: 'ai', isIFP: false },
     { id: 'as-delivery', product: 'AI · Agent Studio', persona: 'Delivery Resource', accent: 'ai', isIFP: false },
+    { id: 'sc-agent-launch', product: 'AI · Supply Chain Agent', persona: 'Launch Partner', accent: 'ai', isIFP: false },
     { id: 'sf-delivery', product: 'S&M · Sales Forecasting', persona: 'Delivery Resource', accent: 'sm', isIFP: false },
     { id: 'tq-sales', product: 'S&M · Territory & Quota', persona: 'Sales Resource', accent: 'sm', isIFP: false },
     { id: 'gtm-delivery', product: 'S&M · GTM Capacity', persona: 'Delivery Resource', accent: 'sm', isIFP: false },
