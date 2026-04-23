@@ -9,7 +9,7 @@
   const currentIndex = $derived(
     Math.max(
       0,
-      slides.findIndex((s) => s.path === page.url.pathname)
+      slides.findIndex((s) => s.path === page.route.id)
     )
   );
   const currentSlide = $derived(slides[currentIndex]);
