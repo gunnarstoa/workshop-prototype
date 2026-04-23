@@ -169,5 +169,10 @@ export const slides: Slide[] = [
     path: '/call-to-action',
     title: 'Call to Action',
     subtitle: 'What happens next'
+  },
+  {
+    path: '/activity-matrix',
+    title: 'Activity Matrix',
+    subtitle: 'Sales · Pre-Sales · Delivery'
   }
 ];
