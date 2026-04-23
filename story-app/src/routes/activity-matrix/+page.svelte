@@ -18,7 +18,6 @@
     <div class="am-eyebrow">Activity × Role</div>
     <div class="am-title">Who<br />Does<br />What</div>
     <div class="am-rule"></div>
-    <div class="am-hint">Click any cell to edit</div>
   </div>
 
   <div class="am-right">
@@ -54,134 +53,120 @@
 
 <style>
   .am-stage {
+    flex: 1;
     display: flex;
-    height: 100%;
-    gap: 0;
+    align-items: stretch;
+    overflow: hidden;
   }
 
-  /* ── Left title panel ─────────────────────────────────────────────────── */
+  /* ── Left title panel — matches .cta-left ─────────────────────────────── */
   .am-left {
-    width: 220px;
+    width: 32%;
     flex-shrink: 0;
-    background: var(--color-navy);
-    color: #fff;
+    background: #0a2f46;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     justify-content: center;
-    padding: 40px 32px;
-    gap: 12px;
+    padding: 52px 56px;
+    gap: 16px;
   }
 
   .am-eyebrow {
-    font-size: 10px;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.4);
   }
 
   .am-title {
-    font-size: 40px;
+    font-size: 52px;
     font-weight: 800;
-    line-height: 1.05;
-    color: #fff;
+    color: white;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
   }
 
   .am-rule {
-    width: 40px;
-    height: 3px;
-    background: var(--color-orange);
+    width: 56px;
+    height: 4px;
+    background: #FF6100;
     border-radius: 2px;
-    margin: 4px 0;
+    margin-top: 4px;
   }
 
-  .am-hint {
-    font-size: 11px;
-    color: rgba(255,255,255,0.35);
-    margin-top: 8px;
-  }
-
-  /* ── Right matrix ─────────────────────────────────────────────────────── */
+  /* ── Right panel — matches .cta-right ────────────────────────────────── */
   .am-right {
     flex: 1;
+    background: #f5f4f0;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: 32px 40px;
-    background: var(--color-cream);
+    padding: 40px 52px;
   }
 
+  /* ── Matrix table ─────────────────────────────────────────────────────── */
   .am-table {
     width: 100%;
-    max-width: 900px;
     border-collapse: collapse;
     table-layout: fixed;
   }
 
-  /* Header row */
   .am-th {
-    padding: 12px 16px;
+    padding: 12px 20px;
     font-size: 13px;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.06em;
     text-transform: uppercase;
-    color: #fff;
-    background: var(--color-navy);
+    color: white;
+    background: #0a2f46;
     text-align: center;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   .am-th-empty {
-    width: 20%;
-    background: var(--color-navy);
+    width: 22%;
+    background: #0a2f46;
   }
 
   .am-th-col {
-    width: 26.6%;
+    width: 26%;
   }
 
-  /* Row label */
-  .am-td-row {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--color-navy);
-    background: rgba(10,47,70,0.06);
-    border: 1px solid var(--color-rule);
-    padding: 0 20px;
-    text-align: left;
-    vertical-align: middle;
-    letter-spacing: 0.02em;
-  }
-
-  /* Data cells */
   .am-td {
-    border: 1px solid var(--color-rule);
-    vertical-align: top;
+    border: 1px solid #e0dbd4;
+    vertical-align: middle;
+  }
+
+  .am-td-row {
+    font-size: 16px;
+    font-weight: 800;
+    color: #0a2f46;
+    background: rgba(10,47,70,0.05);
+    padding: 0 24px;
+    text-align: left;
+    border-right: 2px solid #e0dbd4;
   }
 
   .am-td-cell {
-    height: 120px;
-    padding: 14px 18px;
+    height: 110px;
+    padding: 14px 20px;
     font-size: 14px;
-    color: var(--color-ink);
-    background: #fff;
+    font-weight: 400;
+    color: #333;
+    background: white;
     outline: none;
     cursor: text;
     line-height: 1.5;
-    transition: background 0.12s, box-shadow 0.12s;
+    text-align: center;
+    vertical-align: middle;
+    transition: background 0.12s;
     word-break: break-word;
   }
 
-  .am-td-cell:hover {
-    background: rgba(255,97,0,0.04);
-  }
+  .am-td-cell:hover  { background: rgba(255,97,0,0.05); }
+  .am-td-cell:focus  { background: rgba(255,97,0,0.08); box-shadow: inset 0 0 0 2px rgba(255,97,0,0.3); position: relative; z-index: 1; }
 
-  .am-td-cell:focus {
-    background: rgba(255,97,0,0.07);
-    box-shadow: inset 0 0 0 2px rgba(255,97,0,0.35);
-    z-index: 1;
-    position: relative;
-  }
-
-  tr:last-child .am-td { border-bottom: 2px solid var(--color-navy); }
+  tr:last-child .am-td { border-bottom: 2px solid #0a2f46; }
+  thead tr th:first-child { border-top-left-radius: 0; }
 </style>
