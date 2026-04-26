@@ -6,6 +6,11 @@ export type Slide = {
 
 export const slides: Slide[] = [
   {
+    path: '/day-1',
+    title: 'Day 1',
+    subtitle: 'Connected Enablement · Strategy & Alignment'
+  },
+  {
     path: '/agenda',
     title: 'Agenda',
     subtitle: ''
@@ -111,6 +116,11 @@ export const slides: Slide[] = [
     subtitle: 'RACI responsibility mapped across each layer of the framework'
   },
   {
+    path: '/day-2',
+    title: 'Day 2',
+    subtitle: 'Connected Enablement · Planning & Execution'
+  },
+  {
     path: '/cross-functional-review',
     title: 'Cross-Functional Team Review',
     subtitle: ''
@@ -174,5 +184,25 @@ export const slides: Slide[] = [
     path: '/activity-matrix',
     title: 'Activity Matrix',
     subtitle: 'Sales · Pre-Sales · Delivery'
+  },
+  {
+    path: '/day-3',
+    title: 'Day 3',
+    subtitle: 'Connected Enablement · Outcomes & Next Steps'
+  },
+  {
+    path: '/executive-summary',
+    title: 'Executive Summary',
+    subtitle: ''
+  },
+  {
+    path: '/workback-plan',
+    title: 'Workback Plan',
+    subtitle: ''
+  },
+  {
+    path: '/immediate-impact',
+    title: 'Immediate Impact',
+    subtitle: ''
   }
 ];
